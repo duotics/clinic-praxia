@@ -1,0 +1,40 @@
+.layout {
+  text-align: center;
+}
+#newImages {
+  height: 275px;
+  position: relative;
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+  width: 100%;
+}
+img.masked {
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #babbbd;
+  padding: 10px;
+  box-shadow: 1px 1px 1px #babbbd;
+  margin: 10px auto 0;
+}
+#player {
+  width: 480px;
+  height: 360px;
+  margin: 10px auto;
+  border: 1px solid #babbbd;
+}
+canvas {
+  width: 480px;
+  height: 360px;
+  margin: 10px auto;
+  border: 1px solid #babbbd;
+}
+#capture-btn {
+  width: 130px;
+  margin: 0 auto;
+}
+#pick-image {
+  display: none;
+  text-align: center;
+  padding-top: 30px;
+}

@@ -1,0 +1,42 @@
+body {
+	background-color: #FFF;
+	font-family:Tahoma, Geneva, sans-serif;
+	font-size:12px;
+	padding:0;
+	margin:0;
+}
+h1{ padding:0; margin:0; background:#333; color:#CCC; padding:5px 25px;}
+form{padding:0; margin:0;}
+#uploadimagecontainer {
+	/*border: 1px solid #000;*/
+}
+#uploadimagecontainer{}
+#containerupload{border:1px dotted #CCC;}
+#containerupload iframe{ }
+#imageshistory { background: #EEE; border: 1px solid #CCC; width:100%; position: fixed; bottom: 0;}
+#imageshistory *{padding:0; margin:0;}
+#imageshistory h2{ font-size:1em; color:#CCC; padding:5px 10px; background:#333;}
+
+#imageshistory ul{ list-style:none; border:1px dotted #ddd; padding:0; display:table;}
+#imageshistory ul li{ display:table-cell;}
+#uploadbtn {
+	position:fixed; top:35px; right:10px; z-index:0;
+	padding:5px;
+}
+
+#uploadbtn ul{ list-style:none; margin:0; padding:0;}
+#uploadbtn ul li{ font-size:14px; font-weight:bold; border:1px dotted #CCCCCC; margin-bottom:5px; padding:7px 7px 7px 30px;}
+#uploadbtn ul li.btn_pic{ background:url(../images/camera_24.png) no-repeat left center; background-position: 3px 3px;}
+#uploadbtn ul li.btn_up{ background:url(../images/upload2_24.png) no-repeat left center; background-position: 3px 3px;}
+#uploadbtn ul li.btn_rel{ background:url(../images/reload_32.png) no-repeat left center; background-position: 3px 3px;}
+#uploadbtn ul li.btn_exit{ background:url(../images/close_24.png) no-repeat left center; background-position: 3px 3px;}
+#uploadbtn ul li:hover{ border:1px dotted #003366; color:#036;}
+/*MODULO DE CAPTURA IMAGEN*/
+#imagecapture_container{overflow:hidden; background:#efefef; width:100%; font-family:Tahoma, Geneva, sans-serif; margin-bottom:30px;}
+#imagecapture_container .capture_cont{}
+#imagecapture_container #capture_main{ background:#ddd; float:left; margin-right:10px;}
+#imagecapture_container #capture_result{ background:#ddd; float:left;}
+#imagecapture_container .capture_cont h2{ padding:0; margin:0; background:#666; color:#CCC; padding:4px 25px;}
+#imagecapture_container .btn_webcam{ color:#F00; background:#666; color:#FFF; border:1px solid #999; margin:0 5px;}
+#capture_main #btns_capture{ text-align:center; background:#666; padding:4px 0; border-bottom:1px solid #333;}
+#capture_main #webcam_capture{ text-align:center;}
