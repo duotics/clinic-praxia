@@ -1,0 +1,35 @@
+{
+  "name": "clinic-praxia",
+  "version": "2.0.0",
+  "description": "CLINIC_PRAXIA",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.3.0",
+    "bootstrap": "^3.4.1",
+    "bootswatch": "^3.4.1",
+    "datatables.net": "^1.13.1",
+    "datatables.net-bs5": "^1.13.1",
+    "jquery": "^1.11.3",
+    "jquery-ui": "^1.10.4",
+    "select2": "^4.1.0-rc.0",
+    "select2-bootstrap-5-theme": "^1.3.0",
+    "tinymce": "^5.10.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/duotics/clinic-praxia.git"
+  },
+  "author": "DUOTICS",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/duotics/clinic-praxia/issues"
+  },
+  "homepage": "https://github.com/duotics/clinic-praxia#readme"
+}
