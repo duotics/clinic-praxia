@@ -1,0 +1,33 @@
+# Protección extrema de htaccess
+<files ~ "^.*\.([Hh][Tt][Aa])">
+order allow,deny
+deny from all
+satisfy all
+</files>
+
+<Files 403.shtml>
+order allow,deny
+allow from all
+</Files>
+
+RewriteEngine On
+
+#Index
+DirectoryIndex index.php
+
+# INDEX
+RewriteRule ^index.php public/index.php [L]
+RewriteRule ^(/)?$ public/index.php [L] 
+
+RewriteRule ^acceso public/user/login.php
+RewriteRule ^salir public/user/logout.php
+RewriteRule ^main components/home/
+#RewriteRule ^resetclave public/user/resetclave.php
+#RewriteRule ^resetusuario public/user/resetuser.php
+
+Options +FollowSymLinks
+Options -Indexes
+
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+</IfModule>
