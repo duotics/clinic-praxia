@@ -1,0 +1,9 @@
+data/
+vendor/
+node_modules/
+#Files
+*.zip
+*.rar
+.env
+composer.lock
+package-lock.json
