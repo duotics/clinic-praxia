@@ -1,5 +1,6 @@
 {
-    "name": "root/clinic-praxia",
+    "name": "duotics/clinic-praxia",
+    "description": "Clinic New Version",
     "type": "project",
     "autoload": {
         "psr-4": {
@@ -17,17 +18,7 @@
         }
     ],
     "require": {
-        "components/chosen": "^1.8",
-        "mottie/tablesorter": "^2.31",
-        "fancyapps/fancybox": "^2.1",
-        "davefx/phplot": "^6.2",
         "spipu/html2pdf": "^5.2.7",
-        "nnnick/chartjs": "^3.8",
         "vlucas/phpdotenv": "^5.5"
-    },
-    "config": {
-        "allow-plugins": {
-            "robloach/component-installer": false
-        }
     }
 }
