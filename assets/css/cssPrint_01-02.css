@@ -1,0 +1,120 @@
+/* CSS Document */
+@media print {
+	.print {
+	  page-break-after: always;
+	}
+}
+.print{
+	font-size: 12px;
+	font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", "serif"; 
+	position: relative;
+}
+.print-examen{
+	padding-top: 50px !important;
+}
+.print-receta{
+	padding-top: 50px !important;
+}
+.print-documento{
+	padding-top: 100px !important;
+	padding-left: 50px !important;
+	padding-right: 35px !important;
+}
+.print-report{
+	padding-top: 10px !important;
+	padding-bottom: 10px !important;
+	padding-left: 20px !important;
+	padding-right: 20px !important;
+}
+.sello{}
+/**/
+/*.selloEA{position: absolute; top: 520px; left: 100px; width: 205px; height: 80px;}*/
+.selloEA{position: absolute; top: 620px; left: 50%; transform: translate(-50%, 0); width: 225px; height: 90px;}
+.selloEB{position: absolute; top: 650px; left: 70%; transform: translate(-75%, 0); width: 170px; height: 50px;}
+
+/*.sello{position: absolute;}*/
+.selloGA{position: absolute; top: 520px; right: 120px; width: 205px; height: 80px;}
+.selloGB{position: absolute; top: 600px; right: 130px; width: 185px; height: 75px;}
+
+.selloA{width: 205px; height: 80px;}
+.selloB{width: 170px; height: 65px;}
+
+.sello .selloA{
+	top: 520px;
+	right: 170px;
+	position: absolute;
+}
+.sello .selloB{
+	top: 600px;
+	right: 130px;
+	position: absolute;
+}
+
+.sello .selloA2{
+	width: 205px; height: 80px;
+	top: 520px;
+	left: 80px;
+	position: absolute;
+}
+.sello .selloB2{
+	width: 185px; height: 75px;
+	top: 600px;
+	left: 90px;
+	position: absolute;
+}
+
+.sello .selloR1{
+	width: 170px; height: 70px;
+	top: 640px;
+	right: 80px;
+	position: absolute;
+}
+.sello .selloR2{
+	width: 170px; height: 70px;
+	top: 640px;
+	left: 80px;
+	position: absolute;
+}
+
+.sello .selloD1{
+	width: 170px; height: 70px;
+	top: 590px;
+	left: 70%; transform: translate(-75%, 0);
+	position: absolute;
+}
+
+.selloA img, .selloB img{width: 100%; /*transform: rotate(1deg);*/}	
+table{ width:  100%; border-collapse: collapse;}
+table.tabMin{ font-size: 11px; }
+
+table.tabMinB{ font-size: 11px; }
+table.tabMinC{ font-size: 10px; }
+table.tabMinB{}
+table.tabMinB tr{ }
+table.tabMinB tr td{ }
+table.tabMinB tr td:first-child{ width: 80%; border: 1px solid #ddd;}
+table.tabMinB tr td:last-child{ width: 20%; border: 1px solid #ddd;}
+	
+table.tabHead{ margin-top: 62px; border: 0px none; border-collapse: collapse;}
+table.tabHead tr th{background: #fff; border: 0px none; border-color: #fff; padding: 0;}
+table.tabHead tr td{background: #fff; border: 0px none; border-color: #fff; padding: 0;}
+table.tabClear{ border: 0px none; border-collapse: collapse;}
+table.tabClear tr th{background: #fff; border: 0px none; border-color: #fff;}
+table.tabClear tr td{background: #fff; border: 0px none; border-color: #fff;}
+table.tabDiag{margin-top: 10px;}
+table.tabCont{}
+table.tabCont tr th{background: #D6CEF1; font-size: 15px;}
+table.tabCont tr td{padding: 4px 8px;}
+th, td{ border: 1px solid #ccc; padding: 2px 3px; min-height: 15px;}
+tr.trMini{ font-size: 9px;}
+td.tdMini, th.tdMini{font-size: 10px;}
+td.tdMiniA, th.tdMiniA{font-size: 9px;}
+td.tdMiniB, th.tdMiniB{font-size: 8px;}
+td.tdMiniC, th.tdMiniC{font-size: 7px;}
+tr.trAux{background: #E4E9F7; vertical-align: middle;}
+.receta{ background:#FFF; font-size: 11px;}
+.text-center{text-align: center}
+.text-right{text-align: right}
+.divider{border: 1px solid #eee;}
+.titRep{font-size: 20px; font-weight: bold;}
+.titRep-b{font-size: 16px; margin-bottom: 10px; border-bottom: 1px solid #eee;}

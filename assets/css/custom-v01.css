@@ -1,0 +1,16 @@
+.table-proyecto *{
+  font-size: 0.8rem !important;
+}
+.table-proyecto td {
+  padding: 0.1rem 0.2rem !important;
+}
+
+.breacrumb-rcuen .breadcrumb-item {
+  padding: 0.5rem 0.5rem 0.5rem 0;
+}
+.body-login{
+    background-image: url(../../assets/images/bg-a-02.jpg);
+    background-size: cover;
+    background-position-x: center;
+    background-position-y: center;
+}

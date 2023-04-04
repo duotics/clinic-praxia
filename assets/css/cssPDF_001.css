@@ -1,0 +1,15 @@
+/* CSS Document */
+.titGen{ font-size:18px; padding:5px 0px 5px 10; margin-bottom:10px;}
+.titGen-info{background:#036; color:#fff;}
+
+.panel{ margin-bottom:10px; border-radius: 4px;
+-webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+box-shadow: 0 1px 1px rgba(0,0,0,0.05);}
+div.panel-info{ border:1px solid #036}
+div.panel-default{ border:1px solid #ccc}
+div.panel-heading{ padding:5px 10px; font-size:16px; background:#eee; color:#444;}
+div.panel-info div.panel-heading{ background:#036; color:#fff};
+div.panel-default div.panel-heading{ background:#eee; color:#444};
+div.panel-body{ padding:15px;}
+div.panel-info div.panel-body{}
+div.panel-default div.panel-body{}
