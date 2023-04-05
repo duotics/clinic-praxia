@@ -1,4 +1,15 @@
 <?php
+function startConfigs($file)
+{
+    global $root;
+    if (!isset($_SESSION['conf'])) {
+        $conf = parse_ini_file($root."config/".$file.'.ini', TRUE);
+        foreach ($conf as $x => $xval) {
+            foreach ($xval as $y => $yval) $configEnd[$x][$y] = $yval;
+        }
+        define($file, $configEnd);
+    }
+}
 function vP($est, $log = null)
 {
     if ($est) {
@@ -95,35 +106,35 @@ function vImg($ruta, $nombre, $thumb = TRUE, $pthumb = 't_', $retHtml = [])
 //uploadfile() :: Carga de Archivos al Servidor
 function uploadfile($params, $file)
 {
-	$LOG = null;
-	$code = md5(uniqid(rand()));
-	$prefijo = $params['pre'] . '_' . $code;
-	$fileextnam = $file['name']; // Obtiene el nombre del archivo, y su extension
-	$ext = substr($fileextnam, strpos($fileextnam, '.'), strlen($fileextnam) - 1); // Saca su extension
-	$filename = $prefijo . $ext; // Obtiene el nombre del archivo, y su extension.
-	$aux_grab = FALSE; //Variable para determinar si se cumplieron todos los requisitos y proceso a guardar los archivos
-	// Verifica si la extension es valida
-	if (!in_array($ext, $params['ext'])) $LOG .= '<h4>Archivo no valido</h4>';
-	else { // Verifica el tamaño maximo
-		if (filesize($file['tmp_name']) > $params['siz']) $LOG .= '<h4>Archivo Demasiado Grande :: maximo ' . ($params['siz'] / 1024 / 1024) . ' MB</h4>';
-		else { // Verifica Permisos de Carpeta, Si Carpeta Existe.
-			if (!is_writable($params['pat'])) $LOG .= '<h4>Permisos Folder Insuficientes, contacte al Administrador del Sistema</h4>';
-			else { // Mueve el archivo a su lugar correpondiente.
-				if (!move_uploaded_file($file['tmp_name'], $params['pat'] . $filename)) $LOG .= '<h4>Error al Cargar el Archivo</h4>';
-				else {
-					if ($params['thumb']) {
-						fnc_genthumb($params['pat'], $filename, "t_", $params['thumb-w'] ?? 100, $params['thumb-h'] ?? 100);
-					}
-					$aux_grab = TRUE;
-					$LOG .= '<p>Archivo Cargado Correctamente</p>';
-				}
-			}
-		}
-	}
-	$auxres['LOG'] = $LOG;
-	$auxres['EST'] = $aux_grab;
-	$auxres['FILE'] = $filename;
-	return $auxres;
+    $LOG = null;
+    $code = md5(uniqid(rand()));
+    $prefijo = $params['pre'] . '_' . $code;
+    $fileextnam = $file['name']; // Obtiene el nombre del archivo, y su extension
+    $ext = substr($fileextnam, strpos($fileextnam, '.'), strlen($fileextnam) - 1); // Saca su extension
+    $filename = $prefijo . $ext; // Obtiene el nombre del archivo, y su extension.
+    $aux_grab = FALSE; //Variable para determinar si se cumplieron todos los requisitos y proceso a guardar los archivos
+    // Verifica si la extension es valida
+    if (!in_array($ext, $params['ext'])) $LOG .= '<h4>Archivo no valido</h4>';
+    else { // Verifica el tamaño maximo
+        if (filesize($file['tmp_name']) > $params['siz']) $LOG .= '<h4>Archivo Demasiado Grande :: maximo ' . ($params['siz'] / 1024 / 1024) . ' MB</h4>';
+        else { // Verifica Permisos de Carpeta, Si Carpeta Existe.
+            if (!is_writable($params['pat'])) $LOG .= '<h4>Permisos Folder Insuficientes, contacte al Administrador del Sistema</h4>';
+            else { // Mueve el archivo a su lugar correpondiente.
+                if (!move_uploaded_file($file['tmp_name'], $params['pat'] . $filename)) $LOG .= '<h4>Error al Cargar el Archivo</h4>';
+                else {
+                    if ($params['thumb']) {
+                        fnc_genthumb($params['pat'], $filename, "t_", $params['thumb-w'] ?? 100, $params['thumb-h'] ?? 100);
+                    }
+                    $aux_grab = TRUE;
+                    $LOG .= '<p>Archivo Cargado Correctamente</p>';
+                }
+            }
+        }
+    }
+    $auxres['LOG'] = $LOG;
+    $auxres['EST'] = $aux_grab;
+    $auxres['FILE'] = $filename;
+    return $auxres;
 }
 
 //Function to prevent SQL injection

@@ -1,17 +1,9 @@
 <?php
-function startConfigs()
-{
-	if (!isset($_SESSION['conf'])) {
-		$conf = parse_ini_file('config.ini', TRUE);
-		foreach ($conf as $x => $xval) {
-			foreach ($xval as $y => $yval) $configEnd[$x][$y] = $yval;
-		}
-		$_SESSION['conf'] = $configEnd;
-	}
-}
+/*
 startConfigs();
 $cfg = $_SESSION['conf'];
 define("cfg", $cfg);
+*/
 date_default_timezone_set('America/Guayaquil');
 setlocale(LC_ALL, "es_ES");
 setlocale(LC_TIME, "es_ES");
