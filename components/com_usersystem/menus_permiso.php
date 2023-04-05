@@ -18,7 +18,7 @@ function verifyCheckUserMenu($idm,$idu){
 }
 
 $css['body']='cero';
-include(RAIZf.'head.php') ?>
+include(root['f'].'head.php') ?>
 <form method="post" action="menus_permiso_save.php" onSubmit="return verificarPassUser()">
 <fieldset>
     <input type="hidden" name="id" value="<?php echo $id ?>">
@@ -143,4 +143,4 @@ $LMC[$dRSmc['id']]['ref']=$dRSmc['ref']; ?>
 <div class="alert alert-danger"><h4>Usuario no Existe</h4></div>
 <?php } //End if detUsu ?>
 </form>
-<?php include(RAIZf.'footer.php'); ?>
+<?php include(root['f'].'footer.php'); ?>

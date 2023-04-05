@@ -10,7 +10,7 @@ $detpac=dataPac($row_RS_det_pag['pac_cod']);
 $detpac_nom=$detpac['pac_nom'].' '.$detpac['pac_ape'];
 $detemp=dataEmp($row_RS_det_pag['emp_cod']);
 $detemp_nom=$detemp['emp_nom'].' '.$detemp['emp_ape'];
-include(RAIZf."head.php");
+include(root['f']."head.php");
 ?>
 <body>
 <div class="page-header">

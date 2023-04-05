@@ -9,7 +9,7 @@ define('root', array(
     'c' => rootM . 'components/',
     'o' => rootM . 'config/',
     'i' => rootM . 'assets/images',
-    'm' => rootM . 'mods/',
+    'm' => rootM . 'modules/',
     'f' => rootM . 'frames/',
     's' => rootM . 'system/',
     'p' => rootM . 'api/',

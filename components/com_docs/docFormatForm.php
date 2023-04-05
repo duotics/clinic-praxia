@@ -11,8 +11,8 @@ $dExamF=detRow('db_examenes_format','id',$id);//fnc_dataexam($ide);
 if($acc=='DELEF'){
 	header(sprintf("Location: %s", '_acc.php?ide='.$ide.'&action=DELEF'));
 }
-include(RAIZf.'head.php');
-include(RAIZm.'mod_menu/menuMain.php'); ?>
+include(root['f'].'head.php');
+include(root['m'].'mod_menu/menuMain.php'); ?>
 <ol class="breadcrumb">
   <li><a href="<?php echo $RAIZc?>com_index">Inicio</a></li>
   <li><a href="#">Sistema</a></li>
@@ -23,4 +23,4 @@ include(RAIZm.'mod_menu/menuMain.php'); ?>
 	<?php sLOG('t') ?>
 	<?php include('_docFormatForm.php') ?>
 </div>
-<?php include(RAIZf.'footerC.php') ?>
+<?php include(root['f'].'footerC.php') ?>

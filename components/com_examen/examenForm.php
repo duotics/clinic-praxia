@@ -7,7 +7,7 @@ $acc = $_GET['acc'] ?? $_POST['acc'] ?? null;
 if ($acc == md5('DELe')) header(sprintf("Location: %s", "_fncts.php?ide=$ide&acc=$acc"));
 
 $css['body'] = 'cero';
-include(RAIZf . 'head.php'); ?>
+include(root['f'] . 'head.php'); ?>
 <?php sLOG('g'); ?>
 <?php include('_examenForm.php'); ?>
-<?php include(RAIZf . 'footerC.php'); ?>
+<?php include(root['f'] . 'footerC.php'); ?>

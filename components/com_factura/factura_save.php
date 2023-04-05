@@ -1,6 +1,6 @@
 <?php session_start();
 include('../_config.php');
-include(RAIZf.'head.php');
+include(root['f'].'head.php');
 include('_libs.php');?>
 <?php
 if (count($_SESSION['b'])==0){echo "NO TIENE DETALLE";}

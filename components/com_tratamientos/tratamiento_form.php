@@ -43,7 +43,7 @@ $idp = $detCon['pac_cod'];
 $detPac = detRow('db_pacientes', 'pac_cod', $idp); //dPac($idp);
 $detPac_nom = $detPac['pac_nom'] . ' ' . $detPac['pac_ape'];
 $css['body'] = 'cero';
-include(RAIZf . 'head.php'); ?>
+include(root['f'] . 'head.php'); ?>
 <?php sLOG('g'); ?>
 <form method="post" action="_fncts.php">
 	<fieldset>
@@ -302,4 +302,4 @@ include(RAIZf . 'head.php'); ?>
 		$('#diagnostico').focus();
 	</script>
 <?php } ?>
-<?php include(RAIZf . 'footer.php'); ?>
+<?php include(root['f'] . 'footer.php'); ?>

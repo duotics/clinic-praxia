@@ -2,11 +2,11 @@
 
 $_SESSION['MODSEL']="EXA";
 $rowMod=fnc_datamod($_SESSION['MODSEL']);
-include(RAIZf."head.php");
+include(root['f']."head.php");
 sLOG('g');?>
 <body>
-<?php include(RAIZm.'mod_menu/menuMain.php'); ?>
+<?php include(root['m'].'mod_menu/menuMain.php'); ?>
 <div class="container">
     <div><?php include('gest_exa.php'); ?></div>
 </div>
-<?php include(RAIZf.'footer.php')?>
+<?php include(root['f'].'footer.php')?>

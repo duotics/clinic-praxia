@@ -96,7 +96,7 @@ mysqli_query(conn,"SET AUTOCOMMIT=1;"); //Habilita el autocommit
 /**/
 if(($accJS==TRUE)||($js==1)){
 	$css['body']='cero';
-	include(RAIZf.'head.php'); ?>
+	include(root['f'].'head.php'); ?>
     <div id="alert" class="alert alert-info"><h2>Procesando</h2></div>
     <iframe id="loaderFrame" style="width: 0px; height: 0px; display: none;"></iframe>
     
@@ -113,7 +113,7 @@ if(($accJS==TRUE)||($js==1)){
 	$( "#alert" ).slideDown( 300 ).delay( 2000 ).fadeIn( 300 );
 	parent.jQuery.fancybox.getInstance().close();
 	</script>
-    <?php include(RAIZf.'footerC.php'); ?>
+    <?php include(root['f'].'footerC.php'); ?>
 <?php }else{
 	header(sprintf("Location: %s", $url));
 }

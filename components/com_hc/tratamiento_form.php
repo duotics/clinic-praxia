@@ -38,7 +38,7 @@ $detCon=detRow('db_consultas','con_num',$idc);
 $idp=$detCon['pac_cod'];
 $detPac=detRow('db_pacientes','pac_cod',$idp);//dataPac($idp);
 $detPac_nom=$detPac['pac_nom'].' '.$detPac['pac_ape'];
-include(RAIZf.'head.php'); ?>
+include(root['f'].'head.php'); ?>
 <body class="cero">
 <?php sLOG('g'); ?>
 <form method="post" action="_fncts.php">

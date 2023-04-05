@@ -1,2 +1,2 @@
 <?php include('../../init.php');
-include(RAIZf.'head.php'); ?>
+include(root['f'].'head.php'); ?>

@@ -36,8 +36,8 @@ $btnNew = '<a href="' . $urlc . '?idp=' . $dPac['pac_cod'] . '&acc=NEW" class="b
 
 $dirimg = vImg("data/db/pac/", lastImgPac($idp));
 $stat = estCon($estCon); //Devuelve el estado de la Consulta en HTML
-include(RAIZf . 'head.php');
-include(RAIZm . 'mod_menu/menuMain.php'); ?>
+include(root['f'] . 'head.php');
+include(root['m'] . 'mod_menu/menuMain.php'); ?>
 <?php if ($dPac) { ?>
 	<?php $regBP = regBusPac($idp);
 	//var_dump($regBP);
@@ -190,4 +190,4 @@ include(RAIZm . 'mod_menu/menuMain.php'); ?>
 		}, function(data) {});
 	}
 </script>
-<?php include(RAIZf . "footerC.php"); ?>
+<?php include(root['f'] . "footerC.php"); ?>

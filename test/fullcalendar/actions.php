@@ -71,7 +71,7 @@ $_SESSION['LOG']['t']=$LOGt;
 $_SESSION['LOG']['i']=$LOGi;
 
 if($accjs==TRUE){
-	include(RAIZf.'head.php'); ?>
+	include(root['f'].'head.php'); ?>
 	<body class="cero">
     <div id="alert" class="alert alert-info"><h2>Procesando</h2></div>
 	<script type="text/javascript">

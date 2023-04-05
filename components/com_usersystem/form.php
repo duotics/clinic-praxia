@@ -13,8 +13,8 @@ if ($det) {
      $btnAcc = '<button type="submit" class="btn btn-primary" id="vAcc"><i class="fa fa-floppy-o fa-lg"></i> GUARDAR</button>';
 }
 $btnNew = '<a class="btn btn-default" href="form.php"><i class="fa fa-plus fa-lg"></i> Nuevo</a>';
-include(RAIZf . "head.php");
-include(RAIZm . 'mod_menu/menuMain.php');
+include(root['f'] . "head.php");
+include(root['m'] . 'mod_menu/menuMain.php');
 sLOG('g') ?>
 <ul class="breadcrumb">
      <li><a href="<?php echo $RAIZc ?>com_index">Inicio</a></li>
@@ -150,4 +150,4 @@ sLOG('g') ?>
           </div>
      </form>
 </div>
-<?php include(RAIZf . 'footer.php') ?>
+<?php include(root['f'] . 'footer.php') ?>

@@ -1,5 +1,5 @@
 <?php include('../../init.php');
-include(RAIZf . 'head.php');
+include(root['f'] . 'head.php');
 $datefc = vParam('datefc', $_GET['datefc'], $_POST['datefc']); //start
 $datefe = vParam('datefe', $_GET['datefe'], $_POST['datefe']); //end
 $id = vParam('id', $_GET['id'], $_POST['id']);

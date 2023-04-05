@@ -68,7 +68,7 @@ $btnNew = '<a href="gest_hist.php?id=' . $id . '" class="btn btn-default btn-blo
 
 $_SESSION['LOG']['m'] = $LOG;
 $css['body'] = 'cero';
-include(RAIZf . 'head.php');
+include(root['f'] . 'head.php');
 ?>
 <nav class="navbar navbar-default" role="navigation">
 	<div class="container-fluid">
@@ -224,4 +224,4 @@ include(RAIZf . 'head.php');
 		<h4>Paciente No Existe</h4>
 	</div>
 <?php } ?>
-<?php include(RAIZf . 'footer.php') ?>
+<?php include(root['f'] . 'footer.php') ?>

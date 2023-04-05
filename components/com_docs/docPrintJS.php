@@ -5,7 +5,7 @@ $detCon = detRow('db_consultas', 'con_num', $det['con_num']); //fnc_datatrat($id
 //$detpac=detRow('db_pacientes','pac_cod',$detCon['pac_cod']);//dPac($det['pac_cod']);
 $dPac = detRow('db_pacientes', 'pac_cod', $detCon['pac_cod']);
 $css["body"] = 'cero';
-include(RAIZf . 'head.php'); ?>
+include(root['f'] . 'head.php'); ?>
 <link rel="stylesheet" type="text/css" href="<?php echo $RAIZa ?>css/cssPrint_01-02.css" />
 <div class="print print-documento">
 

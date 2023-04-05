@@ -19,7 +19,7 @@ $qry='SELECT * FROM db_empleados where emp_status="A" ORDER BY emp_cod DESC';
 $RSd=mysqli_query(conn,$qry);
 $row_RSd=mysqli_fetch_assoc($RSd);
 $tr_RSd=mysqli_num_rows($RSd);
-include(RAIZf.'head.php');
+include(root['f'].'head.php');
 ?>
 <body class="cero">
 <nav class="navbar navbar-default" role="navigation">

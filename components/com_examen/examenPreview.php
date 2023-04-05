@@ -24,7 +24,7 @@ if ($dExam) {
 }
 
 $css['body'] = 'cero';
-include(RAIZf . 'head.php'); ?>
+include(root['f'] . 'head.php'); ?>
 <div class="container">
 	<div class="panel panel-primary">
 		<div class="panel-heading">
@@ -67,4 +67,4 @@ include(RAIZf . 'head.php'); ?>
 		</div>
 	</div>
 </div>
-<?php include(RAIZf . 'footerC.php') ?>
+<?php include(root['f'] . 'footerC.php') ?>

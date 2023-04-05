@@ -174,7 +174,7 @@ $_SESSION['LOG']['i'] = $LOGi;
 /******************************/
 
 if ($accjs == TRUE) {
-	include(RAIZf . 'head.php'); ?>
+	include(root['f'] . 'head.php'); ?>
 
 	<body class="cero">
 		<div id="alert" class="alert alert-info">

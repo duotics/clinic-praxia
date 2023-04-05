@@ -251,7 +251,7 @@ $_SESSION['LOG']['i'] = $LOGi;
 
 if (isset($accJS) && $accJS == TRUE) {
 	$css['body'] = 'cero';
-	include(RAIZf . 'head.php'); ?>
+	include(root['f'] . 'head.php'); ?>
 	<div id="alert" class="alert alert-info">
 		<h2>Procesando</h2>
 	</div>
@@ -269,7 +269,7 @@ if (isset($accJS) && $accJS == TRUE) {
 		});
 		$("#alert").slideDown(300).delay(2000).fadeIn(300);
 	</script>
-	<?php include(RAIZf . 'footerC.php'); ?>
+	<?php include(root['f'] . 'footerC.php'); ?>
 <?php } else {
 	header(sprintf("Location: %s", $goTo));
 }

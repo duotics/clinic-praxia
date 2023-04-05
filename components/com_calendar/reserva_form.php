@@ -21,7 +21,7 @@ $RSlr = mysqli_query(conn, $qrylr) or die(mysqli_error(conn));
 $row_RSlr = mysqli_fetch_assoc($RSlr);
 $tr_RSlr = mysqli_num_rows($RSlr);
 $cssBody = 'cero';
-include(RAIZf . 'head.php'); ?>
+include(root['f'] . 'head.php'); ?>
 <div class="container">
   <div class="page-header">
     <h1>Reservar Cita <small><?php echo $detPac_nom ?>
@@ -184,4 +184,4 @@ include(RAIZf . 'head.php'); ?>
     </div>
   </div>
 </div>
-<?php include(RAIZf . 'footer.php'); ?>
+<?php include(root['f'] . 'footer.php'); ?>

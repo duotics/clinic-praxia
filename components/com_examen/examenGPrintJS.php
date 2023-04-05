@@ -44,7 +44,7 @@ if ($dCon) { //SI EXISTE CONSULTA
 	$dPacSig = detSigLast($dCon["pac_cod"]);
 }
 $css["body"] = 'cero';
-include(RAIZf . 'head.php'); ?>
+include(root['f'] . 'head.php'); ?>
 <link rel="stylesheet" type="text/css" href="<?php echo $RAIZa ?>css/cssPrint_01-02.css" />
 <?php if ($tRSle > 0) { ?>
 	<?php do { ?>

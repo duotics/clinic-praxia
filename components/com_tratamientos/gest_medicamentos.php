@@ -24,10 +24,10 @@ if($TR>0){
 	$row_RSd=mysqli_fetch_assoc($RSd);
 	$tr_RSd=mysqli_num_rows($RSd);
 }
-include(RAIZf.'head.php');
+include(root['f'].'head.php');
 ?>
 <body class="cero">
-<?php include(RAIZm.'mod_menu/menuMain.php'); ?>
+<?php include(root['m'].'mod_menu/menuMain.php'); ?>
 <nav class="navbar navbar-default" role="navigation">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->

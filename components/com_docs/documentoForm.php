@@ -13,9 +13,9 @@ if(isset($_REQUEST['idd'])) $idd=$_REQUEST['idd'];
 if(isset($_REQUEST['iddf'])) $iddf=$_REQUEST['iddf'];
 if($acc==md5('DELd')) header(sprintf("Location: %s", '_acc.php?ids='.$idd.'&acc='.md5('DELd').'&accJS=TRUE'));
 $css['body']='cero';
-include(RAIZf.'head.php'); ?>
+include(root['f'].'head.php'); ?>
 <div class="container-fluid">
 	<?php sLOG('t') ?>
 	<?php include('_documentoForm.php') ?>
 </div>
-<?php include(RAIZf.'footerC.php');
+<?php include(root['f'].'footerC.php');

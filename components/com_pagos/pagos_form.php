@@ -29,7 +29,7 @@ $query_RS_pag_realiz = sprintf("SELECT tbl_pagopac_cab.pag_num, tbl_pagopac_cab.
 $RS_pag_realiz = mysqli_query(conn,$query_RS_pag_realiz) or die(mysqli_error(conn));
 $row_RS_pag_realiz = mysqli_fetch_assoc($RS_pag_realiz);
 $totalRows_RS_pag_realiz = mysqli_num_rows($RS_pag_realiz);
-include(RAIZf.'head.php');
+include(root['f'].'head.php');
 ?>
 <script type="text/javascript" src="../../js/js_process_pagos.js"></script>
 <body>

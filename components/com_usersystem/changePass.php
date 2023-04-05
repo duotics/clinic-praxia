@@ -1,5 +1,5 @@
 <?php require('../../init.php');
-include(RAIZf.'head.php');
+include(root['f'].'head.php');
 ?>
 <script type="text/javascript" src="js.js"></script>
 <link rel="stylesheet" type="text/css" href="css.css">

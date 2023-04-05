@@ -58,7 +58,7 @@ if ($TRt > 0) {
 			<?php } while ($dRSd = mysqli_fetch_assoc($RSd)); ?>
 		</tbody>
 	</table>
-	<?php include(RAIZf . 'paginator.php') ?>
+	<?php include(root['f'] . 'paginator.php') ?>
 	<?php mysqli_free_result($RSd); ?>
 <?php } else {
 	echo '<div class="alert alert-warning"><h4>Sin Coincidencias de Busqueda</h4></div>';

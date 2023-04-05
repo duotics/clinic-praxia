@@ -6,7 +6,7 @@ include('../../init.php');
 		$_GET['id_pac']=$_SESSION['id_pac'];		
 $id_pac_sel_RS_paciente_Sel2=$_GET['id_pac'];
 echo $id_pac_sel_RS_paciente_Sel2;
-include(RAIZf.'head.php');
+include(root['f'].'head.php');
 
 $id_pac_sel_RS_paciente_Sel = "-1";
 if (isset($_GET['id_pac'])) {

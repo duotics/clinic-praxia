@@ -1,5 +1,5 @@
 <?php include('../../init.php'); ?>
-<?php include(RAIZf.'head.php'); ?>
+<?php include(root['f'].'head.php'); ?>
 <script>
 $(document).ready(function() {
 $('#calendar').fullCalendar('today');

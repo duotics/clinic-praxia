@@ -8,7 +8,7 @@ $row_RS_empleado = mysqli_fetch_assoc($RS_empleado);
 $query_typ ="SELECT * FROM db_types WHERE typ_ref='TIPEMP' ORDER BY typ_val ASC";
 $RS_typ = mysqli_query(conn,$query_typ);
 $row_RS_typ = mysqli_fetch_assoc($RS_typ);
-include(RAIZf.'head.php');
+include(root['f'].'head.php');
 ?>
 <body class="cero">
 <div class="container">

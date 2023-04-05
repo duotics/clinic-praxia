@@ -1,7 +1,7 @@
 <?php include('../../init.php');
 $dM=fnc_datamod('SIGM');
 $css['body']='cero';
-include(RAIZf.'head.php');
+include(root['f'].'head.php');
 ?>
 <div class="container-fluid">
 	<?php echo genHeader($dM,'page-header')?>
@@ -11,4 +11,4 @@ include(RAIZf.'head.php');
 
 	<div><?php //include(RAIZc.'com_pacientes/pacientes_list.php'); ?></div>
 </div>
-<?php include(RAIZf.'footer.php') ?>
+<?php include(root['f'].'footer.php') ?>

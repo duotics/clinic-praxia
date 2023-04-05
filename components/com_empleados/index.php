@@ -1,7 +1,7 @@
 <?php include('../../init.php');
 $dM=$Auth->vLogin('EMPLEADO');
-include(RAIZf."head.php")?>
-<?php include(RAIZm.'mod_menu/menuMain.php'); ?>
+include(root['f']."head.php")?>
+<?php include(root['m'].'mod_menu/menuMain.php'); ?>
 <ul class="breadcrumb">
 	<li><a href="<?php echo $RAIZc ?>com_index">Inicio</a></li> 
 	<li><a href="<?php echo $RAIZc ?>com_empleados">Empleados</a></li> 
@@ -13,6 +13,6 @@ include(RAIZf."head.php")?>
 	<?php echo genPageHead($dM['mod_cod']);
     sLOG('g'); ?>
 	<div><?php include('empList.php'); ?></div>
-    <?php include(RAIZm.'mod_taskbar/_taskbar_empleado.php'); ?>
+    <?php include(root['m'].'mod_taskbar/_taskbar_empleado.php'); ?>
 	</div>
-<?php include(RAIZf."footer.php") ?>
+<?php include(root['f']."footer.php") ?>

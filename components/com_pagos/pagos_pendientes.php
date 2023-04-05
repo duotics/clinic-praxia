@@ -9,7 +9,7 @@ $query_RS_cta_pend = "SELECT DISTINCT  db_pacientes.pac_cod, db_pacientes.pac_no
 $RS_cta_pend = mysqli_query(conn,$query_RS_cta_pend) or die(mysqli_error(conn));
 $row_RS_cta_pend = mysqli_fetch_assoc($RS_cta_pend);
 $totalRows_RS_cta_pend = mysqli_num_rows($RS_cta_pend);
-include(RAIZf.'head.php');
+include(root['f'].'head.php');
 ?>
 <body class="cero">
 

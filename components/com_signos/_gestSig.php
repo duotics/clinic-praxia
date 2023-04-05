@@ -13,7 +13,7 @@ if ($dPac) {
 	$ids = md5($dPac['pac_cod']);
 }
 if (isset($dPac['pac_fec'])) $dPac_edad = edad($dPac['pac_fec']) . 'Años';
-include(RAIZf . 'head.php'); ?>
+include(root['f'] . 'head.php'); ?>
 <?php
 $cont = '<span class="label label-default">' . $dPac['pac_nom'] . ' ' . $dPac['pac_ape'] . '</span>
 <span class="label label-default">' . $idp . '</span>

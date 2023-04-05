@@ -8,10 +8,10 @@ $dettrat_fecha=date_ame2euro($detDoc['fecha']);
 <?php $setTitle='DOCUMENTO: '.$detDoc['nombre']?>
 <page backtop="10mm" backbottom="10mm" backleft="10mm" backright="5mm">
 <page_header>
-	<?php include(RAIZf.'fra_print_header_gen.php') ?>
+	<?php include(root['f'].'fra_print_header_gen.php') ?>
 </page_header>
 <page_footer>
-	<?php include(RAIZf.'fra_print_footer_gen.php') ?>
+	<?php include(root['f'].'fra_print_footer_gen.php') ?>
 </page_footer>
 
 <div style="margin-top:40px;">

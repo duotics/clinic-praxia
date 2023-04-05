@@ -16,7 +16,7 @@ $RSd = mysqli_query(conn, $qry);
 $row_RSd = mysqli_fetch_assoc($RSd);
 $tr_RSd = mysqli_num_rows($RSd);
 $css['body'] = 'cero';
-include(RAIZf . 'head.php');
+include(root['f'] . 'head.php');
 ?>
 <nav class="navbar navbar-default" role="navigation">
 	<div class="container-fluid">
@@ -93,4 +93,4 @@ include(RAIZf . 'head.php');
 	});
 </script>
 
-<?php include(RAIZf . 'foot.php') ?>
+<?php include(root['f'] . 'foot.php') ?>

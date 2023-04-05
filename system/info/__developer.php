@@ -1,5 +1,5 @@
 <?php require('../../init.php');
-include(RAIZf.'head.php'); ?>
+include(root['f'].'head.php'); ?>
 <body>
 <div class="container">
 	<div class="well well-sm">

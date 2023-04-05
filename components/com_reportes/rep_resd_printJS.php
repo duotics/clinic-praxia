@@ -23,7 +23,7 @@ if ($fi && $ff) {
 } ?>
 <link rel="stylesheet" type="text/css" href="<?php echo $RAIZa ?>css/cssPrint_01-02.css" />
 <?php $css["body"] = 'cero';
-include(RAIZf . "head.php"); ?>
+include(root['f'] . "head.php"); ?>
 <div class="print print-report">
 	<div class="titRep">Resumen de Visitas</div>
 	<div class="titRep-b"><span>Desde <strong><?php echo $fi ?></strong></span> - <span>Hasta <strong><?php echo $ff ?></strong></span></div>
@@ -81,4 +81,4 @@ include(RAIZf . "head.php"); ?>
 		<?php } ?>
 	</div>
 </div>
-<?php include(RAIZf . "footerC.php") ?>
+<?php include(root['f'] . "footerC.php") ?>

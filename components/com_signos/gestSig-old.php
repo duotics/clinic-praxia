@@ -4,7 +4,7 @@ $detPac=dataPac($id);
 $detPac_nom=$detPac['pac_nom'].' '.$detPac['pac_ape'];
 if($detPac['pac_fec']) $detPac_fec=edad($detPac['pac_fec']).'Años';
 
-include(RAIZf.'head.php');
+include(root['f'].'head.php');
 ?>
 <body>
 <nav class="navbar navbar-default" role="navigation">
@@ -127,4 +127,4 @@ $tr_RSh=mysqli_num_rows($RSh);
 }else{ ?>
 <div class="alert alert-warning"><h4>Paciente No Existe</h4></div>
 <?php } ?>
-<?php include(RAIZf.'footer.php') ?>
+<?php include(root['f'].'footer.php') ?>

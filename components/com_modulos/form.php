@@ -19,7 +19,7 @@ if ($det) {
 }
 $btnNew = '<a href="' . $urlc . '" class="btn btn-default"><span class="fa fa-plus"></span> NUEVO</a>';
 $css['body'] = 'cero';
-include(RAIZf . 'head.php'); ?>
+include(root['f'] . 'head.php'); ?>
 <div class="container">
 	<form enctype="multipart/form-data" method="post" action="fncts.php" class="form-horizontal">
 		<fieldset>
@@ -107,4 +107,4 @@ include(RAIZf . 'head.php'); ?>
 		$("#iconRes").addClass(clase);
 	}
 </script>
-<?php include(RAIZf . 'footer.php'); ?>
+<?php include(root['f'] . 'footer.php'); ?>

@@ -100,7 +100,7 @@ if ($idt) {
 		}
 
 		$css["body"] = 'cero';
-		include(RAIZf . 'head.php');
+		include(root['f'] . 'head.php');
 ?>
 		<!--BEGIN PRINT RECETA-->
 		<link rel="stylesheet" type="text/css" href="<?php echo $RAIZa ?>css/cssPrint_01-02.css" />

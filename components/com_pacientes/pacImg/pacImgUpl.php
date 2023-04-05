@@ -1,6 +1,6 @@
 <?php require('../../../init.php');
 $id = $_REQUEST['id'];
-include(RAIZf . 'head.php'); ?>
+include(root['f'] . 'head.php'); ?>
 
 <h1>SUBIR IMAGEN <?php echo $id ?></h1>
 <div id="imagecapture_container">

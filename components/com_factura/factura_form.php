@@ -1,6 +1,6 @@
 <?php include('../../init.php');
 $cont=1;
-include(RAIZf.'head.php');
+include(root['f'].'head.php');
 ?>
 <body>
 <div id="formfac">

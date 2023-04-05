@@ -35,7 +35,7 @@ if ($dExa) {
 }
 $css['body'] = 'cero';
 ?>
-<?php include(RAIZf . 'head.php'); ?>
+<?php include(root['f'] . 'head.php'); ?>
 <link rel="stylesheet" type="text/css" href="<?php echo $RAIZa ?>css/cssPrint_01-02.css" />
 <div class="print print-examen">
 	<!-- ENCABEZADO -->

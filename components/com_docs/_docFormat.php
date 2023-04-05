@@ -15,7 +15,7 @@ $btnNew='<a href="docFormatForm.php" class="btn btn-primary fancyR" data-type="i
 <div>
 <?php echo genHeader($dM,'page-header',null,$btnNew,null,'mt-3 mb-3') ?>
 <?php if($tRSd>0){ ?>
-<?php include(RAIZf.'paginator.php') ?>
+<?php include(root['f'].'paginator.php') ?>
 <div class="table-responsive">   
 <table class="table table-hover table-bordered table-sm" id="itm_table">
 <thead><tr>
@@ -63,7 +63,7 @@ $btnNew='<a href="docFormatForm.php" class="btn btn-primary fancyR" data-type="i
 </tbody>
 </table>
 </div>
-<?php include(RAIZf.'paginator.php') ?>
+<?php include(root['f'].'paginator.php') ?>
 <?php }else{ ?>
 	<div class="alert alert-warning">
 		<h4>No se encontraron resultados !</h4>

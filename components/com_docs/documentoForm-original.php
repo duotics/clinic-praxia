@@ -52,7 +52,7 @@ $NE=new EnLetras();
 $NumD=$NE->ValorEnLetras(date('d'),'');
 $NumA=$NE->ValorEnLetras(date('Y'),'');
 $css[body]='cero';
-include(RAIZf.'head.php'); ?>
+include(root['f'].'head.php'); ?>
 <form action="_fncts.php" method="post" enctype="multipart/form-data" style="margin-bottom:0px;">
 <fieldset class="pull-right">
 	<input name="idd" type="hidden" id="idd" value="<?php echo $idd ?>">
@@ -204,4 +204,4 @@ function genDias(){
 	});
 }
 </script>
-<?php include(RAIZf.'footerC.php');
+<?php include(root['f'].'footerC.php');

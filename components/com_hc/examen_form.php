@@ -21,7 +21,7 @@ if($detexam){
 	$action='INS';
 	$btnform='<button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o fa-lg"></i> CREAR</button>';
 }
-include(RAIZf.'head.php');
+include(root['f'].'head.php');
 ?>
 <body class="cero">
 <form action="_fncts.php" method="post" id="formexam" enctype="multipart/form-data" style="margin-bottom:0px;">

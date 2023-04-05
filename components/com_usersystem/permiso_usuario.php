@@ -1,7 +1,7 @@
 <?php 
 	include('../../init.php');
 	$iduser = $_SESSION['dU']['ID'];
-	include(RAIZf.'head.php');
+	include(root['f'].'head.php');
 ?>
 
 <!doctype html>

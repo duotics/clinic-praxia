@@ -121,7 +121,7 @@ $_SESSION['LOG']['c'] = $LOGc;
 $_SESSION['LOG']['t'] = $LOGt;
 $_SESSION['LOG']['i'] = $LOGi;
 if ($accjs == TRUE) {
-	include(RAIZf . 'head.php'); ?>
+	include(root['f'] . 'head.php'); ?>
 
 	<body class="cero">
 		<div id="alert" class="alert alert-info">

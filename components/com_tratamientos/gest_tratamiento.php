@@ -14,8 +14,8 @@ $qry='SELECT * FROM db_terapiastrata ORDER BY id_trat DESC';
 $RSd=mysqli_query(conn,$qry);
 $row_RSd=mysqli_fetch_assoc($RSd);
 $tr_RSd=mysqli_num_rows($RSd);
-include(RAIZf.'head.php');
-include(RAIZm.'mod_menu/menuMain.php'); ?>
+include(root['f'].'head.php');
+include(root['m'].'mod_menu/menuMain.php'); ?>
 <div class="container">
 	<?php sLOG('g'); ?>
     <?php echo genPageHead($dM['mod_cod']) ?>
@@ -64,4 +64,4 @@ include(RAIZm.'mod_menu/menuMain.php'); ?>
 	</table>
 <?php }else{ echo '<div class="alert alert-danger"><h4>No Existen Terapias Generadas</h4></div>'; }?>
 </div>
-<?php include(RAIZf.'footer.php') ?>
+<?php include(root['f'].'footer.php') ?>

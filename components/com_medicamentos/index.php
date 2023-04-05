@@ -1,6 +1,6 @@
 <?php require('../../init.php');
-include(RAIZf . 'head.php');
-include(RAIZm . 'mod_menu/menuMain.php') ?>
+include(root['f'] . 'head.php');
+include(root['m'] . 'mod_menu/menuMain.php') ?>
 <ol class="breadcrumb">
   <li><a href="<?php echo $RAIZc ?>com_index/">Inicio</a></li>
   <li class="active">Gestion Tratamientos</li>
@@ -9,4 +9,4 @@ include(RAIZm . 'mod_menu/menuMain.php') ?>
 <div class="container-fluid">
   <?php include('_index.php') ?>
 </div>
-<?php include(RAIZf . 'footer.php') ?>
+<?php include(root['f'] . 'footer.php') ?>

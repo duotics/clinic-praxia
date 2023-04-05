@@ -41,7 +41,7 @@ $NE=new EnLetras();
 $NumD=$NE->ValorEnLetras(date('d'),'');
 $NumA=$NE->ValorEnLetras(date('Y'),'');
 
-include(RAIZf.'head.php');
+include(root['f'].'head.php');
 ?>
 <body class="cero">
 <form action="_fncts.php" method="post" enctype="multipart/form-data" style="margin-bottom:0px;">

@@ -33,7 +33,7 @@ if ($detCir) {
   $btnform = '<button type="button" id="vAcc" class="btn btn-primary"><i class="fa fa-floppy-o fa-lg"></i> GRABAR</button>';
 }
 $css["body"] = 'cero';
-include(RAIZf . 'head.php'); ?>
+include(root['f'] . 'head.php'); ?>
 <?php sLOG('g'); ?>
 <form action="actions.php" method="post" id="formexam" enctype="multipart/form-data">
   <fieldset>
@@ -153,4 +153,4 @@ include(RAIZf . 'head.php'); ?>
     formexam.submit();
   }
 </script>
-<?php include(RAIZf . 'footerC.php'); ?>
+<?php include(root['f'] . 'footerC.php'); ?>

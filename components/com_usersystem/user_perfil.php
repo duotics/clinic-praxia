@@ -4,9 +4,9 @@ $detU=detRow('tbl_usuario','usr_id',$_SESSION['dU']['ID']);
 $detE=dataEmp($detU['emp_cod']);
 $detE_fullname=$detE['emp_nom'].' '.$detE['emp_ape'];
 $_SESSION['MODSEL']="PERF";
-include(RAIZf."head.php");?>
+include(root['f']."head.php");?>
 <?php sLOG('g') ?>
-<?php include(RAIZm.'mod_menu/menuMain.php'); ?>
+<?php include(root['m'].'mod_menu/menuMain.php'); ?>
 <div class="container">
 	<?php echo gen_pageTit($_SESSION['MODSEL']) ?>
     <?php if($detU){ ?>
@@ -120,4 +120,4 @@ include(RAIZf."head.php");?>
 		<div class="alert alert-danger"><h4>No se ha seleccionado un Usuario</h4></div>	
 	<?php } ?>
 </div>
-<?php include(RAIZf.'footer.php')?>
+<?php include(root['f'].'footer.php')?>

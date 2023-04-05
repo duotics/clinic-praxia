@@ -6,4 +6,4 @@ include_once(RAIZf . 'head.php') ?>
 	<?php sLOG('t') ?>
 	<?php include('_gestSig.php') ?>
 </div>
-<?php include(RAIZf . 'footerC.php') ?>
+<?php include(root['f'] . 'footerC.php') ?>

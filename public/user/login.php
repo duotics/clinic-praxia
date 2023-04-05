@@ -10,6 +10,7 @@ if ($param) {
 $cssBody = "home";
 $comp = 'none';
 $css['body'] = "body-login";
+$css['body-bg'] = getBgBodyfromConfigFile();
 include(root['f'] . 'head.php');
 ?>
 <link rel="stylesheet" type="text/css" href="<?php echo route['a'] . "css/signin.css" ?>">

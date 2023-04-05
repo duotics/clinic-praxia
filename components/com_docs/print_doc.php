@@ -1,7 +1,7 @@
 <?php require('../../init.php');
 $idd = $_GET['idd'] ?? $_POST['idd'] ?? null;
 $detdoc = fnc_datadoc($idd);
-include(RAIZf . 'head.php');
+include(root['f'] . 'head.php');
 ?>
 
 <body class="cero">

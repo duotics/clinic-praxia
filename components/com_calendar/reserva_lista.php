@@ -3,7 +3,7 @@ $query_RSr = "SELECT * FROM db_fullcalendar WHERE est=1 ORDER BY id DESC";
 $RSr = mysqli_query(conn,$query_RSr) or die(mysqli_error(conn));
 $row_RSr = mysqli_fetch_assoc($RSr);
 $totalRows_RSr = mysqli_num_rows($RSr);
-include(RAIZf.'head.php');
+include(root['f'].'head.php');
 ?>
 <title>Lista Reserva Consultas</title>
 <body class="cero">

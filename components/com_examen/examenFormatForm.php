@@ -6,9 +6,9 @@ if($acc=='DELEF'){
 	header(sprintf("Location: %s", '_fncts.php?ide='.$ide.'&action=DELEF'));
 }
 $css['body']='cero';
-include(RAIZf.'head.php'); ?>
+include(root['f'].'head.php'); ?>
 <?php sLOG('g') ?>
 <div class="container-fluid">
 	<?php include('_examenFormatForm.php') ?>
 </div>
-<?php include(RAIZf.'footerC.php') ?>
+<?php include(root['f'].'footerC.php') ?>

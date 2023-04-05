@@ -16,8 +16,8 @@ if ($totalRows_RScl>0){
 	$row_RScl = mysqli_fetch_assoc($RScl);
 	$totalRows_RScl = mysqli_num_rows($RScl);
 }
-include(RAIZf.'head.php');
-include(RAIZm.'mod_menu/menuMain.php'); ?>
+include(root['f'].'head.php');
+include(root['m'].'mod_menu/menuMain.php'); ?>
 <div class="container">
 <div class="page-header"><h1>LISTA CONSULTAS <small>Pacientes</small></h1></div>
 <?php if($totalRows_RScl>0){ ?>

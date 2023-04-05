@@ -33,7 +33,7 @@ if($detObs){
 }
 $detpac=dataPac($idp);
 $detpacNom=$detpac['pac_nom'].' '.$detpac['pac_ape'];
-include(RAIZf.'head.php');
+include(root['f'].'head.php');
 ?>
 <body class="cero">
 <div class="container-fluid">

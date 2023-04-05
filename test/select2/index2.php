@@ -1,5 +1,5 @@
 <?php include('../../init.php');
-include(RAIZf . 'head.php'); ?>
+include(root['f'] . 'head.php'); ?>
 <script>
     $(document).ready(function() {
         // Initialize the select2 plugin

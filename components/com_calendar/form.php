@@ -31,7 +31,7 @@ if ($detRes) {
 $qryLP = sprintf('SELECT pac_cod as sID, CONCAT(pac_nom," ",pac_ape) as sVAL FROM db_pacientes');
 $RSLP = mysqli_query(conn, $qryLP);
 $css['body'] = 'cero';
-include(RAIZf . 'head.php');
+include(root['f'] . 'head.php');
 ?>
 <?php sLOG('g') ?>
 <form action="actions.php" method="post">
@@ -149,4 +149,4 @@ include(RAIZf . 'head.php');
   </div>
 </form>
 <script type="text/javascript" src="js/js.js"></script>
-<?php include(RAIZf . 'footer.php') ?>
+<?php include(root['f'] . 'footer.php') ?>

@@ -1,5 +1,5 @@
 <?php include('../../init.php');
-include(RAIZf.'head.php');
+include(root['f'].'head.php');
 ?>
 <script type="text/javascript">
 $.get( "json.php", { name: "nombre", time: "hora" }, function( data ) {

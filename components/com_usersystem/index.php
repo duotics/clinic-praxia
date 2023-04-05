@@ -1,7 +1,7 @@
 <?php include('../../init.php');
 $dM = $Auth->vLogin('USERS');
-include(RAIZf . 'head.php') ?>
-<?php include(RAIZm . 'mod_menu/menuMain.php'); ?>
+include(root['f'] . 'head.php') ?>
+<?php include(root['m'] . 'mod_menu/menuMain.php'); ?>
 <script type="text/javascript" src="js.js"></script>
 <ul class="breadcrumb">
 	<li><a href="<?php echo $RAIZc ?>com_index">Inicio</a></li>
@@ -15,4 +15,4 @@ include(RAIZf . 'head.php') ?>
 	sLOG('g'); ?>
 	<div><?php include('users_list.php'); ?></div>
 </div>
-<?php include(RAIZf . 'footer.php'); ?>
+<?php include(root['f'] . 'footer.php'); ?>

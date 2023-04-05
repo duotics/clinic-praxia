@@ -69,7 +69,7 @@ $dPac_nom = $dPac['pac_nom'] . ' ' . $dPac['pac_ape'];
 $listadoTratamientosAnteriores = $mTrat->listadoTratamientosAnteriores($idp);
 
 $css['body'] = 'cero';
-include(RAIZf . 'head.php'); ?>
+include(root['f'] . 'head.php'); ?>
 <?php sLOG('g'); ?>
 <form method="post" action="_fncts.php">
 	<fieldset>
@@ -402,4 +402,4 @@ include(RAIZf . 'head.php'); ?>
 		$('#diagnostico').focus();
 	</script>
 <?php } ?>
-<?php include(RAIZf . 'footerC.php'); ?>
+<?php include(root['f'] . 'footerC.php'); ?>
