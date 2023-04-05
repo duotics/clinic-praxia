@@ -1,5 +1,5 @@
 <?php require_once('../../init.php') ?>
-<script type="text/javascript" src="<?php echo $RAIZa ?>js/js_carga_pac.js"></script>
+<script type="text/javascript" src="<?php echo route['a'] ?>js/js_carga_pac.js"></script>
 <div class="row">
 	<div class="col-md-6">
 		<form id="fs01">

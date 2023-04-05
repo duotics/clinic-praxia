@@ -39,9 +39,7 @@ $stat = estCon($estCon); //Devuelve el estado de la Consulta en HTML
 include(root['f'] . 'head.php');
 include(root['m'] . 'mod_menu/menuMain.php'); ?>
 <?php if ($dPac) { ?>
-	<?php $regBP = regBusPac($idp);
-	//var_dump($regBP);
-	?>
+	<?php $mPac->registrarBusquedaPaciente($id) ?>
 	<form action="_fnc.php" method="post">
 		<fieldset>
 			<input name="acc" type="hidden" id="acc" value="<?php echo $acc ?>" />
@@ -182,8 +180,8 @@ include(root['m'] . 'mod_menu/menuMain.php'); ?>
 <?php } ?>
 <script type="text/javascript" src="js/js_carga_list-cons-pac.js"></script>
 <script type="text/javascript">
-	$(document).ready(function() {
-	});
+	$(document).ready(function() {});
+
 	function setTab(val) {
 		$.get("setTabJS.php", {
 			val: val

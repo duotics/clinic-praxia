@@ -45,7 +45,7 @@ if ($dCon) { //SI EXISTE CONSULTA
 }
 $css["body"] = 'cero';
 include(root['f'] . 'head.php'); ?>
-<link rel="stylesheet" type="text/css" href="<?php echo $RAIZa ?>css/cssPrint_01-02.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo route['a'] ?>css/cssPrint_01-02.css" />
 <?php if ($tRSle > 0) { ?>
 	<?php do { ?>
 		<?php
@@ -133,7 +133,7 @@ WHERE db_examenes_det.ide=%s',
 				<?php echo $dRSleF["pie"] ?>
 			<?php } ?>
 			<div class="sello">
-				<div class="selloEA"><img src="<?php echo $RAIZa ?>images/struct/selloA-02.jpg" alt="" style="width: 100%"></div>
+				<div class="selloEA"><img src="<?php echo route['a'] ?>images/struct/selloA-02.jpg" alt="" style="width: 100%"></div>
 			</div>
 		</div>
 	<?php } while ($dRSle = mysqli_fetch_assoc($RSle)); ?>

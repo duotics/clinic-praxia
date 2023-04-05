@@ -1,11 +1,32 @@
 <?php
+function vP($est, $log = null)
+{
+    if ($est) {
+        $LOGt = cfg['p']['m-ok'];
+        $LOGc = cfg['p']['c-ok'];
+        $LOGi = cfg['i']['okp'];
+        $LOGicon = 'success';
+        $LOGimg = RAIZa . cfg['p']['i-ok'];
+    } else {
+        $LOGt = cfg['p']['m-fail'];
+        $LOGc = cfg['p']['c-fail'];
+        $LOGi = cfg['i']['failp'];
+        $LOGicon = 'error';
+        $LOGimg = RAIZa . cfg['p']['i-fail'];
+    }
+    $_SESSION['LOG']['t'] = $LOGt;
+    $_SESSION['LOG']['m'] = $log;
+    $_SESSION['LOG']['c'] = $LOGc;
+    $_SESSION['LOG']['i'] = $LOGimg;
+    $_SESSION['LOG']['img'] = $LOGimg;
+}
 function getBgBodyfromConfigFile()
 {
-    try{
+    try {
         if (!isset(cfgBg['bg'])) throw new Exception("No existe archivo de configuración de fondo");
         $val = cfgBg['bg'][array_rand(cfgBg['bg'])];
         return $val;
-    }catch (Exception $e){
+    } catch (Exception $e) {
         echo $e->getMessage();
     }
 }

@@ -4,8 +4,8 @@ require('paths.php'); //RUTAS de acceso a lugares del framework
 date_default_timezone_set('America/Guayaquil');
 setlocale(LC_ALL, "es_EC");
 
-define("cfg", startConfigs("cfg"));
-define("cfgBg", startConfigs("cfgBg"));
+define("cfg", $cfg = startConfigs("cfg"));
+define("cfgBg", $cfgBg = startConfigs("cfgBg"));
 
 $sdate = date('Y-m-d');
 $sdatet = date('Y-m-d H:i:s');

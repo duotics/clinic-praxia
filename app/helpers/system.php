@@ -1,36 +1,32 @@
 <?php
-function startConfigs($file)
+function dep($data, $tit = null)
 {
-    global $root;
-    $configEnd=[];
-    if (!isset($_SESSION[$file])) {
-        $conf = parse_ini_file($root."/config/".$file.'.ini', TRUE);
-        foreach ($conf as $x => $xval) {
-            foreach ($xval as $y => $yval) $configEnd[$x][$y] = $yval;
-        }
-    }
-    return $configEnd;
+    $format = print_r("<div><small>BEG Debug [{$tit}] > " . date('Y-m-d H:i:s'));
+    if (isset($data)) {
+        $format .= print_r('<pre>');
+        $format .= print_r($data);
+        $format .= print_r('</pre>');
+    } else $format .= print_r(' *null* ');
+    $format = print_r(" END</small></div>");
+    return $format;
 }
-function vP($est, $log = null)
-{
-    if ($est) {
-        $LOGt = cfg['p']['m-ok'];
-        $LOGc = cfg['p']['c-ok'];
-        $LOGi = cfg['i']['okp'];
-        $LOGicon = 'success';
-        $LOGimg = RAIZa . cfg['p']['i-ok'];
-    } else {
-        $LOGt = cfg['p']['m-fail'];
-        $LOGc = cfg['p']['c-fail'];
-        $LOGi = cfg['i']['failp'];
-        $LOGicon = 'error';
-        $LOGimg = RAIZa . cfg['p']['i-fail'];
+
+if (!function_exists('startConfigs')) {
+    function startConfigs($name)
+    {
+        $ret = null;
+        if (!isset($_SESSION[$name])) {
+            $conf = parse_ini_file(root['o'] . "{$name}.ini", TRUE);
+            foreach ($conf as $x => $xval) {
+                foreach ($xval as $y => $yval) $configEnd[$x][$y] = $yval;
+            }
+            $_SESSION[$name] = $configEnd;
+            $ret = $configEnd;
+        } else {
+            $ret = $_SESSION[$name];
+        }
+        return $ret;
     }
-    $_SESSION['LOG']['t'] = $LOGt;
-    $_SESSION['LOG']['m'] = $log;
-    $_SESSION['LOG']['c'] = $LOGc;
-    $_SESSION['LOG']['i'] = $LOGimg;
-    $_SESSION['LOG']['img'] = $LOGimg;
 }
 
 function getRealIpAddress(): string
@@ -136,32 +132,4 @@ function uploadfile($params, $file)
     $auxres['EST'] = $aux_grab;
     $auxres['FILE'] = $filename;
     return $auxres;
-}
-
-//Function to prevent SQL injection
-if (!function_exists("SSQL")) { //v.2.0 -> duotics_lib
-    function SSQL($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "")
-    { //v.2.0
-        global $conn;
-        if (isset($theValue)) $theValue = mysqli_real_escape_string($conn, $theValue);
-        switch ($theType) {
-            case "text":
-                $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-                break;
-            case "long":
-            case "int":
-                $theValue = ($theValue != "") ? intval($theValue) : "NULL";
-                break;
-            case "double":
-                $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
-                break;
-            case "date":
-                $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-                break;
-            case "defined":
-                $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
-                break;
-        }
-        return $theValue;
-    }
 }

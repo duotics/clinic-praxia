@@ -15,7 +15,7 @@ $dPac = $mPac->det;
 $dPacF = $mPac->detF;
 if ($dPac) {
 	$idp = $dPac['pac_cod'];
-	$regBP = regBusPac($id);
+	$mPac->registrarBusquedaPaciente($id);
 	$acc = md5("UPDp");
 	$dPacSig = $mSig->getLastSignPac($idS);
 

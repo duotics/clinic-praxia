@@ -35,14 +35,6 @@ return $anio_dif.' Años';
 }else return '-';
 }*/
 
-// Calcula la edad (formato: año/mes/dia)
-function edad($edad)
-{
-	if ($edad) {
-		list($Y, $m, $d) = explode("-", $edad);
-		return (date("md") < $m . $d ? date("Y") - $Y - 1 : date("Y") - $Y);
-	} else return '-';
-}
 //Sesiones Pendientes de Tratamiento de una Terapia
 function fnc_ses_pen($ter_num)
 {

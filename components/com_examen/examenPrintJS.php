@@ -36,7 +36,7 @@ if ($dExa) {
 $css['body'] = 'cero';
 ?>
 <?php include(root['f'] . 'head.php'); ?>
-<link rel="stylesheet" type="text/css" href="<?php echo $RAIZa ?>css/cssPrint_01-02.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo route['a'] ?>css/cssPrint_01-02.css" />
 <div class="print print-examen">
 	<!-- ENCABEZADO -->
 	<table class="tabMin tabHead tabClear">
@@ -127,6 +127,6 @@ $css['body'] = 'cero';
 		<?php echo $dExaF['pie'] ?>
 	<?php } ?>
 	<div class="sello">
-		<div class="selloEA"><img src="<?php echo $RAIZa ?>images/struct/selloA-02.jpg" alt="" style="width: 100%"></div>
+		<div class="selloEA"><img src="<?php echo route['a'] ?>images/struct/selloA-02.jpg" alt="" style="width: 100%"></div>
 	</div>
 </div>

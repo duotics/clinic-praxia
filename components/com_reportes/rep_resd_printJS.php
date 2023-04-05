@@ -21,7 +21,7 @@ if ($fi && $ff) {
 	$dRS = mysqli_fetch_assoc($RS);
 	$tRS = mysqli_num_rows($RS);
 } ?>
-<link rel="stylesheet" type="text/css" href="<?php echo $RAIZa ?>css/cssPrint_01-02.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo route['a'] ?>css/cssPrint_01-02.css" />
 <?php $css["body"] = 'cero';
 include(root['f'] . "head.php"); ?>
 <div class="print print-report">

@@ -103,7 +103,7 @@ if ($idt) {
 		include(root['f'] . 'head.php');
 ?>
 		<!--BEGIN PRINT RECETA-->
-		<link rel="stylesheet" type="text/css" href="<?php echo $RAIZa ?>css/cssPrint_01-02.css" />
+		<link rel="stylesheet" type="text/css" href="<?php echo route['a'] ?>css/cssPrint_01-02.css" />
 
 		<!--RECETA-->
 		<div class="print print-receta">
@@ -173,10 +173,10 @@ if ($idt) {
 			<!--VIEW SELLOS-->
 			<div>
 				<div class="sello">
-					<div class="selloR1"><img src="<?php echo $RAIZa ?>images/struct/selloA-02.jpg" alt="" style="width: 100%"></div>
+					<div class="selloR1"><img src="<?php echo route['a'] ?>images/struct/selloA-02.jpg" alt="" style="width: 100%"></div>
 				</div>
 				<div class="sello">
-					<div class="selloR2"><img src="<?php echo $RAIZa ?>images/struct/selloA-02.jpg" alt="" style="width: 100%"></div>
+					<div class="selloR2"><img src="<?php echo route['a'] ?>images/struct/selloA-02.jpg" alt="" style="width: 100%"></div>
 				</div>
 			</div>
 		</div>

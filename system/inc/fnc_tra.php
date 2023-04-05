@@ -1,40 +1,4 @@
 <?php
-function regBusPac($idp)
-{
-	global $sdate;
-	$LOG = null;
-	$vP = FALSE;
-	//Busco si hay un paciente registrado en la fecha actual
-	$paramsN[] = array(
-		array("cond" => "AND", "field" => "idp", "comp" => "=", "val" => $idp),
-		array("cond" => "AND", "field" => "fec", "comp" => '=', "val" => $sdate)
-	);
-	$dB = detRowNP('db_busquedas_pac', $paramsN);
-	if (!$dB) { //Si no hay lo registro
-		$qI = sprintf(
-			'INSERT INTO db_busquedas_pac (idp, fec, est) VALUES (%s,%s,%s)',
-			SSQL($idp, 'int'),
-			SSQL($sdate, 'date'),
-			SSQL(0, 'int')
-		);
-		if (mysqli_query(conn, $qI)) {
-			$LOG .= 'Reg busqueda';
-			$vP = TRUE;
-		} else {
-			$LOG .= 'Error reg busqueda' . mysqli_error(conn);
-		}
-	} else {
-		$LOG .= 'Reg find, not save. ' . $dB['id'];
-	}
-	$ret['log'] = $LOG;
-	if ($vP == TRUE) {
-		$ret['est'] = TRUE;
-	} else {
-		$ret['est'] = FALSE;
-	}
-	return $ret;
-}
-
 //Verifico La Existencia de GINECOLOGIA
 function verifyGIN($id_pac, $data)
 {

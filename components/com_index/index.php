@@ -1,6 +1,6 @@
 <?php include('../../init.php');
 $Auth->vLogin();
-$obj = new App\Core\genInterfaceHeader(null,'page-header',"INICIO");
+$obj = new App\Core\genInterfaceHeader(null,'header',"INICIO");
 include(root['f'] . "head.php");
 include(root['m'] . 'mod_menu/menuMain.php');
 sLOG("g") ?>

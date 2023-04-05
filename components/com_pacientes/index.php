@@ -1,6 +1,6 @@
 <?php include('../../init.php');
 $dM = $Auth->vLogin('PACIENTE');
-$objHead = new App\Core\genInterfaceHeader($dM, 'page-header');
+$objHead = new App\Core\genInterfaceHeader($dM, 'header');
 include(root['f'] . "head.php");
 include(root['m'] . 'mod_menu/menuMain.php'); ?>
 <div class="container">

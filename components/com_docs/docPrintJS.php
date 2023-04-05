@@ -6,7 +6,7 @@ $detCon = detRow('db_consultas', 'con_num', $det['con_num']); //fnc_datatrat($id
 $dPac = detRow('db_pacientes', 'pac_cod', $detCon['pac_cod']);
 $css["body"] = 'cero';
 include(root['f'] . 'head.php'); ?>
-<link rel="stylesheet" type="text/css" href="<?php echo $RAIZa ?>css/cssPrint_01-02.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo route['a'] ?>css/cssPrint_01-02.css" />
 <div class="print print-documento">
 
 	<?php

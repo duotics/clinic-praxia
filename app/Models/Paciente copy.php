@@ -202,28 +202,5 @@ class Paciente
         }
         return $ret;
     }
-    public function registrarBusquedaPaciente($idp)
-    {
-        /* db_busquedas_pac
-        Este registro sirve para almacenar las busquedas de pacientes 
-        para llenar los signos vitales en el dispositivo mobil
-        */
-        $LOG = null;
-        $vP = FALSE;
-        $dPacRegToday = $this->getBusquedaPacienteToday($idp); //Busco si hay un paciente registrado en la fecha actual
-        if (!$dPacRegToday) { //Registro la busqueda Si no hay lo registro
-            $sql = "INSERT INTO db_busquedas_pac (idp, fec, est) VALUES (?,?,?)";
-            $params = array($idp, sys['sdate'], 0);
-            $this->db->insertSQL($sql, $params);
-        }
-    }
-    public function getBusquedaPacienteToday($idp)
-    {
-        $paramsN[] = array(
-            array("cond" => "AND", "field" => "idp", "comp" => "=", "val" => $idp),
-            array("cond" => "AND", "field" => "fec", "comp" => '=', "val" => sys['sdate'])
-        );
-        $ret = $this->db->detRowNP('db_busquedas_pac', $paramsN);
-        return $ret;
-    }
+    public function reg
 }

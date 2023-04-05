@@ -2,6 +2,7 @@
     const RAIZ = "<?php echo $_ENV['APP_URL'] ?>";
     const RAIZ0 = "<?php echo $_ENV['APP_URLR'] ?>";
     const RAIZp = "<?php echo route['p'] ?>";
+    const RAIZc = "<?php echo route['c'] ?>";
 </script>
 
 <script type="text/javascript" src="<?php echo route['n'] . 'jquery/dist/jquery.min.js' ?>"></script>
