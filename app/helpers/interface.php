@@ -1,4 +1,14 @@
 <?php
+function getBgBodyfromConfigFile()
+{
+    try{
+        if (!isset(cfgBg['bg'])) throw new Exception("No existe archivo de configuración de fondo");
+        $val = cfgBg['bg'][array_rand(cfgBg['bg'])];
+        return $val;
+    }catch (Exception $e){
+        echo $e->getMessage();
+    }
+}
 function genFormsInpRadio($params, $sel = null, $typ = null, $def = null, $name = null)
 { //duotics_lib -> v.0.7
     $val = null;

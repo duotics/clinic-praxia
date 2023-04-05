@@ -2,13 +2,14 @@
 function startConfigs($file)
 {
     global $root;
-    if (!isset($_SESSION['conf'])) {
-        $conf = parse_ini_file($root."config/".$file.'.ini', TRUE);
+    $configEnd=[];
+    if (!isset($_SESSION[$file])) {
+        $conf = parse_ini_file($root."/config/".$file.'.ini', TRUE);
         foreach ($conf as $x => $xval) {
             foreach ($xval as $y => $yval) $configEnd[$x][$y] = $yval;
         }
-        define($file, $configEnd);
     }
+    return $configEnd;
 }
 function vP($est, $log = null)
 {
