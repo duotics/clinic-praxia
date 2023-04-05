@@ -12,10 +12,10 @@ $TRt['lab'] = totRowsTab('db_laboratorio');
                     <h3 class="panel-title">Laboratorios <span class="badge badge-info"><?php echo $TRt['lab'] ?></span></h3>
                 </div>
                 <div class="panel-body">
-                    <a href="<?php echo $RAIZc ?>com_laboratorios/laboratorio.php" class="btn btn-primary btn-lg btn-block">
+                    <a href="<?php echo route['c'] ?>com_laboratorios/laboratorio.php" class="btn btn-primary btn-lg btn-block">
                         Gestionar Laboratorios
                     </a>
-                    <a href="<?php echo $RAIZc ?>com_laboratorios/laboratorioForm.php" class="btn btn-default btn-block">
+                    <a href="<?php echo route['c'] ?>com_laboratorios/laboratorioForm.php" class="btn btn-default btn-block">
                         <?php echo $cfg['btn']['newI'] ?>
                         <?php echo $cfg['btn']['newT'] ?>
                     </a>

@@ -38,7 +38,7 @@ if ($fi && $ff) {
 			<div class="form-group">
 				<button class="btn btn-sm btn-success" type="submit">Consultar</button>
 				<a class="btn btn-sm btn-default" href="<?php echo $urlc ?>">Limpiar</a>
-				<!--<a class="printerButton btn btn-default btn-sm" data-val="<?php echo $fi ?>/<?php echo $ff ?>" data-rel="<?php echo $RAIZc ?>com_reportes/rep_resd_printJS.php">
+				<!--<a class="printerButton btn btn-default btn-sm" data-val="<?php echo $fi ?>/<?php echo $ff ?>" data-rel="<?php echo route['c'] ?>com_reportes/rep_resd_printJS.php">
 	<i class="fa fa-print fa-lg"></i> Imprimir</a>-->
 			</div>
 		</fieldset>
@@ -66,7 +66,7 @@ if ($fi && $ff) {
 					$contAT += $dRS['at'];
 					?>
 					<tr>
-						<td><a href="<?php echo $RAIZc . "com_medicamentos/medicamentosForm.php?id=" . $dM['id_form'] ?>"><?php echo $dM['id_form'] ?></a></td>
+						<td><a href="<?php echo route['c'] . "com_medicamentos/medicamentosForm.php?id=" . $dM['id_form'] ?>"><?php echo $dM['id_form'] ?></a></td>
 						<td><?php echo $dLab['typ_val'] ?? null ?></td>
 						<td><?php echo $dM['generico'] ?? null ?></td>
 						<td><?php echo $dRS['comercial'] ?? null ?></td>

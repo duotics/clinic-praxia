@@ -9,6 +9,11 @@ use App\Core\Paginator;
 class Menu
 {
     private $db;
+    protected $mainTableName = "tbl_menus";
+    protected $mainIDName = "id";
+    protected $mainRefName = "ref";
+    protected $secTableName = "tbl_menus_items";
+    protected $secIDName = "men_id";
     protected $id;
     protected $idi;
     public $det;
@@ -28,9 +33,17 @@ class Menu
     {
         $this->idi = $id;
     }
+    function getmainRefName()
+    {
+        return $this->mainRefName;
+    }
     public function det()
     {
         $this->det = $this->db->detRow("dbMenu", null, 'md5(idMen)', $this->id);
+    }
+    public function detParam($fiel = 1, $val = 1)
+    {
+        $this->det = $this->db->detRow($this->mainTableName, null, $fiel, $val);
     }
     public function detI()
     {
@@ -112,14 +125,47 @@ class Menu
         return $res;
     }
     //DATA for generate Menus navbar
-    public function getAllMenuParent($refMC)
+    public function getAllMenuItems_LevelAccess($refMC = null, $idParent = 0)
     {
-        $sql = "SELECT * FROM tbl_menus_items 
-        INNER JOIN tbl_menu_usuario ON tbl_menus_items.men_id = tbl_menu_usuario.men_id 
-        INNER JOIN tbl_menus on tbl_menus_items.men_idc=tbl_menus.id 
-        WHERE tbl_menus.ref = '{$refMC}' 
-        AND tbl_menus_items.men_padre = 0 AND tbl_menu_usuario.usr_id = {$_SESSION['dU']['ID']} 
+        $sqlUser = array("join" => null, "where" => null);
+        $sqlMenu = array("join" => null, "where" => null);
+        $idParent = (int)$idParent;
+
+        if ($_SESSION['dU']['LEVEL'] != 1) {
+            $sqlUser['join'] = " INNER JOIN tbl_menu_usuario ON tbl_menus_items.men_id = tbl_menu_usuario.men_id ";
+            $sqlUser['where'] = " AND tbl_menu_usuario.usr_id = {$_SESSION['dU']['ID']}";
+        }
+        if ($refMC) {
+            $sqlMenu['join'] = " INNER JOIN tbl_menus on tbl_menus_items.men_idc=tbl_menus.id ";
+            $sqlMenu['where'] = " AND tbl_menus.ref = '{$refMC}' ";
+        }
+        $sql = "SELECT 
+        {$this->secTableName}.men_id as id,
+        {$this->secTableName}.men_nombre as nom,
+        {$this->secTableName}.men_tit as tit,
+        {$this->secTableName}.men_icon as ico,
+        {$this->secTableName}.men_css as css,
+        {$this->secTableName}.men_cssl as cssl,
+        {$this->secTableName}.men_sty as sty,
+        {$this->secTableName}.men_precode as pre,
+        {$this->secTableName}.men_postcode as pos,
+        {$this->secTableName}.men_link as link,
+        {$this->secTableName}.men_orden as ord,
+        {$this->secTableName}.mod_cod as idCom
+
+        FROM {$this->secTableName} 
+
+        {$sqlUser['join']}
+        {$sqlMenu['join']}
+
+        WHERE 1=1 
+
+        {$sqlUser['where']}
+        {$sqlMenu['where']}
+
+        AND tbl_menus_items.men_padre = {$idParent} 
         AND tbl_menus_items.men_stat = 1 
+
         ORDER BY men_orden ASC";
         $res = $this->db->selectAllSQL($sql);
         return $res;

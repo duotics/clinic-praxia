@@ -5,7 +5,7 @@ $lCir = $mCir->getAllCirCon($idc, $idp);
 <div class="panel panel-primary">
   <div class="panel-heading">
     <i class="fa fa-medkit fa-lg"></i> CIRUGIAS
-    <a href="<?php echo $RAIZc ?>com_cirugia/cirugiaForm.php?idp=<?php echo $idp ?>&idc=<?php echo $idc ?>" class="btn btn-default btn-xs fancybox fancybox.iframe fancyreload"> NUEVO <i class="fa fa-plus-circle fa-lg"></i> </a>
+    <a href="<?php echo route['c'] ?>com_cirugia/cirugiaForm.php?idp=<?php echo $idp ?>&idc=<?php echo $idc ?>" class="btn btn-default btn-xs fancybox fancybox.iframe fancyreload"> NUEVO <i class="fa fa-plus-circle fa-lg"></i> </a>
   </div>
   <div class="panel-body">
 

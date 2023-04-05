@@ -54,7 +54,7 @@ $btnClose = "<a href='index.php' class='btn btn-default'>{$cfg['b']['close']}</a
 			<div class="navbar-right btn-group navbar-btn">
 				<?php echo $btnAcc ?>
 				<?php if ($id) { ?>
-					<a href="<?php echo $RAIZc ?>com_consultas/form.php?idp=<?php echo $id ?>" class="btn btn-info"><i class="fa fa-eye"></i> VER CONSULTA</a>
+					<a href="<?php echo route['c'] ?>com_consultas/form.php?idp=<?php echo $id ?>" class="btn btn-info"><i class="fa fa-eye"></i> VER CONSULTA</a>
 				<?php } ?>
 				<?php echo $btnNew ?>
 				<?php echo $btnClose ?>
@@ -149,7 +149,7 @@ $btnClose = "<a href='index.php' class='btn btn-default'>{$cfg['b']['close']}</a
 					</div>
 				</fieldset>
 				<div><?php if ($dPac) { ?>
-						<a href="<?php echo $RAIZc ?>com_signos/gestSig.php?ids=<?php echo md5($id) ?>" class="btn btn-success btn-block fancybox fancybox.iframe fancyreload">
+						<a href="<?php echo route['c'] ?>com_signos/gestSig.php?ids=<?php echo md5($id) ?>" class="btn btn-success btn-block fancybox fancybox.iframe fancyreload">
 							<i class="fa fa-bars fa-lg"></i> Registrar</a>
 					<?php } ?>
 				</div>

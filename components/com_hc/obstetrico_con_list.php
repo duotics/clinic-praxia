@@ -9,7 +9,7 @@ $tr_RSo=mysqli_num_rows($RSo);
 <div class="panel panel-primary">
   <div class="panel-heading">
 	<i class="fa fa-female fa-lg"></i> OBSTETRICIA
-    <a href="<?php echo $RAIZc ?>com_hc/obstetrico_form.php?idp=<?php echo $id_pac ?>" class="btn btn-default btn-xs fancybox.iframe fancyreload"> <i class="fa fa-plus-circle fa-lg"></i> NUEVO </a>
+    <a href="<?php echo route['c'] ?>com_hc/obstetrico_form.php?idp=<?php echo $id_pac ?>" class="btn btn-default btn-xs fancybox.iframe fancyreload"> <i class="fa fa-plus-circle fa-lg"></i> NUEVO </a>
     
   </div>
   <div class="panel-body">
@@ -60,9 +60,9 @@ $tr_RSo=mysqli_num_rows($RSo);
                     <?php }else echo '<div>No hay Visitas</div>'?>
                     </td>
                     <td><div class="btn-group">
-                    <a href="<?php echo $RAIZc ?>com_hc/obstetrico_form.php?ido=<?php echo $row_RSo['obs_id'] ?>" class="btn btn-primary btn-xs fancybox.iframe fancyreload">
+                    <a href="<?php echo route['c'] ?>com_hc/obstetrico_form.php?ido=<?php echo $row_RSo['obs_id'] ?>" class="btn btn-primary btn-xs fancybox.iframe fancyreload">
                     <i class="fa fa-pencil-square-o"></i> Modificar</a>
-                    <a href="<?php echo $RAIZc; ?>com_hc/obstetrico_form.php?ido=<?php echo $row_RSo['obs_id'] ?>&action=DELOF" rel="shadowbox:options={relOnClose:true}" class="btn btn-danger btn-xs">
+                    <a href="<?php echo route['c']; ?>com_hc/obstetrico_form.php?ido=<?php echo $row_RSo['obs_id'] ?>&action=DELOF" rel="shadowbox:options={relOnClose:true}" class="btn btn-danger btn-xs">
                     <i class="fa-solid fa-trash"></i> Eliminar</a>
                     </div>
                     </td>

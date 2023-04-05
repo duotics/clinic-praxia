@@ -25,14 +25,14 @@ if($detPac['pac_fec']) $detPac_fec=edad($detPac['pac_fec']).'Años';
         <li><a><?php echo $detPac_fec ?></a></li>
       </ul>
       <div class="navbar-right btn-group navbar-btn">
-      <a href="<?php echo $RAIZc ?>com_examen/examenForm.php?idp=<?php echo $id ?>" class="btn btn-info fancyreload fancybox.iframe"><col-md- class="glyphicon glyphicon-plus-sign"></col-md-> NUEVO EXAMEN</a>
+      <a href="<?php echo route['c'] ?>com_examen/examenForm.php?idp=<?php echo $id ?>" class="btn btn-info fancyreload fancybox.iframe"><col-md- class="glyphicon glyphicon-plus-sign"></col-md-> NUEVO EXAMEN</a>
       </div>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
 <ol class="breadcrumb">
-  <li><a href="<?php echo $RAIZc.'com_index/'?>">Inicio</a></li>
-  <li><a href="<?php echo $RAIZc.'com_examen/'?>">Examenes</a></li>
+  <li><a href="<?php echo route['c'].'com_index/'?>">Inicio</a></li>
+  <li><a href="<?php echo route['c'].'com_examen/'?>">Examenes</a></li>
   <li class="active">Paciente</li>
 </ol>
 <?php if($detPac){
@@ -66,7 +66,7 @@ $tr_RSh=mysqli_num_rows($RSh);
 			<td><?php echo $row_RSh['descripcion'] ?></td>
    			<td><?php echo $row_RSh['resultado'] ?></td>
             <td>
-            <a class="btn btn-info btn-xs fancyreload fancybox.iframe" href="<?php echo $RAIZc ?>com_examen/examenForm.php?ide=<?php echo $row_RSh['id_exa'];?>">
+            <a class="btn btn-info btn-xs fancyreload fancybox.iframe" href="<?php echo route['c'] ?>com_examen/examenForm.php?ide=<?php echo $row_RSh['id_exa'];?>">
         	<i class="fa fa-edit fa-lg"></i> Editar</a>
             <a href="_fncts.php?ide=<?php echo $row_RSh['id_exa'] ?>&acc=<?php echo md5('DELE') ?>&url=<?php echo $urlc ?>" class="btn btn-danger btn-xs">
             <i class="fa-solid fa-trash"></i> Eliminar</a></td>

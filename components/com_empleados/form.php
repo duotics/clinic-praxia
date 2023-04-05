@@ -15,8 +15,8 @@ include(root['f']."head.php");
 include(root['m'].'mod_menu/menuMain.php');
 sLOG('g') ?>
 <ul class="breadcrumb">
-	<li><a href="<?php echo $RAIZc ?>com_index">Inicio</a></li> 
-	<li><a href="<?php echo $RAIZc ?>com_empleados">Empleados</a></li>
+	<li><a href="<?php echo route['c'] ?>com_index">Inicio</a></li> 
+	<li><a href="<?php echo route['c'] ?>com_empleados">Empleados</a></li>
     <li class="active">Formulario</li>
 </ul>
 <div class="container">
@@ -119,14 +119,14 @@ sLOG('g') ?>
                      </div>
                 </div> 
                 <div class="text-center">
-                <a class="btn btn-info" href="<?php echo $RAIZc ?>com_usersystem/form.php?id=<?php echo $detU['usr_id'] ?>">
+                <a class="btn btn-info" href="<?php echo route['c'] ?>com_usersystem/form.php?id=<?php echo $detU['usr_id'] ?>">
                 <i class="fa fa-edit fa-lg"></i> Editar usuario</a> 			
                 </div>
                 </fieldset>
                 <?php }else{ ?>
                 <div class="text-center">
                 <p class="lead">No Existe Usuario Relacionado</p>
-                <a href="<?php echo $RAIZc ?>com_usersystem/user_form.php" class="btn btn-primary">Crear Credenciales de Usuario</a>
+                <a href="<?php echo route['c'] ?>com_usersystem/user_form.php" class="btn btn-primary">Crear Credenciales de Usuario</a>
                 </div>
 				<?php }?>
                 <?php }else{ ?>

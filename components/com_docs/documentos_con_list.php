@@ -61,20 +61,20 @@ $classtr;
 		<td><?php echo $dRSd['nombre'] ?></td>
 		<td>
         <div class="btn-group">
-        <a href="<?php echo $RAIZc ?>com_docs/print_doc.php?idd=<?php echo $idDoc ?>" class="btn btn-default btn-xs fancybox fancybox.iframe">
+        <a href="<?php echo route['c'] ?>com_docs/print_doc.php?idd=<?php echo $idDoc ?>" class="btn btn-default btn-xs fancybox fancybox.iframe">
         <i class="fa fa-eye"></i> Ver</a>
-        <!--<a href="<?php echo $RAIZc ?>com_docs/doc_print.php?id=<?php echo $idDoc ?>" class="btn btn-default btn-xs fancybox fancybox.iframe">
+        <!--<a href="<?php echo route['c'] ?>com_docs/doc_print.php?id=<?php echo $idDoc ?>" class="btn btn-default btn-xs fancybox fancybox.iframe">
         <i class="fa fa-print"></i> Imprimir</a>-->
         
-        <a class="printerButton btn btn-default btn-xs" data-id="<?php echo $idDoc ?>" data-rel="<?php echo $RAIZc ?>com_docs/docPrintJS.php">
+        <a class="printerButton btn btn-default btn-xs" data-id="<?php echo $idDoc ?>" data-rel="<?php echo route['c'] ?>com_docs/docPrintJS.php">
         <i class="fa fa-print fa-lg"></i> Imprimir</a>
         
         </div>
         <div id="docprint<?php echo $idDoc ?>" style="display:none;"><?php echo ($dRSd['contenido']) ?></div></td>
 		<td><div class="btn-group">
-		<a href="<?php echo $RAIZc ?>com_docs/documentoForm.php?idd=<?php echo $idDoc ?>" class="btn btn-primary btn-xs fancybox.iframe fancyreload">
+		<a href="<?php echo route['c'] ?>com_docs/documentoForm.php?idd=<?php echo $idDoc ?>" class="btn btn-primary btn-xs fancybox.iframe fancyreload">
     <?php echo $cfg['btn']['editI'].' '.$cfg['btn']['editT'] ?></a>
-		<a href="<?php echo $RAIZc; ?>com_docs/documentoForm.php?idd=<?php echo $idD ?>&acc=<?php echo md5('DELd') ?>" class="btn btn-danger btn-xs fancybox fancybox.iframe fancyreload">
+		<a href="<?php echo route['c']; ?>com_docs/documentoForm.php?idd=<?php echo $idD ?>&acc=<?php echo md5('DELd') ?>" class="btn btn-danger btn-xs fancybox fancybox.iframe fancyreload">
         <?php echo $cfg['btn']['delI'] ?></a>
 		</div></td>
         </tr>

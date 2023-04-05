@@ -81,7 +81,7 @@ $lTratAnt = $mTrat->listadoTratamientosAnteriores($idp);
 									<a href="<?php echo "{$RAIZc}com_tratamientos/tratamientoForm.php?idt={$dRSt['tid']}" ?>" class=" btn btn-primary fancybox fancybox.iframe fancyreload">
 										<?php echo $cfg['b']['edit'] ?>
 									</a>
-									<a class="printerButton btn btn-default" data-id="<?php echo $dRSt['tid'] ?>" data-rel="<?php echo $RAIZc ?>com_tratamientos/recetaPrintJS.php">
+									<a class="printerButton btn btn-default" data-id="<?php echo $dRSt['tid'] ?>" data-rel="<?php echo route['c'] ?>com_tratamientos/recetaPrintJS.php">
 										<?php echo $cfg['b']['print'] ?>
 									</a>
 									<a href="<?php echo "{$RAIZc}com_tratamientos/tratamientoForm.php?idt={$dRSt['tid']}&acc=" . md5("DELtf") ?>" class="btn btn-danger fancybox fancybox.iframe">

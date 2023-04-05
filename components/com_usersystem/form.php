@@ -17,8 +17,8 @@ include(root['f'] . "head.php");
 include(root['m'] . 'mod_menu/menuMain.php');
 sLOG('g') ?>
 <ul class="breadcrumb">
-     <li><a href="<?php echo $RAIZc ?>com_index">Inicio</a></li>
-     <li><a href="<?php echo $RAIZc ?>com_usersystem">Usuarios</a></li>
+     <li><a href="<?php echo route['c'] ?>com_index">Inicio</a></li>
+     <li><a href="<?php echo route['c'] ?>com_usersystem">Usuarios</a></li>
      <li class="active">Formulario</li>
 </ul>
 <div class="container">
@@ -139,7 +139,7 @@ sLOG('g') ?>
                                    </div>
 
                                    <div class="text-center">
-                                        <a class="btn btn-info" href="<?php echo $RAIZc ?>com_empleados/form.php?id=<?php echo $idE ?>">
+                                        <a class="btn btn-info" href="<?php echo route['c'] ?>com_empleados/form.php?id=<?php echo $idE ?>">
                                              <i class="fa fa-edit fa-lg"></i> Editar informacion Empleado</a>
                                    </div>
 

@@ -10,7 +10,7 @@ $tr_RSt=mysqli_num_rows($RSt);
 <div class="panel panel-primary">
   <div class="panel-heading">
 	<i class="fa fa-columns fa-lg"></i> TRATAMIENTOS
-    <a href="<?php echo $RAIZc ?>com_hc/tratamiento_form.php?idp=<?php echo $id_pac ?>&idc=<?php echo $id_cons ?>" class="btn btn-default btn-xs fancybox.iframe fancyreload"> <i class="fa fa-plus-circle fa-lg"></i> NUEVO </a>
+    <a href="<?php echo route['c'] ?>com_hc/tratamiento_form.php?idp=<?php echo $id_pac ?>&idc=<?php echo $id_cons ?>" class="btn btn-default btn-xs fancybox.iframe fancyreload"> <i class="fa fa-plus-circle fa-lg"></i> NUEVO </a>
     
   </div>
   <div class="panel-body">
@@ -55,11 +55,11 @@ $tr_RSt=mysqli_num_rows($RSt);
 			<?php }else echo '<div>No hay Medicamentos Prescritos</div>'?>
             </td>
             <td><div class="btn-group">
-            <a href="<?php echo $RAIZc ?>com_hc/tratamiento_form.php?idt=<?php echo $row_RSt['tid'] ?>" class="btn btn-primary btn-xs fancybox fancybox.iframe fancyreload">
+            <a href="<?php echo route['c'] ?>com_hc/tratamiento_form.php?idt=<?php echo $row_RSt['tid'] ?>" class="btn btn-primary btn-xs fancybox fancybox.iframe fancyreload">
             <i class="fa fa-pencil-square-o"></i> Modificar</a>
-            <a href="<?php echo $RAIZc; ?>com_hc/receta_print.php?idt=<?php echo $row_RSt['tid'] ?>" class="btn btn-default btn-xs fancybox fancybox.iframe">
+            <a href="<?php echo route['c']; ?>com_hc/receta_print.php?idt=<?php echo $row_RSt['tid'] ?>" class="btn btn-default btn-xs fancybox fancybox.iframe">
             <i class="fa fa-print"></i> Imprimir</a>
-            <a href="<?php echo $RAIZc; ?>com_hc/tratamiento_form.php?idt=<?php echo $row_RSt['tid'] ?>&action=DELTF" class="btn btn-danger btn-xs fancybox fancybox.iframe">
+            <a href="<?php echo route['c']; ?>com_hc/tratamiento_form.php?idt=<?php echo $row_RSt['tid'] ?>&action=DELTF" class="btn btn-danger btn-xs fancybox fancybox.iframe">
             <i class="fa-solid fa-trash"></i> Eliminar</a>
             </div>
             </td>

@@ -86,7 +86,7 @@ include(root['f']."head.php");?>
                 <div class="form-group">
                 	<label class="col-sm-3 control-label">Contraseña</label>
                      <div class="col-sm-9">
-                     <a href="<?php echo $RAIZc?>com_usersystem/changePass.php" class="btn btn-warning fancybox fancybox.iframe"><i class="fa fa-key"></i> Cambiar Contraseña</a>
+                     <a href="<?php echo route['c']?>com_usersystem/changePass.php" class="btn btn-warning fancybox fancybox.iframe"><i class="fa fa-key"></i> Cambiar Contraseña</a>
                      </div>
                 </div>
                 

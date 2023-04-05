@@ -3,9 +3,9 @@ $dM = $Auth->vLogin('DRUGS');
 include(root['f'] . 'head.php');
 include(root['m'] . 'mod_menu/menuMain.php'); ?>
 <ol class="breadcrumb">
-  <li><a href="<?php echo $RAIZc ?>com_index/">Inicio</a></li>
-  <li><a href="<?php echo $RAIZc ?>com_medicamentos/">Gestion Tratamientos</a></li>
-  <li><a href="<?php echo $RAIZc ?>com_medicamentos/medicamentos.php">Medicamentos</a></li>
+  <li><a href="<?php echo route['c'] ?>com_index/">Inicio</a></li>
+  <li><a href="<?php echo route['c'] ?>com_medicamentos/">Gestion Tratamientos</a></li>
+  <li><a href="<?php echo route['c'] ?>com_medicamentos/medicamentos.php">Medicamentos</a></li>
   <li class="active">Formulario</li>
 </ol>
 <?php sLOG('g') ?>

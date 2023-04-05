@@ -49,7 +49,7 @@ else $param = null;
 						<div class="readmore"><?php echo $row_RSd['res']; ?></div>
 					</td>
 					<td class="text-center">
-						<a class="btn btn-info btn-xs fancyreload fancybox.iframe" href="<?php echo $RAIZc ?>com_examen/examenForm.php?ide=<?php echo $row_RSd['id']; ?>">
+						<a class="btn btn-info btn-xs fancyreload fancybox.iframe" href="<?php echo route['c'] ?>com_examen/examenForm.php?ide=<?php echo $row_RSd['id']; ?>">
 							<i class="fa fa-heart fa-lg"></i> Editar</a>
 
 						<a class="btn btn-default btn-xs" href="gest.php?id=<?php echo $row_RSd['idp']; ?>">

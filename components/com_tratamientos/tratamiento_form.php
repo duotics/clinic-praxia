@@ -75,7 +75,7 @@ include(root['f'] . 'head.php'); ?>
 				<?php echo $btntrat ?>
 				<?php echo $btnaction ?>
 				<?php if ($idt) { ?>
-					<a href="<?php echo $RAIZc; ?>com_tratamientos/receta_print.php?idt=<?php echo $idt ?>" class="btn btn-info"><i class="fa fa-print"></i> Imprimir</a>
+					<a href="<?php echo route['c']; ?>com_tratamientos/receta_print.php?idt=<?php echo $idt ?>" class="btn btn-info"><i class="fa fa-print"></i> Imprimir</a>
 				<?php } ?>
 				</li>
 			</div>

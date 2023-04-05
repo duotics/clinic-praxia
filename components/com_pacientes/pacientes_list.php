@@ -51,9 +51,9 @@ $mPac->getPacList();
 								<i class="fa fa-user"></i> Ficha</a>
 						<?php } ?>
 						<?php if ($dM['mod_ref'] == "CON") { ?>
-							<a href="<?php echo $RAIZc ?>com_consultas/form.php?idp=<?php echo $idp ?>" class="btn btn-primary btn-xs">
+							<a href="<?php echo route['c'] ?>com_consultas/form.php?idp=<?php echo $idp ?>" class="btn btn-primary btn-xs">
 								<i class="fa fa-stethoscope fa-lg"></i> Consulta</a>
-							<a href="<?php echo $RAIZc ?>com_calendar/reserva_form.php?idp=<?php echo $idp ?>" class="btn btn-default btn-xs fancybox.iframe fancyreload">
+							<a href="<?php echo route['c'] ?>com_calendar/reserva_form.php?idp=<?php echo $idp ?>" class="btn btn-default btn-xs fancybox.iframe fancyreload">
 								<i class="fa fa-calendar-o"></i> Reserva</a>
 						<?php } ?>
 						<?php if ($dM['mod_ref'] == "REPH") { ?>

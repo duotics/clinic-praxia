@@ -14,7 +14,7 @@ if($acc=='DELEF'){
 include(root['f'].'head.php');
 include(root['m'].'mod_menu/menuMain.php'); ?>
 <ol class="breadcrumb">
-  <li><a href="<?php echo $RAIZc?>com_index">Inicio</a></li>
+  <li><a href="<?php echo route['c']?>com_index">Inicio</a></li>
   <li><a href="#">Sistema</a></li>
   <li><a href="docFormat.php">Documentos Formato</a></li>
   <li class="active">Formulario</li>

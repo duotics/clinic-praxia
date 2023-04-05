@@ -10,7 +10,7 @@ $tr_RSe=mysqli_num_rows($RSe);
 <div class="panel panel-primary">
   <div class="panel-heading">
 	<i class="fa fa-list-alt fa-lg"></i> EXAMENES
-    <a href="<?php echo $RAIZc ?>com_hc/examen_form.php?idp=<?php echo $id_pac ?>&idc=<?php echo $id_cons ?>&action=NEW" class="btn btn-default btn-xs fancybox.iframe fancyreload"> NUEVO <i class="fa fa-plus-circle fa-lg"></i> </a>
+    <a href="<?php echo route['c'] ?>com_hc/examen_form.php?idp=<?php echo $id_pac ?>&idc=<?php echo $id_cons ?>&action=NEW" class="btn btn-default btn-xs fancybox.iframe fancyreload"> NUEVO <i class="fa fa-plus-circle fa-lg"></i> </a>
   </div>
   <div class="panel-body">
   
@@ -41,8 +41,8 @@ $classtr;
             <td><?php //echo exam_numimg($row_RSe['id']) ?></td>
             <td>
             <div class="btn-group">
-            <a href="<?php echo $RAIZc ?>com_hc/examen_form.php?ide=<?php echo $row_RSe['id_exa'] ?>" class="btn btn-primary btn-xs fancybox fancybox.iframe fancyreload"><i class="fa fa-pencil-square-o"></i> Modificar</a>
-            <a href="<?php echo $RAIZc; ?>com_hc/examen_form.php?ide=<?php echo $row_RSe['id_exa'] ?>&action=DELEF" class="btn btn-default btn-danger btn-xs fancybox.iframe fancyclose"><i class="fa-solid fa-trash"></i> Eliminar</a>
+            <a href="<?php echo route['c'] ?>com_hc/examen_form.php?ide=<?php echo $row_RSe['id_exa'] ?>" class="btn btn-primary btn-xs fancybox fancybox.iframe fancyreload"><i class="fa fa-pencil-square-o"></i> Modificar</a>
+            <a href="<?php echo route['c']; ?>com_hc/examen_form.php?ide=<?php echo $row_RSe['id_exa'] ?>&action=DELEF" class="btn btn-default btn-danger btn-xs fancybox.iframe fancyclose"><i class="fa-solid fa-trash"></i> Eliminar</a>
             </div>
             </td>
         </tr>

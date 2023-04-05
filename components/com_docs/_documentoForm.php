@@ -143,7 +143,7 @@ $NumA = $NE->ValorEnLetras((int)date('Y'), '');
 							//
 							?>
 							<?php do { ?>
-								<li><a href="<?php echo $RAIZc ?>com_docs/documentoForm.php?idd=<?php echo $idd ?>&iddf=<?php echo $row_RSdf['id_df'] ?>&idp=<?php echo $idp ?>&idc=<?php echo $idc ?>&action=NEW"><i class="icon-file"></i> <small>Cambiar a</small> <?php echo $row_RSdf['nombre'] ?></a></li>
+								<li><a href="<?php echo route['c'] ?>com_docs/documentoForm.php?idd=<?php echo $idd ?>&iddf=<?php echo $row_RSdf['id_df'] ?>&idp=<?php echo $idp ?>&idc=<?php echo $idc ?>&action=NEW"><i class="icon-file"></i> <small>Cambiar a</small> <?php echo $row_RSdf['nombre'] ?></a></li>
 							<?php } while ($row_RSdf = mysqli_fetch_assoc($RSdf)); ?>
 
 						</ul>

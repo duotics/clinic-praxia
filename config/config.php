@@ -7,6 +7,9 @@ setlocale(LC_ALL, "es_EC");
 define("cfg", startConfigs("cfg"));
 define("cfgBg", startConfigs("cfgBg"));
 
+$sdate = date('Y-m-d');
+$sdatet = date('Y-m-d H:i:s');
+
 $sys['date'] = date('Y-m-d');
 $sys['datet'] = date('Y-m-d H:i:s');
 $sys['time'] = date('H:i:s');

@@ -196,7 +196,6 @@ class Database
                 htmlentities($field),
                 htmlentities($paramOrd)
             );
-            //dep($sql,$param);
             $RS = $this->dbh->prepare($sql);
             $RS->bindValue("param", $param);
             $RS->setFetchMode(PDO::FETCH_ASSOC);

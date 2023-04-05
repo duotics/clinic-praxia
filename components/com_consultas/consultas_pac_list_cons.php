@@ -47,7 +47,7 @@ if ($totalRows_RSlcp > 0) { ?>
 				}
 				?>
 				<tr>
-					<td><a href="<?php echo $RAIZc ?>com_consultas/form.php?idc=<?php echo $row_RSlcp['con_num']; ?>&nvis=<?php echo $contVis ?>" class="btn btn-default btn-xs btn-block">
+					<td><a href="<?php echo route['c'] ?>com_consultas/form.php?idc=<?php echo $row_RSlcp['con_num']; ?>&nvis=<?php echo $contVis ?>" class="btn btn-default btn-xs btn-block">
 							<i class="fa fa-eye fa-lg"></i> Ver
 						</a></td>
 					<td class="text-center"><?php echo $contVis; ?></td>

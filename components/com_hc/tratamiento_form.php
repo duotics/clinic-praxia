@@ -70,7 +70,7 @@ include(root['f'].'head.php'); ?>
 		<?php echo $btntrat?>
 		<?php echo $btnaction ?>
         <?php if($idt){ ?>
-		<a href="<?php echo $RAIZc; ?>com_hc/receta_print.php?idt=<?php echo $idt ?>" class="btn btn-info"><i class="fa fa-print"></i> Imprimir</a>
+		<a href="<?php echo route['c']; ?>com_hc/receta_print.php?idt=<?php echo $idt ?>" class="btn btn-info"><i class="fa fa-print"></i> Imprimir</a>
         <?php } ?>
 		<a href="<?php echo $_SESSION['urlc'] ?>?idp=<?php echo $idp ?>&idc=<?php echo $idc ?>&action=NEW" class="btn btn-default"><col-md- class="glyphicon glyphicon-plus-sign"></col-md-> NUEVO</a>
 		</li>

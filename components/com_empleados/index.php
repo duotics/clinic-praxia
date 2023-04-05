@@ -3,8 +3,8 @@ $dM=$Auth->vLogin('EMPLEADO');
 include(root['f']."head.php")?>
 <?php include(root['m'].'mod_menu/menuMain.php'); ?>
 <ul class="breadcrumb">
-	<li><a href="<?php echo $RAIZc ?>com_index">Inicio</a></li> 
-	<li><a href="<?php echo $RAIZc ?>com_empleados">Empleados</a></li> 
+	<li><a href="<?php echo route['c'] ?>com_index">Inicio</a></li> 
+	<li><a href="<?php echo route['c'] ?>com_empleados">Empleados</a></li> 
 </ul>
 <div class="container">
 	<div class="btn-group pull-right">

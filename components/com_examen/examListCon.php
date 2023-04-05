@@ -110,7 +110,7 @@ $lExamFormat = $mExam->getAllExamFormatActive();
 									<a href="<?php echo "{$RAIZc}com_examen/examenForm.php?ide={$dRSe['id_exa']}" ?>" class="btn btn-primary fancybox fancybox.iframe fancyreload">
 										<?php echo $cfg['b']['edit'] ?>
 									</a>
-									<a class="printerButton btn btn-default" data-id="<?php echo $dRSe['id_exa'] ?>" data-rel="<?php echo $RAIZc ?>com_examen/examenPrintJS.php">
+									<a class="printerButton btn btn-default" data-id="<?php echo $dRSe['id_exa'] ?>" data-rel="<?php echo route['c'] ?>com_examen/examenPrintJS.php">
 										<?php echo $cfg['i']['print'] ?>
 									</a>
 									<a href="<?php echo "{$RAIZc}com_examen/examenForm.php?ide={$dRSe['id_exa']}&acc=" . md5('DELe') ?>" class="btn btn-default btn-danger fancybox.iframe fancyclose">

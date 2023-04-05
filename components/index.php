@@ -1,0 +1,1 @@
+<?php header("Location: com_index/");

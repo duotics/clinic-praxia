@@ -100,7 +100,7 @@ if(($accJS==TRUE)||($js==1)){
     <div id="alert" class="alert alert-info"><h2>Procesando</h2></div>
     <iframe id="loaderFrame" style="width: 0px; height: 0px; display: none;"></iframe>
     
-    <a class="printerButton btn btn-light btn-sm" data-id="<?php echo $idd ?>" data-rel="<?php echo $RAIZc ?>com_docs/docPrintJS.php">
+    <a class="printerButton btn btn-light btn-sm" data-id="<?php echo $idd ?>" data-rel="<?php echo route['c'] ?>com_docs/docPrintJS.php">
     <i class="fas fa-print fa-lg"></i></a>
     
 	<script type="text/javascript">

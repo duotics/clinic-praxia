@@ -3,9 +3,9 @@ $dM = $Auth->vLogin('LABS');
 include(root['f'] . 'head.php');
 include(root['m'] . 'mod_menu/menuMain.php') ?>
 <ol class="breadcrumb">
-	<li><a href="<?php echo $RAIZc ?>com_index">Inicio</a></li>
-	<li><a href="<?php echo $RAIZc ?>com_laboratorios/">Gestion Tratamientos</a></li>
-	<li><a href="<?php echo $RAIZc ?>com_laboratorios/laboratorio.php">Laboratorio</a></li>
+	<li><a href="<?php echo route['c'] ?>com_index">Inicio</a></li>
+	<li><a href="<?php echo route['c'] ?>com_laboratorios/">Gestion Tratamientos</a></li>
+	<li><a href="<?php echo route['c'] ?>com_laboratorios/laboratorio.php">Laboratorio</a></li>
 	<li class="active">Formulario</li>
 </ol>
 <?php sLOG('g') ?>

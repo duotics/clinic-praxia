@@ -4,7 +4,7 @@
 			<div class="panel-heading">
 				<h3 class="panel-title">
 					<i class="fa fa-user-md fa-lg"></i> Diagnosticos
-					<a href="<?php echo $RAIZc ?>com_comun/gest_diag.php" class="btn btn-info btn-xs fancybox fancybox.iframe fancyreload pull-right" onClick="ansclose=false;"><i class="fa fa-plus-square-o"></i> Gestionar Diagnosticos</a>
+					<a href="<?php echo route['c'] ?>com_comun/gest_diag.php" class="btn btn-info btn-xs fancybox fancybox.iframe fancyreload pull-right" onClick="ansclose=false;"><i class="fa fa-plus-square-o"></i> Gestionar Diagnosticos</a>
 				</h3>
 			</div>
 			<div class="panel-body">

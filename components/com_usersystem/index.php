@@ -4,8 +4,8 @@ include(root['f'] . 'head.php') ?>
 <?php include(root['m'] . 'mod_menu/menuMain.php'); ?>
 <script type="text/javascript" src="js.js"></script>
 <ul class="breadcrumb">
-	<li><a href="<?php echo $RAIZc ?>com_index">Inicio</a></li>
-	<li><a href="<?php echo $RAIZc ?>com_usersystem">Usuarios</a></li>
+	<li><a href="<?php echo route['c'] ?>com_index">Inicio</a></li>
+	<li><a href="<?php echo route['c'] ?>com_usersystem">Usuarios</a></li>
 </ul>
 <div class="container">
 	<div class="btn-group pull-right">

@@ -95,7 +95,7 @@ if ($accJS == TRUE) {
 	</div>
 	<iframe id="loaderFrame" style="width: 0px; height: 0px; display: none;"></iframe>
 
-	<a class="printerButton btn btn-default btn-xs" data-id="<?php echo $idd ?>" data-rel="<?php echo $RAIZc ?>com_docs/docPrintJS.php">
+	<a class="printerButton btn btn-default btn-xs" data-id="<?php echo $idd ?>" data-rel="<?php echo route['c'] ?>com_docs/docPrintJS.php">
 		<i class="fa fa-print fa-lg"></i></a>
 
 	<script type="text/javascript">

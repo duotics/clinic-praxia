@@ -32,7 +32,7 @@ if ($fi && $ff) {
 			</div>
 			<div class="form-group">
 				<button class="btn btn-sm btn-success" type="submit">Consultar</button>
-				<a class="printerButton btn btn-default btn-sm" data-val="<?php echo $fi ?>/<?php echo $ff ?>" data-rel="<?php echo $RAIZc ?>com_reportes/rep_resd_printJS.php">
+				<a class="printerButton btn btn-default btn-sm" data-val="<?php echo $fi ?>/<?php echo $ff ?>" data-rel="<?php echo route['c'] ?>com_reportes/rep_resd_printJS.php">
 					<i class="fa fa-print fa-lg"></i> Imprimir</a>
 			</div>
 		</fieldset>
@@ -64,7 +64,7 @@ if ($fi && $ff) {
 					$contPac++;
 					?>
 					<tr>
-						<td><a href="<?php echo $RAIZc ?>com_consultas/form.php?idc=<?php echo $dRS["con_num"] ?>"><?php echo $dRS["con_num"] ?></a></td>
+						<td><a href="<?php echo route['c'] ?>com_consultas/form.php?idc=<?php echo $dRS["con_num"] ?>"><?php echo $dRS["con_num"] ?></a></td>
 						<td><?php echo $detFec ?></td>
 						<td><?php echo $dPac["pac_ape"] . ' ' . $dPac["pac_nom"] ?></td>
 						<td><?php echo $dTC["typ_val"] ?? null ?></td>

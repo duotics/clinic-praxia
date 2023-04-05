@@ -17,7 +17,7 @@ $IMC = calcIMC(NULL, $dPacSig['peso'] ?? null, $dPacSig['talla'] ?? null);
         <tr>
             <td><label title="ID. <?php echo $dPac['pac_cod'] ?>" class="tooltips">Paciente</label></td>
             <td style="font-size:16px;">
-                <span title="Ver Ficha" class="tooltips"><a href="<?php echo $RAIZc ?>com_pacientes/form.php?id=<?php echo $idp ?>">
+                <span title="Ver Ficha" class="tooltips"><a href="<?php echo route['c'] ?>com_pacientes/form.php?id=<?php echo $idp ?>">
                         <span class="label label-primary"><?php echo $idp ?></span> <?php echo $dPac_fullnom ?></a></span>
                 <span title="Tipo Paciente" class="label label-default tooltips"><?php echo $typ_tp['typ_val'] ?? null ?></span>
                 <span title="Nacimiento. <?php echo $dPac['pac_fec']; ?>" class="label label-default tooltips"><?php echo $dPac_edad ?> años</span>
@@ -57,7 +57,7 @@ $IMC = calcIMC(NULL, $dPacSig['peso'] ?? null, $dPacSig['talla'] ?? null);
                 <span title="Presion Arterial" class="badge tooltips">
                     <?php echo ($dPacSig['paS'] ?? null) . '/' . ($dPacSig['paD'] ?? null) ?> p.a.
                 </span>
-                <a href="<?php echo $RAIZc ?>com_signos/gestSig.php?ids=<?php echo md5($dPac['pac_cod'] ?? null) ?>" class="btn btn-primary btn-xs fancybox fancybox.iframe fancyMed">
+                <a href="<?php echo route['c'] ?>com_signos/gestSig.php?ids=<?php echo md5($dPac['pac_cod'] ?? null) ?>" class="btn btn-primary btn-xs fancybox fancybox.iframe fancyMed">
                     <i class="fa fa-check-square-o fa-lg"></i> Registrar
                 </a>
             </td>

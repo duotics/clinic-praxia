@@ -10,12 +10,10 @@ abstract class genInterface
 
     public function showInterface()
     {
-        $resfin = $this->obj;
-        if ($resfin['est'] == true) {
-            $ret = $resfin['val'];
+        if ($this->vP == true) {
+            echo $this->obj;
         } else {
-            $ret = $resfin['log'];
+            echo $this->log;
         }
-        echo $ret;
     }
 }
