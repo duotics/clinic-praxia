@@ -213,7 +213,7 @@ class Paciente
         $dPacRegToday = $this->getBusquedaPacienteToday($idp); //Busco si hay un paciente registrado en la fecha actual
         if (!$dPacRegToday) { //Registro la busqueda Si no hay lo registro
             $sql = "INSERT INTO db_busquedas_pac (idp, fec, est) VALUES (?,?,?)";
-            $params = array($idp, sys['sdate'], 0);
+            $params = array($idp, sys['date'], 0);
             $this->db->insertSQL($sql, $params);
         }
     }
@@ -221,7 +221,7 @@ class Paciente
     {
         $paramsN[] = array(
             array("cond" => "AND", "field" => "idp", "comp" => "=", "val" => $idp),
-            array("cond" => "AND", "field" => "fec", "comp" => '=', "val" => sys['sdate'])
+            array("cond" => "AND", "field" => "fec", "comp" => '=', "val" => sys['date'])
         );
         $ret = $this->db->detRowNP('db_busquedas_pac', $paramsN);
         return $ret;
