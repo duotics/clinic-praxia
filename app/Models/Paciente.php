@@ -10,7 +10,9 @@ class Paciente
 {
     private $db;
     protected $mainTable = "db_pacientes";
+    protected $secTable = "db_pacientes_nom";
     protected $mainID = "pac_cod";
+    protected $secID = "pac_cod";
     protected $id;
     protected $detAll;
     protected $termBus, $cadBus;
@@ -61,7 +63,7 @@ class Paciente
         //echo "function getParList<br>";
         $this->TRt = $this->db->totRowsTab('db_pacientes', '1', '1'); //TOTAL RESULTADOS DE LA TABLA
         //dep($this->TRt,"TRt");
-        $this->genCadListPac();    //$qry=genCadSearchPac($sbr);
+        $this->genCadSearchPac();    //$qry=genCadSearchPac($sbr);
         $RS = $this->db->dbh->prepare($this->cadBus); //BUSCAR RESULTADOS RELACIONADOS A MI BUSQUEDA SI EXISTIERAN
         $RS->setFetchMode(PDO::FETCH_ASSOC);
         $RS->execute();
@@ -87,41 +89,47 @@ class Paciente
         $res = $this->db->selectAllSQL($this->cadBus);
         return $res;
     }
-    private function genCadSearchPac()
+    private function genCadSearchPac($list = FALSE, $limit = 100)
     {
-        $limit = 50;
         $qry = null;
         if ($this->termBus) {
             $cadBus = fnc_cutblanck($this->termBus);
             $cadBusT = explode(" ", $cadBus);
             $cadBusN = count($cadBusT);
-            //echo $cadBusN;
-            if ($cadBusN > 1) {
-                $qry = "SELECT 
-                db_pacientes_nom.pac_cod AS code, 
-                CONCAT_WS(' ', db_pacientes_nom.pac_nom, db_pacientes_nom.pac_ape) AS value, 
-                MATCH (db_pacientes_nom.pac_nom, db_pacientes_nom.pac_ape) AGAINST ('{$cadBus}') AS Score 
-				FROM db_pacientes_nom
-				INNER JOIN db_pacientes ON db_pacientes.pac_cod=db_pacientes_nom.pac_cod
-				WHERE MATCH (db_pacientes_nom.pac_nom, db_pacientes_nom.pac_ape) AGAINST ('{$cadBus}')
-				ORDER BY Score DESC LIMIT {$limit}";
-            } else {
-                $qry = "SELECT 
-                db_pacientes_nom.pac_cod AS code, 
-                CONCAT_WS(' ', db_pacientes_nom.pac_nom, db_pacientes_nom.pac_ape) AS value
-				FROM db_pacientes_nom
-				INNER JOIN db_pacientes ON db_pacientes.pac_cod=db_pacientes_nom.pac_cod
-				WHERE db_pacientes.pac_nom LIKE '%{$cadBus}%'
-                OR db_pacientes.pac_ape LIKE '%{$cadBus}%' 
-                OR db_pacientes.pac_cod LIKE '%{$cadBus}%' 
-                LIMIT {$limit}";
+            $sqlBus = array("select" => null, "where" => null);
+            if ($list) {
+                $sqlBus['select'] = "
+                {$this->mainTable}.pac_nom as pac_nom, 
+                {$this->mainTable}.pac_ape as pac_ape, 
+                {$this->mainTable}.pac_nom as pac_nom, 
+                ";
             }
+            if ($cadBusN > 1) {
+                $sqlBus['select'] = " MATCH ({$this->secTable}.pac_nom, {$this->secTable}.pac_ape) AGAINST ('{$cadBus}') AS score, ";
+                $sqlBus['where'] = " AND MATCH ({$this->secTable}.pac_nom, {$this->secTable}.pac_ape) AGAINST ('{$cadBus}') ";
+                $sqlBus['order'] = " ORDER BY score DESC ";
+            } else {
+                $sqlBus['where'] = " AND ({$this->secTable}.pac_nom LIKE '%{$cadBus}%'
+                OR {$this->secTable}.pac_ape LIKE '%{$cadBus}%' 
+                OR {$this->secTable}.pac_cod LIKE '%{$cadBus}%') ";
+                $sqlBus['order'] = " ORDER BY code DESC ";
+            }
+            $qry = "SELECT 
+            {$sqlBus['select']}
+            {$this->secTable}.pac_cod AS code, 
+            CONCAT_WS(' ', {$this->secTable}.pac_nom, {$this->secTable}.pac_ape) AS value 
+            FROM {$this->secTable}
+            INNER JOIN {$this->mainTable} ON {$this->secTable}.{$this->secID}={$this->mainTable}.{$this->mainID}
+            WHERE 1=1 
+            {$sqlBus['where']} 
+            {$sqlBus['order']} 
+            LIMIT {$limit}";
         } else {
             $qry = "SELECT 
-            db_pacientes.pac_cod AS code, 
-            CONCAT_WS(' ',db_pacientes.pac_nom, db_pacientes.pac_ape) AS value 
-            FROM db_pacientes 
-            ORDER BY pac_cod DESC LIMIT {$limit}";
+            {$this->mainTable}.{$this->mainID} AS code, 
+            CONCAT_WS(' ',{$this->mainTable}.pac_nom, {$this->mainTable}.pac_ape) AS value 
+            FROM {$this->mainTable} 
+            ORDER BY code DESC LIMIT {$limit}";
         }
         $this->cadBus = $qry;
     }

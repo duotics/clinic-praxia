@@ -6,12 +6,13 @@ $mPac = new Paciente;
 $sbr = $_GET['sBr'] ?? $_POST['sBr'] ?? null;
 $mPac->setTerm($sbr);
 $mPac->getPacList();
-$lPac=$mPac->getDetAll();
+$lPac = $mPac->getDetAll();
 ?>
 <?php if ($sbr) { ?>
-	<div class="alert alert-info alert-dismissable" id="log">
-		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+
+	<div class="alert alert-warning alert-dismissible fade show" role="alert">
 		Mostrando Su Busqueda: <strong>"<?php echo $sbr ?>"</strong>
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 	</div>
 <?php } ?>
 <?php if ($mPac->TRp) { ?>
@@ -35,12 +36,12 @@ $lPac=$mPac->getDetAll();
 			<?php foreach ($lPac as $dRSp) { ?>
 				<?php
 				$idp = $dRSp['pac_cod'];
-				$typ_tsan = null;//dTyp($dRSp['pac_tipsan']);
-				$typ_tsan = null;//$typ_tsan['typ_val'] ?? null;
-				$typ_eciv = null;//dTyp($dRSp['pac_estciv']);
-				$typ_eciv = null;//$typ_eciv['typ_val'] ?? null;
-				$typ_sexo = null;//dTyp($dRSp['pac_sexo']);
-				$typ_sexo = null;//$typ_sexo['typ_val'] ?? null;
+				$typ_tsan = null; //dTyp($dRSp['pac_tipsan']);
+				$typ_tsan = null; //$typ_tsan['typ_val'] ?? null;
+				$typ_eciv = null; //dTyp($dRSp['pac_estciv']);
+				$typ_eciv = null; //$typ_eciv['typ_val'] ?? null;
+				$typ_sexo = null; //dTyp($dRSp['pac_sexo']);
+				$typ_sexo = null; //$typ_sexo['typ_val'] ?? null;
 				if ($typ_sexo == 'Masculino') $classsexo = ' label-info';
 				if ($typ_sexo == 'Femenino') $classsexo = ' label-women';
 				?>
@@ -67,7 +68,8 @@ $lPac=$mPac->getDetAll();
 					<td><?php echo strtoupper($dRSp['pac_nom']) ?></td>
 					<td><?php echo strtoupper($dRSp['pac_ape']) ?></td>
 
-					<td><?php //echo edad($dRSp['pac_fec']) ?></td>
+					<td><?php //echo edad($dRSp['pac_fec']) 
+						?></td>
 					<td>
 						<?php //echo "***".$typ_sexo 
 						?>

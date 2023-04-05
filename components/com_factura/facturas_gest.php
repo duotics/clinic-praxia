@@ -10,7 +10,7 @@ include(root['f'].'fraTop.php'); ?>
         <small><?php echo $rowMod['mod_des']; ?></small></h1>
 	</div>
 	<div class="well well-sm"><?php include(RAIZc.'com_pacientes/pacientes_find.php'); ?></div>
-    <div><?php include(RAIZc.'com_pacientes/pacientes_list.php'); ?></div>
+    <div><?php include(RAIZc.'com_pacientes/pacientesList.php'); ?></div>
 <div id="bottomcont"><?php include(root['f'].'fraBot.php'); ?></div>
 </div>
 <?php include(RAIZ.'modulos/taskbar/_taskbar_pacientes.php'); ?>
