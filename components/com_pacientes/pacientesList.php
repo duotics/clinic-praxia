@@ -35,6 +35,7 @@ $lPac = $mPac->getDetAll();
 		<tbody>
 			<?php foreach ($lPac as $dRSp) { ?>
 				<?php
+				$btnAcc = null;
 				$idp = $dRSp['pac_cod'];
 				$typ_tsan = null; //dTyp($dRSp['pac_tipsan']);
 				$typ_tsan = null; //$typ_tsan['typ_val'] ?? null;
@@ -44,26 +45,16 @@ $lPac = $mPac->getDetAll();
 				$typ_sexo = null; //$typ_sexo['typ_val'] ?? null;
 				if ($typ_sexo == 'Masculino') $classsexo = ' label-info';
 				if ($typ_sexo == 'Femenino') $classsexo = ' label-women';
+				if ($dataBus['data-url']) {
+					$btnAcc = "<a href='{$dataBus['data-url']}?{$dataBus['data-param']}={$idp}' class='btn btn-sm btn-{$dataBus['btn-css']}'>
+					<i class='{$dM['iconM']}'></i> {$dataBus['btn-text']}
+					</a>";
+				} else {
+					$btnAcc = "no action";
+				}
 				?>
 				<tr>
-					<td>
-						<?php if ($dM['mod_ref'] == "PAC") { ?>
-							<a href="form.php?id=<?php echo $idp ?>" title="Modificar Paciente" class="btn btn-primary btn-sm">
-								<i class="fa fa-user"></i> Ficha</a>
-						<?php } ?>
-						<?php if ($dM['mod_ref'] == "CON") { ?>
-							<a href="<?php echo route['c'] ?>com_consultas/form.php?idp=<?php echo $idp ?>" class="btn btn-primary btn-sm">
-								<i class="fa fa-stethoscope fa-lg"></i> Consulta</a>
-							<a href="<?php echo route['c'] ?>com_calendar/reserva_form.php?idp=<?php echo $idp ?>" class="btn btn-default btn-sm fancybox.iframe fancyreload">
-								<i class="fa fa-calendar-o"></i> Reserva</a>
-						<?php } ?>
-						<?php if ($dM['mod_ref'] == "REPH") { ?>
-							<a href="hcpD.php?id=<?php echo $idp ?>" title="Modificar Paciente" class="btn btn-primary btn-sm">
-								<i class="fas fa-database"></i> Reporte</a>
-						<?php } ?>
-
-
-					</td>
+					<td><?php echo $btnAcc ?></td>
 					<td><?php echo $idp ?></td>
 					<td><?php echo strtoupper($dRSp['pac_nom']) ?></td>
 					<td><?php echo strtoupper($dRSp['pac_ape']) ?></td>

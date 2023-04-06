@@ -106,7 +106,7 @@ class Auth
             return $ret;
         } catch (Exception $e) {
             $LOG = $e->getMessage();
-            //header("Location: " . routeM . "acceso");
+            header("Location: " . routeM . "acceso");
         }
         dep($ret);
         vP($vP, $LOG);

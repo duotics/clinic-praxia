@@ -63,7 +63,7 @@ class Paciente
         //echo "function getParList<br>";
         $this->TRt = $this->db->totRowsTab('db_pacientes', '1', '1'); //TOTAL RESULTADOS DE LA TABLA
         //dep($this->TRt,"TRt");
-        $this->genCadSearchPac();    //$qry=genCadSearchPac($sbr);
+        $this->genCadSearchPac(TRUE);    //$qry=genCadSearchPac($sbr);
         $RS = $this->db->dbh->prepare($this->cadBus); //BUSCAR RESULTADOS RELACIONADOS A MI BUSQUEDA SI EXISTIERAN
         $RS->setFetchMode(PDO::FETCH_ASSOC);
         $RS->execute();
@@ -75,62 +75,75 @@ class Paciente
             $this->pages->mid_range = 8;
             $this->pages->paginate();
             $sql = $this->cadBus . $this->pages->limit;
+            //dep($sql,"SQL FINAL PACIENTE");
             $this->RSp = $this->db->dbh->prepare($sql);
             $this->RSp->setFetchMode(PDO::FETCH_ASSOC);
             $this->RSp->execute();
             $this->detAll = $this->RSp->fetchAll();
             $this->TRp = count($this->detAll);
-            echo $sql;
         }
     }
-    public function searchPacTerm()
+    public function getAllSearchPacTerm()
     {
-        $this->genCadSearchPac();
+        $this->genCadSearchPac(false, 100);
         $res = $this->db->selectAllSQL($this->cadBus);
         return $res;
     }
-    private function genCadSearchPac($list = FALSE, $limit = 100)
+    private function genCadSearchPac($list = FALSE, $limit = null)
     {
         $qry = null;
+        $sqlBus = array("select" => null, "where" => null, "limit" => null, "order" => null);
+
+        //SQL LIMIT
+        if ($limit) $sqlBus['limit'] = " LIMIT {$limit} ";
+        //SQL SELECT MORE DETAILL FIELDS IF $list TRUE
+        if ($list) {
+            $sqlBus['select'] .= "
+            {$this->mainTable}.pac_cod as pac_cod, 
+            {$this->mainTable}.pac_ape as pac_ape, 
+            {$this->mainTable}.pac_nom as pac_nom, 
+            {$this->mainTable}.pac_lugp as pac_lugp, 
+            {$this->mainTable}.pac_lugr as pac_lugr, 
+            {$this->mainTable}.pac_tel1 as pac_tel1, 
+            {$this->mainTable}.pac_tel2 as pac_tel2, 
+            {$this->mainTable}.pac_email as pac_email, 
+            ";
+        }
+        //SQL EXISTS TERMBUS
         if ($this->termBus) {
             $cadBus = fnc_cutblanck($this->termBus);
             $cadBusT = explode(" ", $cadBus);
             $cadBusN = count($cadBusT);
-            $sqlBus = array("select" => null, "where" => null);
-            if ($list) {
-                $sqlBus['select'] = "
-                {$this->mainTable}.pac_nom as pac_nom, 
-                {$this->mainTable}.pac_ape as pac_ape, 
-                {$this->mainTable}.pac_nom as pac_nom, 
-                ";
-            }
             if ($cadBusN > 1) {
-                $sqlBus['select'] = " MATCH ({$this->secTable}.pac_nom, {$this->secTable}.pac_ape) AGAINST ('{$cadBus}') AS score, ";
-                $sqlBus['where'] = " AND MATCH ({$this->secTable}.pac_nom, {$this->secTable}.pac_ape) AGAINST ('{$cadBus}') ";
-                $sqlBus['order'] = " ORDER BY score DESC ";
+                $sqlBus['select'] .= " MATCH ({$this->secTable}.pac_nom, {$this->secTable}.pac_ape) AGAINST ('{$cadBus}') AS score, ";
+                $sqlBus['where'] .= " AND MATCH ({$this->secTable}.pac_nom, {$this->secTable}.pac_ape) AGAINST ('{$cadBus}') ";
+                $sqlBus['order'] .= " ORDER BY score DESC ";
             } else {
-                $sqlBus['where'] = " AND ({$this->secTable}.pac_nom LIKE '%{$cadBus}%'
+                $sqlBus['where'] .= " AND ({$this->secTable}.pac_nom LIKE '%{$cadBus}%'
                 OR {$this->secTable}.pac_ape LIKE '%{$cadBus}%' 
                 OR {$this->secTable}.pac_cod LIKE '%{$cadBus}%') ";
-                $sqlBus['order'] = " ORDER BY code DESC ";
+                $sqlBus['order'] .= " ORDER BY {$this->secTable}.pac_cod DESC ";
             }
             $qry = "SELECT 
             {$sqlBus['select']}
-            {$this->secTable}.pac_cod AS code, 
+            MD5({$this->secTable}.pac_cod) AS code, 
             CONCAT_WS(' ', {$this->secTable}.pac_nom, {$this->secTable}.pac_ape) AS value 
             FROM {$this->secTable}
             INNER JOIN {$this->mainTable} ON {$this->secTable}.{$this->secID}={$this->mainTable}.{$this->mainID}
             WHERE 1=1 
             {$sqlBus['where']} 
             {$sqlBus['order']} 
-            LIMIT {$limit}";
-        } else {
+            {$sqlBus['limit']}";
+        } else { //SQL NO EXISTS TERMBUS
             $qry = "SELECT 
-            {$this->mainTable}.{$this->mainID} AS code, 
+            {$sqlBus['select']}
+            MD5({$this->mainTable}.{$this->mainID}) AS code, 
             CONCAT_WS(' ',{$this->mainTable}.pac_nom, {$this->mainTable}.pac_ape) AS value 
             FROM {$this->mainTable} 
-            ORDER BY code DESC LIMIT {$limit}";
+            ORDER BY pac_cod DESC 
+            {$sqlBus['limit']}";
         }
+        //dep($qry, "genCadSearchPac()");
         $this->cadBus = $qry;
     }
     private function genCadListPac()

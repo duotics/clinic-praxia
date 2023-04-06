@@ -15,7 +15,7 @@ $(function () {
       }
 
       console.log(webForm);
-      //$(location).attr('href', webForm);
+      $(location).attr('href', webForm);
     },
     /*focus: function (event, ui) {
 			console.log(ui.item.code);

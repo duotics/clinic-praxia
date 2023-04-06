@@ -20,6 +20,44 @@ function vP($est, $log = null)
     $_SESSION['LOG']['i'] = $LOGimg;
     $_SESSION['LOG']['img'] = $LOGimg;
 }
+
+function genInterfaceBusqueda($configVar)
+{
+    /*
+    data['type'] can be: 
+        c = component to use route['c']
+        i = internal to use routeM
+        e or empty = null
+    */
+    $ret = array("data-url" => null, "data-param" => null, "btn-text" => null, "btn-css" => null);
+    $data = cfgBus[$configVar] ?? null;
+    if ($data) {
+        if ($data['url']) {
+            $dataUrlType = $data['type'] ?? null;
+            switch ($dataUrlType) {
+                case "c":
+                    $dataUrlRoute = route['c'];
+                    break;
+                case "i":
+                    $dataUrlRoute = routeM;
+                    break;
+                case "e":
+                    $dataUrlRoute = null;
+                    break;
+                default:
+                    $dataUrlRoute = null;
+                    break;
+            }
+            $dataUrlFull = $dataUrlRoute . $data['url'];
+        }
+        $ret['data-url'] = $dataUrlFull ?? null;
+        $ret['data-param'] = $data['param'] ?? null;
+        $ret['btn-text'] = $data['tit'] ?? null;
+        $ret['btn-css'] = $data['css'] ?? "light";
+    }
+    return $ret;
+}
+
 function getBgBodyfromConfigFile()
 {
     try {
