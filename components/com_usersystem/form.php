@@ -150,4 +150,4 @@ sLOG('g') ?>
           </div>
      </form>
 </div>
-<?php include(root['f'] . 'footer.php') ?>
+<?php include(root['f'] . 'foot.php') ?>

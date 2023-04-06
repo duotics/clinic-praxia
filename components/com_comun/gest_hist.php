@@ -224,4 +224,4 @@ include(root['f'] . 'head.php');
 		<h4>Paciente No Existe</h4>
 	</div>
 <?php } ?>
-<?php include(root['f'] . 'footer.php') ?>
+<?php include(root['f'] . 'foot.php') ?>

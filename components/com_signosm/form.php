@@ -5,4 +5,4 @@ sLOG('g') ?>
 <div class="container-fluid">
     <?php include('_form.php'); ?>
 </div>
-<?php include(root['f'] . 'footer.php') ?>
+<?php include(root['f'] . 'foot.php') ?>

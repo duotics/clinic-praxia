@@ -7,4 +7,4 @@ include(root['m'] . 'mod_menu/menuMain.php'); ?>
     <div><?php include('_examenFormat.php'); ?></div>
 </div>
 
-<?php include(root['f'] . 'footer.php') ?>
+<?php include(root['f'] . 'foot.php') ?>

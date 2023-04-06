@@ -12,4 +12,4 @@ include(root['m'] . 'mod_menu/menuMain.php'); ?>
 <div class="container-fluid">
   <?php require('_medicamentosForm.php'); ?>
 </div>
-<?php include(root['f'] . 'footer.php') ?>
+<?php include(root['f'] . 'foot.php') ?>

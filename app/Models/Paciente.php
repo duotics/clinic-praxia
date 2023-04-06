@@ -146,38 +146,6 @@ class Paciente
         //dep($qry, "genCadSearchPac()");
         $this->cadBus = $qry;
     }
-    private function genCadListPac()
-    {
-        if ($this->termBus) {
-            $cadBus = fnc_cutblanck($this->termBus);
-            $cadBusT = explode(" ", $cadBus);
-            $cadBusN = count($cadBusT);
-            //echo $cadBusN;
-            if ($cadBusN > 1) {
-                $qry = sprintf(
-                    'SELECT *, MATCH (db_pacientes_nom.pac_nom, db_pacientes_nom.pac_ape) AGAINST (%s) AS Score 
-				FROM db_pacientes_nom
-				INNER JOIN db_pacientes ON db_pacientes.pac_cod=db_pacientes_nom.pac_cod
-				WHERE MATCH (db_pacientes_nom.pac_nom, db_pacientes_nom.pac_ape) AGAINST (%s)
-				ORDER BY Score DESC ',
-                    SSQL($cadBus, 'text'),
-                    SSQL($cadBus, 'text')
-                );
-            } else {
-                $qry = sprintf(
-                    'SELECT * FROM db_pacientes_nom
-				INNER JOIN db_pacientes ON db_pacientes.pac_cod=db_pacientes_nom.pac_cod
-				WHERE db_pacientes.pac_nom LIKE %s OR db_pacientes.pac_ape LIKE %s OR db_pacientes.pac_cod LIKE %s ',
-                    SSQL('%' . $cadBus . '%', 'text'),
-                    SSQL('%' . $cadBus . '%', 'text'),
-                    SSQL('%' . $cadBus . '%', 'text')
-                );
-            }
-        } else {
-            $qry = 'SELECT * FROM db_pacientes ORDER BY pac_cod DESC';
-        }
-        $this->cadBus = $qry;
-    }
     public function detF()
     {
         $ret = [];
@@ -223,7 +191,7 @@ class Paciente
         }
         return $ret;
     }
-    public function registrarBusquedaPaciente($idp)
+    public function registrarBusquedaPaciente()
     {
         /* db_pacientes_bus
         Este registro sirve para almacenar las busquedas de pacientes 
@@ -231,6 +199,7 @@ class Paciente
         */
         $LOG = null;
         $vP = FALSE;
+        $idp = $this->det[$this->mainID];
         $dPacRegToday = $this->getBusquedaPacienteToday($idp); //Busco si hay un paciente registrado en la fecha actual
         if (!$dPacRegToday) { //Registro la busqueda Si no hay lo registro
             $sql = "INSERT INTO db_pacientes_bus (pac_cod, date, status) VALUES (?,?,?)";

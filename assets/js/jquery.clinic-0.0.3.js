@@ -10,16 +10,23 @@ $(document).ready(function () {
     setDB(campo, valor, cod, tbl);
   });
 
-  $("#loaderFrame").load(function () {
-    var w = this.contentWindow || this.contentDocument.defaultView;
-    w.print();
-    //setTimeout("closePrintView()", 3000);
-    setTimeout(function () {
-      w.close();
-      parent.location.reload();
-      //alert('cerrado');
-    }, 500);
-  });
+  $("#loaderFrame")
+    .on("load", function () {
+      var w = this.contentWindow || this.contentDocument.defaultView;
+      w.print();
+      //setTimeout("closePrintView()", 3000);
+      setTimeout(function () {
+        w.close();
+        parent.location.reload();
+        //alert('cerrado');
+      }, 500);
+    })
+    .on("error", function () {
+      // código que se ejecuta si hay un error al cargar el iframe
+      console.log("error");
+    });
+
+  //$("#loaderFrame").load(function () {});
 
   $("#diags").autocomplete({
     source: RAIZc + "com_pacientes/json.php", //availableTags,
@@ -134,6 +141,7 @@ $(document).ready(function () {
   contlog.delay(3800).slideUp(200);
   //FANCYBOX
   var loading = $("#loading");
+  /*
   $(".fancybox").fancybox();
   $(".fancyreload").fancybox({
     autoSize: false,
@@ -157,10 +165,23 @@ $(document).ready(function () {
       location.reload();
     },
   });
+  */
   //
 });
 
-function setDB(campo, valor, cod, tbl, acc=null) {
+// JavaScript Document
+function getDataVal(id, val, acc, res) {
+  $.get(
+    RAIZ + "system/fnc/gen.php",
+    { id: id, val: val, acc: acc, res: res },
+    function (data) {
+      $("#" + res).html(data.val);
+    },
+    "json"
+  );
+}
+
+function setDB(campo, valor, cod, tbl, acc = null) {
   $.get(
     RAIZc + "com_comun/actionsJS.php",
     {
@@ -168,7 +189,7 @@ function setDB(campo, valor, cod, tbl, acc=null) {
       valor: valor,
       cod: String(cod),
       tbl: tbl,
-      acc: acc
+      acc: acc,
     },
     function (data) {},
     "json"
@@ -228,33 +249,6 @@ tinymce.init({
   },
 });
 
-//GRITTER
-$.extend($.gritter.options, {
-  //class_name: 'gritter-light', // for light notifications (can be added directly to $.gritter.add too)
-  position: "bottom-right", // possibilities: bottom-left, bottom-right, top-left, top-right
-  fade_in_speed: 1000, // how fast notifications fade in (string or int)
-  fade_out_speed: 1500, // how fast the notices fade out
-  time: 5000, // hang on the screen for...
-});
-function logGritter(titulo, descripcion, imagen) {
-  $.gritter.add({
-    title: titulo, // (string | mandatory) the heading of the notification
-    text: descripcion, // (string | mandatory) the text inside the notification
-    image: imagen, // (string | optional) the image to display on the left
-    sticky: false, // (bool | optional) if you want it to fade out on its own or just sit there
-    time: "", // (int | optional) the time you want it to be alive for before fading out
-    //class_name: 'my-sticky-class'// (string | optional) the class name you want to apply to that specific message
-  });
-}
-//TABLESORTED
-$(function () {
-  $("#mytable").tablesorter({ widgets: ["zebra"] });
-  $("#mytable_cli").tablesorter({ widgets: ["zebra"] });
-  $("#mytable_terpen").tablesorter({ sortList: [[1, 0]], widgets: ["zebra"] });
-  $("#myt_rescons").tablesorter({ sortList: [[3, 0]], widgets: ["zebra"] });
-  $("#myt_listcons").tablesorter({ sortList: [[1, 1]], widgets: ["zebra"] });
-  $("#mytableall").tablesorter({ sortList: [[0, 1]], widgets: ["zebra"] });
-});
 //imprimir seleccion -->
 function imprSelec(nombre) {
   var ficha = document.getElementById(nombre);

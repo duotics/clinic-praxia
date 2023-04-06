@@ -6,4 +6,4 @@ include(root['f'] . "head.php"); ?>
 	<?php echo genHeader($dM, 'page-header') ?>
 	<div><?php include('_index.php'); ?></div>
 </div>
-<?php include(root['f'] . 'footer.php') ?>
+<?php include(root['f'] . 'foot.php') ?>

@@ -11,4 +11,4 @@ include(root['m'] . 'mod_menu/menuMain.php') ?>
   <?php sLOG('g') ?>
   <?php include('_laboratorio.php') ?>
 </div>
-<?php include(root['f'] . 'footer.php') ?>
+<?php include(root['f'] . 'foot.php') ?>

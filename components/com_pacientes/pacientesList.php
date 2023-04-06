@@ -36,6 +36,7 @@ $lPac = $mPac->getDetAll();
 			<?php foreach ($lPac as $dRSp) { ?>
 				<?php
 				$btnAcc = null;
+				$ids = $dRSp['code'];
 				$idp = $dRSp['pac_cod'];
 				$typ_tsan = null; //dTyp($dRSp['pac_tipsan']);
 				$typ_tsan = null; //$typ_tsan['typ_val'] ?? null;
@@ -46,7 +47,7 @@ $lPac = $mPac->getDetAll();
 				if ($typ_sexo == 'Masculino') $classsexo = ' label-info';
 				if ($typ_sexo == 'Femenino') $classsexo = ' label-women';
 				if ($dataBus['data-url']) {
-					$btnAcc = "<a href='{$dataBus['data-url']}?{$dataBus['data-param']}={$idp}' class='btn btn-sm btn-{$dataBus['btn-css']}'>
+					$btnAcc = "<a href='{$dataBus['data-url']}?{$dataBus['data-param']}={$ids}' class='btn btn-sm btn-{$dataBus['btn-css']}'>
 					<i class='{$dM['iconM']}'></i> {$dataBus['btn-text']}
 					</a>";
 				} else {

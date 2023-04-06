@@ -149,4 +149,4 @@ include(root['f'] . 'head.php');
   </div>
 </form>
 <script type="text/javascript" src="js/js.js"></script>
-<?php include(root['f'] . 'footer.php') ?>
+<?php include(root['f'] . 'foot.php') ?>

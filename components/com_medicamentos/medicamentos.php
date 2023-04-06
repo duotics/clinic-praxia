@@ -11,4 +11,4 @@ include(root['m'] . 'mod_menu/menuMain.php') ?>
 <div class="container-fluid">
   <?php include('_medicamentos.php') ?>
 </div>
-<?php include(root['f'] . 'footer.php') ?>
+<?php include(root['f'] . 'foot.php') ?>
