@@ -9,9 +9,9 @@ function edad($edad)
 }
 function fnc_cutblanck($bus)
 {
-    if (substr($bus, 0, 1) == ' ') $bus = substr($bus, 1, strlen($bus));
-    if (substr($bus, strlen($bus) - 1, 1) == ' ') $bus = substr($bus, 0, strlen($bus) - 1);
-    return ($bus);
+	if (substr($bus, 0, 1) == ' ') $bus = substr($bus, 1, strlen($bus));
+	if (substr($bus, strlen($bus) - 1, 1) == ' ') $bus = substr($bus, 0, strlen($bus) - 1);
+	return ($bus);
 }
 
 function calcIMCm($IMC = NULL, $pesoKG = NULL, $talla = NULL)
@@ -74,7 +74,7 @@ function calcIMC($IMC = NULL, $pesoKG = NULL, $talla = NULL)
 	if ((!$IMC) || ($IMC == NULL) || ($IMC == 0)) {
 		if (($talla > 0) && ($pesoKG > 0)) {
 			$valTalla = $talla * $talla;
-			$IMC = (double)$pesoKG / (double)$valTalla;
+			$IMC = (float)$pesoKG / (float)$valTalla;
 		}
 	}
 
@@ -144,81 +144,160 @@ function calcPAm($paS, $paD)
 
 function addBusinessDaysToDate(string $date, int $numDays): string
 {
-    $currDate = new DateTime($date);
-    $weekends = [6, 7]; // Saturday and Sunday
+	$currDate = new DateTime($date);
+	$weekends = [6, 7]; // Saturday and Sunday
 
-    while ($numDays > 0) {
-        $currDate->modify('+1 day');
-        if (!in_array($currDate->format('N'), $weekends)) {
-            $numDays--;
-        }
-    }
+	while ($numDays > 0) {
+		$currDate->modify('+1 day');
+		if (!in_array($currDate->format('N'), $weekends)) {
+			$numDays--;
+		}
+	}
 
-    return $currDate->format('Y-m-d');
+	return $currDate->format('Y-m-d');
 }
 
 function addDaysToDateNoWeekend(string $fecha, int $numDias): string
 {
-    // Convertir la fecha en un objeto DateTime
-    $fechaObj = DateTime::createFromFormat('Y-m-d', $fecha);
+	// Convertir la fecha en un objeto DateTime
+	$fechaObj = DateTime::createFromFormat('Y-m-d', $fecha);
 
-    // Sumar los días a la fecha
-    $fechaObj->modify("+$numDias days");
+	// Sumar los días a la fecha
+	$fechaObj->modify("+$numDias days");
 
-    // Verificar si la fecha resultante es un sábado o domingo
-    $diaSemana = $fechaObj->format('N');
-    if ($diaSemana >= 6) {  // 6 es sábado, 7 es domingo
-        // Agregar los días necesarios para llegar al siguiente lunes
-        $diasHastaLunes = 8 - $diaSemana;  // 8 es el número de días para llegar al lunes
-        $fechaObj->modify("+$diasHastaLunes days");
-    }
+	// Verificar si la fecha resultante es un sábado o domingo
+	$diaSemana = $fechaObj->format('N');
+	if ($diaSemana >= 6) {  // 6 es sábado, 7 es domingo
+		// Agregar los días necesarios para llegar al siguiente lunes
+		$diasHastaLunes = 8 - $diaSemana;  // 8 es el número de días para llegar al lunes
+		$fechaObj->modify("+$diasHastaLunes days");
+	}
 
-    // Formatear la fecha resultante según el formato deseado
-    $fechaFormateada = $fechaObj->format('Y-m-d');
+	// Formatear la fecha resultante según el formato deseado
+	$fechaFormateada = $fechaObj->format('Y-m-d');
 
-    // Devolver la fecha formateada
-    return $fechaFormateada;
+	// Devolver la fecha formateada
+	return $fechaFormateada;
 }
 
 function changeDateEnglishToSpanish($fecha = null, $option = "all")
 {
-    if (!$fecha) $fecha = date("l, j \\d\\e F \\d\\e Y");
-    $nuevafecha = null;
-    $spanish_days = array(
-        'Monday' => 'Lunes',
-        'Tuesday' => 'Martes',
-        'Wednesday' => 'Miércoles',
-        'Thursday' => 'Jueves',
-        'Friday' => 'Viernes',
-        'Saturday' => 'Sábado',
-        'Sunday' => 'Domingo'
-    );
+	if (!$fecha) $fecha = date("l, j \\d\\e F \\d\\e Y");
+	$nuevafecha = null;
+	$spanish_days = array(
+		'Monday' => 'Lunes',
+		'Tuesday' => 'Martes',
+		'Wednesday' => 'Miércoles',
+		'Thursday' => 'Jueves',
+		'Friday' => 'Viernes',
+		'Saturday' => 'Sábado',
+		'Sunday' => 'Domingo'
+	);
 
-    $spanish_months = array(
-        'January' => 'enero',
-        'February' => 'febrero',
-        'March' => 'marzo',
-        'April' => 'abril',
-        'May' => 'mayo',
-        'June' => 'junio',
-        'July' => 'julio',
-        'August' => 'agosto',
-        'September' => 'septiembre',
-        'October' => 'octubre',
-        'November' => 'noviembre',
-        'December' => 'diciembre'
-    );
-    switch ($option) {
-        case "day":
-            $nuevafecha = strtr($fecha, $spanish_days);
-            break;
-        case "month":
-            $nuevafecha = strtr($fecha, $spanish_months);
-            break;
-        case "all":
-            $nuevafecha = strtr($fecha, $spanish_days);
-            $nuevafecha = strtr($nuevafecha, $spanish_months);
-            break;
-    }
-    return $nuevafecha;
+	$spanish_months = array(
+		'January' => 'enero',
+		'February' => 'febrero',
+		'March' => 'marzo',
+		'April' => 'abril',
+		'May' => 'mayo',
+		'June' => 'junio',
+		'July' => 'julio',
+		'August' => 'agosto',
+		'September' => 'septiembre',
+		'October' => 'octubre',
+		'November' => 'noviembre',
+		'December' => 'diciembre'
+	);
+	switch ($option) {
+		case "day":
+			$nuevafecha = strtr($fecha, $spanish_days);
+			break;
+		case "month":
+			$nuevafecha = strtr($fecha, $spanish_months);
+			break;
+		case "all":
+			$nuevafecha = strtr($fecha, $spanish_days);
+			$nuevafecha = strtr($nuevafecha, $spanish_months);
+			break;
+	}
+	return $nuevafecha;
+}
+
+function edadC($dateBorn)
+{
+	$ret = NULL;
+	if ($dateBorn) {
+		$dateAct = $GLOBALS['sdate']; // separamos en partes las fechas 
+		$array_nacimiento = explode("-", $dateBorn);
+		$array_actual = explode("-", $dateAct);
+		$anos =  $array_actual[0] - $array_nacimiento[0]; // calculamos años 
+		$meses = $array_actual[1] - $array_nacimiento[1]; // calculamos meses 
+		$dias =  $array_actual[2] - $array_nacimiento[2]; // calculamos días 
+		//ajuste de posible negativo en $días 
+		if ($dias < 0) {
+			--$meses;
+			//ahora hay que sumar a $dias los dias que tiene el mes anterior de la fecha actual 
+			switch ($array_actual[1]) {
+				case 1:
+					$dias_mes_anterior = 31;
+					break;
+				case 2:
+					$dias_mes_anterior = 31;
+					break;
+				case 3:
+					if (bisiesto($array_actual[0])) {
+						$dias_mes_anterior = 29;
+						break;
+					} else {
+						$dias_mes_anterior = 28;
+						break;
+					}
+				case 4:
+					$dias_mes_anterior = 31;
+					break;
+				case 5:
+					$dias_mes_anterior = 30;
+					break;
+				case 6:
+					$dias_mes_anterior = 31;
+					break;
+				case 7:
+					$dias_mes_anterior = 30;
+					break;
+				case 8:
+					$dias_mes_anterior = 31;
+					break;
+				case 9:
+					$dias_mes_anterior = 31;
+					break;
+				case 10:
+					$dias_mes_anterior = 30;
+					break;
+				case 11:
+					$dias_mes_anterior = 31;
+					break;
+				case 12:
+					$dias_mes_anterior = 30;
+					break;
+			}
+			$dias = $dias + $dias_mes_anterior;
+		}
+		//ajuste de posible negativo en $meses 
+		if ($meses < 0) {
+			--$anos;
+			$meses = $meses + 12;
+		}
+		$ret = $anos . " años <br> " . $meses . " meses <br> " . $dias . " días ";
+	} else $ret;
+	return ($ret);
+}
+
+function bisiesto($anio_actual)
+{
+	$bisiesto = false;
+	//probamos si el mes de febrero del año actual tiene 29 días 
+	if (checkdate(2, 29, $anio_actual)) {
+		$bisiesto = true;
+	}
+	return $bisiesto;
 }
