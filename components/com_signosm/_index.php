@@ -3,8 +3,8 @@
     $_SESSION['sigm']['auto']='si';
     $_SESSION['sigm']['idp']=null;
 //}
-$q=sprintf('select * from db_busquedas_pac 
-INNER JOIN db_pacientes ON db_busquedas_pac.idp=db_pacientes.pac_cod 
+$q=sprintf('select * from db_pacientes_bus 
+INNER JOIN db_pacientes ON db_pacientes_bus.idp=db_pacientes.pac_cod 
 WHERE fec=%s ORDER BY id DESC',
 SSQL($sdate,'text'));
 $RS=mysqli_query(conn,$q) or die(mysqli_error(conn));

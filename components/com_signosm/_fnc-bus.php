@@ -4,7 +4,7 @@ $LOG=null;
 $idp=null;
 $est=0;
 if($_SESSION['sigm']['auto']=='si'){
-    $q=sprintf('select * from db_busquedas_pac WHERE fec=%s AND est=%s ORDER BY id DESC LIMIT 1',
+    $q=sprintf('select * from db_pacientes_bus WHERE fec=%s AND est=%s ORDER BY id DESC LIMIT 1',
         SSQL($sdate,'text'),
         SSQL('0','int'));
     $RS=mysqli_query(conn,$q) or die(mysqli_error(conn));

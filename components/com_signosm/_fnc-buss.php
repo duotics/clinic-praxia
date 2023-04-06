@@ -2,7 +2,7 @@
 $LOG=null;
 $idp=null;
 $est=0;
-$qUBP=sprintf('UPDATE db_busquedas_pac SET est=%s WHERE idp=%s',
+$qUBP=sprintf('UPDATE db_pacientes_bus SET est=%s WHERE idp=%s',
     SSQL('1','int'),
     SSQL($idp,'int'),
 );

@@ -212,7 +212,7 @@ class Paciente
     }
     public function registrarBusquedaPaciente($idp)
     {
-        /* db_busquedas_pac
+        /* db_pacientes_bus
         Este registro sirve para almacenar las busquedas de pacientes 
         para llenar los signos vitales en el dispositivo mobil
         */
@@ -220,7 +220,7 @@ class Paciente
         $vP = FALSE;
         $dPacRegToday = $this->getBusquedaPacienteToday($idp); //Busco si hay un paciente registrado en la fecha actual
         if (!$dPacRegToday) { //Registro la busqueda Si no hay lo registro
-            $sql = "INSERT INTO db_busquedas_pac (idp, fec, est) VALUES (?,?,?)";
+            $sql = "INSERT INTO db_pacientes_bus (pac_cod, date, status) VALUES (?,?,?)";
             $params = array($idp, sys['date'], 0);
             $this->db->insertSQL($sql, $params);
         }
@@ -228,10 +228,10 @@ class Paciente
     public function getBusquedaPacienteToday($idp)
     {
         $paramsN[] = array(
-            array("cond" => "AND", "field" => "idp", "comp" => "=", "val" => $idp),
-            array("cond" => "AND", "field" => "fec", "comp" => '=', "val" => sys['date'])
+            array("cond" => "AND", "field" => "pac_cod", "comp" => "=", "val" => $idp),
+            array("cond" => "AND", "field" => "date", "comp" => '=', "val" => sys['date'])
         );
-        $ret = $this->db->detRowNP('db_busquedas_pac', $paramsN);
+        $ret = $this->db->detRowNP('db_pacientes_bus', $paramsN);
         return $ret;
     }
 }

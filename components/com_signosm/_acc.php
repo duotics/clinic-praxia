@@ -59,7 +59,7 @@ if (isset($det['form']) && ($det['form'] == md5('hispac'))) {
 			break;
 	}
 	$qUB = sprintf(
-		'UPDATE db_busquedas_pac SET est=%s WHERE idp=%s',
+		'UPDATE db_pacientes_bus SET est=%s WHERE idp=%s',
 		SSQL('1', 'int'),
 		SSQL($idp, 'int')
 	);
