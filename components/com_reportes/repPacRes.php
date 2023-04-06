@@ -8,4 +8,4 @@ sLOG("g",$_REQUEST['LOG']) ?>
 	<?php include('_repPacRes.php') ?>
 </div>
 <iframe id="loaderFrame" style="width: 0px; height: 0px; display: none;"></iframe>
-<?php include(root['f']."footer.php") ?>
+<?php include(root['f']."foot.php") ?>

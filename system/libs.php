@@ -17,4 +17,5 @@
 <script type="text/javascript" src="<?php echo route['n'] . "select2/dist/js/select2.min.js" ?>"></script>
 <script type="text/javascript" src="<?php echo route['n'] . "wow.js/dist/wow.min.js" ?>"></script>
 <script type="text/javascript" src="<?php echo route['n'] . "leaflet/dist/leaflet.js" ?>"></script>
+<script type="text/javascript" src="<?php echo route['n'] . "@fullcalendar/core/index.global.js" ?>"></script>
 <script type="text/javascript" src="<?php echo route['a'] . 'js/custom-v01.js' ?>"></script>

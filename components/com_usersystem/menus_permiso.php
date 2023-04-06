@@ -8,7 +8,7 @@ if($detUsu){
 }
 
 function verifyCheckUserMenu($idm,$idu){
-	$qry=sprintf('SELECT * FROM tbl_menu_usuario WHERE men_id=%s AND usr_id=%s',
+	$qry=sprintf('SELECT * FROM tbl_menus_usuario WHERE men_id=%s AND usr_id=%s',
 	SSQL($idm,'int'),
 	SSQL($idu,'int'));
 	$RS=mysqli_query(conn,$qry);

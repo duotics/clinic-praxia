@@ -25,6 +25,8 @@ class genInterfaceHeader extends genInterface
                 "des" => $this->MOD['mod_des'] ?? null,
                 "nom" => $this->MOD['mod_nom'] ?? null
             );
+            //BEGIN OBJ CONSTRUCT
+            $obj.="<div class='obj-header-wrapper clearfix'>";
             switch ($this->tip) {
                 case 'card':
                     $objMod .= " <span class='badge bg-primary'>{$MOD["ref"]}</span>
@@ -39,20 +41,20 @@ class genInterfaceHeader extends genInterface
                     break;
                 case 'header':
                     $objMod .= "<i class='{$MOD['icon']}'></i> {$MOD['nom']} <span class='badge bg-light'>{$MOD['des']}</span>";
-                    $obj = '<div class="border-bottom mt-3 mb-3 ' . $this->css . '">';
+                    $obj .= '<div class="border-bottom mt-3 mb-3 ' . $this->css . '">';
                     if ($this->floatL) $obj .= "<div class='float-start'>{$this->floatL}</div>";
                     if ($this->floatR) $obj .= "<div class='float-end'>{$this->floatR}</div>";
                     $obj .= "<{$this->tag}> {$objMod} {$this->cont} </{$this->tag}></div>";
                     break;
                 case 'page-header':
                     $objMod .= "<i class='{$MOD['icon']}'></i> {$MOD['nom']} <small><span class='label label-default'>{$MOD['des']}</span></small>";
-                    $obj = '<div class="page-header mt-3 mb-3 ' . $this->css . '">';
+                    $obj .= '<div class="page-header mt-3 mb-3 ' . $this->css . '">';
                     if ($this->floatL) $obj .= "<div class='float-start'>{$this->floatL}</div>";
                     if ($this->floatR) $obj .= "<div class='float-end'>{$this->floatR}</div>";
                     $obj .= "<{$this->tag}> {$objMod} {$this->cont} </{$this->tag}></div>";
                     break;
                 case 'navbar':
-                    $obj = "<nav class='navbar navbar-dark bg-dark {$this->css}'>
+                    $obj .= "<nav class='navbar navbar-dark bg-dark {$this->css}'>
                     <div class='container-fluid'>
                     <a class='navbar-brand' href='#'> <i class='{$MOD["icon"]}'></i>
                     {$MOD['nom']} <small class='badge badge-secondary'> {$MOD["des"]} </small>
@@ -61,11 +63,12 @@ class genInterfaceHeader extends genInterface
                     </div></nav>";
                     break;
                 default:
-                    $obj = '<div class="mt-2 mb-2">';
-                    if (isset($MOD['idMod'])) $obj .= "<span class='badge bg-secondary'>{$MOD['idMod']}</span>";
-                    $obj .= "{$MOD['nomMod']}</div>";
+                    $obj .= '<div class="mt-2 mb-2">';
+                    if (isset($MOD['icon'])) $obj .= "<span class='badge bg-secondary'>{$MOD['icon']}</span>";
+                    $obj .= "{$MOD['nom']}</div>";
                     break;
             }
+            $obj.="</div>";
             $this->vP = TRUE;
             $this->obj = $obj;
         } catch (Exception $e) {

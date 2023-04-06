@@ -11,4 +11,4 @@ include(root['f'].'head.php'); ?>
     		<div id='calendar'></div>
     	</div>
     </div>
-<?php include(root['f']."footer.php");?>
+<?php include(root['f']."foot.php");?>

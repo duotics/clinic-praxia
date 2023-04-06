@@ -8,8 +8,8 @@ class Componente
 {
     private $db;
 
-    protected $mainTable = "db_componentes";
-    protected $mainID = "mod_cod";
+    protected $mainTable = "dbComponente";
+    protected $mainID = "idComp";
     protected $id;
     public $det;
     function __construct()

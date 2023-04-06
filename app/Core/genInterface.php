@@ -2,6 +2,8 @@
 
 namespace App\Core;
 
+use Exception;
+
 abstract class genInterface
 {
     protected $obj;

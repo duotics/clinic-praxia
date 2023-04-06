@@ -15,4 +15,4 @@ include(root['f']."head.php")?>
 	<div><?php include('empList.php'); ?></div>
     <?php include(root['m'].'mod_taskbar/_taskbar_empleado.php'); ?>
 	</div>
-<?php include(root['f']."footer.php") ?>
+<?php include(root['f']."foot.php") ?>

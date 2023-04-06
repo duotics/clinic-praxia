@@ -1,7 +1,8 @@
 <?php require('../../init.php');
-$term=$_POST['id'];
-$qry=sprintf('SELECT * FROM tbl_menus_items WHERE men_idc=%s', SSQL($term,'int'));//detRow('tbl_user','cli_doc',$_REQUEST['term']);
-$RS=mysqli_query(conn,$qry);
+$id=null;
+if(isset($_REQUEST['id'])) $id=$_REQUEST['id'];
+$qry=sprintf('SELECT * FROM dbMenuItem WHERE idMenu=%s', SSQL($id,'int'));//detRow('tbl_user','cli_doc',$_REQUEST['term']);
+$RS=mysqli_query($conn,$qry);
 $dRS=mysqli_fetch_assoc($RS);
 $TR=mysqli_num_rows($RS);
 $tiendas = array();
@@ -10,8 +11,8 @@ $tiendas[0]['literal'] = '- Principal - ';
 if($TR>0){
 	$cont=1;
 	do{
-		$tiendas[$cont]['id'] = $dRS['men_id'];
-		$tiendas[$cont]['literal'] = $dRS['men_nombre'];
+		$tiendas[$cont]['id'] = $dRS['idMItem'];
+		$tiendas[$cont]['literal'] = $dRS['nomMItem'];
 		$cont++;
 	}while($dRS=mysqli_fetch_assoc($RS));
 }

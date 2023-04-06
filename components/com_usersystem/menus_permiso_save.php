@@ -14,11 +14,11 @@ mysqli_query(conn,"BEGIN;"); //Inicia la transaccion
 if(($form)&&($form=='formUsrPerm')){
 	if(($acc)&&($acc=='UPD')){
 		//Query 2
-		$qryELIM = sprintf('DELETE FROM tbl_menu_usuario WHERE usr_id=%s', SSQL($id, 'int'));
+		$qryELIM = sprintf('DELETE FROM tbl_menus_usuario WHERE usr_id=%s', SSQL($id, 'int'));
 		if(mysqli_query(conn,$qryELIM)){
 			$vPM=TRUE;
 			foreach($det['CMP'] as $valMen){
-				$qryIM= sprintf('INSERT INTO tbl_menu_usuario (usr_id, men_id) VALUES (%s, %s)',
+				$qryIM= sprintf('INSERT INTO tbl_menus_usuario (usr_id, men_id) VALUES (%s, %s)',
 				SSQL($id,'int'),
 				SSQL($valMen,'int'));
 				if(!mysqli_query(conn,$qryIM)){

@@ -14,6 +14,8 @@ class Menu
     protected $mainRefName = "ref";
     protected $secTableName = "tbl_menus_items";
     protected $secIDName = "men_id";
+    protected $thirdTableName = "tbl_menus_usuario";
+    protected $thirdIDName = "men_usu_id";
     protected $id;
     protected $idi;
     public $det;
@@ -132,12 +134,12 @@ class Menu
         $idParent = (int)$idParent;
 
         if ($_SESSION['dU']['LEVEL'] != 1) {
-            $sqlUser['join'] = " INNER JOIN tbl_menu_usuario ON tbl_menus_items.men_id = tbl_menu_usuario.men_id ";
-            $sqlUser['where'] = " AND tbl_menu_usuario.usr_id = {$_SESSION['dU']['ID']}";
+            $sqlUser['join'] = " INNER JOIN {$this->thirdTableName} ON {$this->secTableName}.men_id = {$this->thirdTableName}.men_id ";
+            $sqlUser['where'] = " AND {$this->thirdTableName}.usr_id = {$_SESSION['dU']['ID']}";
         }
         if ($refMC) {
-            $sqlMenu['join'] = " INNER JOIN tbl_menus on tbl_menus_items.men_idc=tbl_menus.id ";
-            $sqlMenu['where'] = " AND tbl_menus.ref = '{$refMC}' ";
+            $sqlMenu['join'] = " INNER JOIN {$this->mainTableName} on {$this->secTableName}.men_idc={$this->mainTableName}.{$this->mainIDName} ";
+            $sqlMenu['where'] = " AND {$this->mainTableName}.ref = '{$refMC}' ";
         }
         $sql = "SELECT 
         {$this->secTableName}.men_id as id,
@@ -163,8 +165,8 @@ class Menu
         {$sqlUser['where']}
         {$sqlMenu['where']}
 
-        AND tbl_menus_items.men_padre = {$idParent} 
-        AND tbl_menus_items.men_stat = 1 
+        AND {$this->secTableName}.men_padre = {$idParent} 
+        AND {$this->secTableName}.men_stat = 1 
 
         ORDER BY men_orden ASC";
         $res = $this->db->selectAllSQL($sql);

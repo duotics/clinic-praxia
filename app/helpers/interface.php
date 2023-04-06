@@ -60,6 +60,42 @@ function genFormsInpRadio($params, $sel = null, $typ = null, $def = null, $name 
     }
     return $val;
 }
+function genStatus($dest, $params, $css = NULL, $icons = NULL)
+{ //duotics_lib->v.4.4
+    $lP = null;
+    $firstP = TRUE;
+    foreach ($params as $x => $xVal) {
+        if ($x == 'val') {
+            if (!$icons) {
+                if ($xVal == 1) {
+                    $xVal = 0;
+                    $cssST = 'btn btn-success btn-sm';
+                    if (isset($icons[1])) $txtST = $icons[1];
+                    else $txtST = '<i class="fas fa-check fa-fw"></i>';
+                } else {
+                    $xVal = 1;
+                    $cssST = 'btn btn-warning btn-sm';
+                    if (isset($icons[1])) $txtST = $icons[1];
+                    else $txtST = '<i class="fas fa-times fa-fw"></i>';
+                }
+            } else {
+                foreach ($icons as $y => $yVal) {
+                    if ($xVal == $yVal['id']) {
+                        $cssST = $yVal['css'];
+                        $txtST = $yVal['icon'];
+                    }
+                }
+            }
+        }
+        if ($firstP == TRUE) {
+            $lP .= '?' . $x . '=' . $xVal;
+            $firstP = FALSE;
+        } else $lP .= '&' . $x . '=' . $xVal;
+    }
+    if ($dest) $st = '<a href="' . $dest . $lP . '" class="' . $cssST . ' ' . $css . '">' . $txtST . '</a>';
+    else $st = '<span class="' . $cssST . ' ' . $css . '">' . $txtST . '</span>';
+    return $st;
+}
 function sLOG($type = NULL, $msg_m = NULL, $msg_t = NULL, $msg_c = NULL, $msg_i = NULL)
 { //v.2.4
     //echo 'entra a SLOG<br>';

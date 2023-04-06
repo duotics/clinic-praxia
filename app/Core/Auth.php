@@ -103,9 +103,9 @@ class Auth
     public function detILogin($menu = null)
     {
         $sql = "SELECT * FROM tbl_menus_items 
-		INNER JOIN tbl_menu_usuario ON tbl_menus_items.men_id=tbl_menu_usuario.men_id
+		INNER JOIN tbl_menus_usuario ON tbl_menus_items.men_id=tbl_menus_usuario.men_id
 		LEFT JOIN db_componentes ON db_componentes.mod_cod=tbl_menus_items.mod_cod
-		WHERE tbl_menu_usuario.usr_id={$_SESSION['dU']['ID']} 
+		WHERE tbl_menus_usuario.usr_id={$_SESSION['dU']['ID']} 
         AND tbl_menus_items.men_nombre='{$menu}'";
         $ret = $this->db->selectSQL($sql);
         return $ret;

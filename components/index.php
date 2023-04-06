@@ -1,1 +1,2 @@
-<?php header("Location: com_index/");
+<?php include("../init.php");
+header("Location: ".cfg['brd']['homedir']."/");
