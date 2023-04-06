@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Core;
 
 use App\Core\Database;
 
@@ -25,22 +25,22 @@ class Audit
     {
         $this->det = detRow($this->mainTable, $this->mainID, $this->id);
     }
-    public function detAud(int $id)
+    public function detAud($id)
     {
         $sql = "SELECT * FROM {$this->mainTable} WHERE {$this->mainID} ='{$id}' LIMIT 1";
-        $ret = $this->selectSQL($sql);
+        $ret = $this->db->selectSQL($sql);
         return $ret;
     }
     public function detAudDet(int $id)
     {
         $sql = "SELECT * FROM {$this->secTable} WHERE id ={$id} LIMIT 1";
-        $ret = $this->selectSQL($sql);
+        $ret = $this->db->selectSQL($sql);
         return $ret;
     }
     public function getAllAudDet(int $id)
     {
         $sql = "SELECT * FROM {$this->secTable} WHERE {$this->mainID}={$id}";
-        $ret = $this->selectSQL($sql);
+        $ret = $this->db->selectSQL($sql);
         return $ret;
     }
     public function AUD(int $id = null, string $nom = null, string $des = null)
@@ -60,12 +60,20 @@ class Audit
         }
         return $idAud;
     }
-
+    public function detAudTime($id)
+    {
+        $ret=null;
+        $AUD = $this->detAud($id);
+        if ($AUD) {
+            $ret = date('H:i', strtotime($AUD['aud_datet']));
+        }
+        return $ret;
+    }
     private function insertAud()
     {
         $sql = "INSERT INTO {$this->mainTable} (status) VALUES (?)";
         $arrayData = array("1");
-        $ret = $this->insertSQLR($sql, $arrayData);
+        $ret = $this->db->insertSQLR($sql, $arrayData);
         return $ret;
     }
 
@@ -74,7 +82,7 @@ class Audit
         $sql = "INSERT INTO {$this->secTable} (idAud, idUser, nomAud, desAud) 
         VALUES (?,?,?,?)";
         $arrayData = array($idAud, $_SESSION['dU']['ID'], $nomAud, $desAud);
-        $ret = $this->insertSQLR($sql, $arrayData);
+        $ret = $this->db->insertSQLR($sql, $arrayData);
         return $ret;
     }
 }

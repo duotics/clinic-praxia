@@ -12,6 +12,7 @@ include("config/config.php");
 
 $db         =   new App\Core\Database;
 $Auth       =   new App\Core\Auth;
+$AUD       =   new App\Core\Audit;
 
 $vD = FALSE;
 $LOG = null;

@@ -14,7 +14,7 @@ $css['body-bg'] = getBgBodyfromConfigFile();
 include(root['f'] . 'head.php');
 ?>
 <link rel="stylesheet" type="text/css" href="<?php echo route['a'] . "css/signin.css" ?>">
-<main class="form-signin w-100 m-auto bg-white border rounded text-center wow animate__animated animate__fadeInRight animate__fast">
+<main class="form-signin w-100 m-auto bg-white border rounded text-center wow animate__animated animate__fadeInDown animate__fast">
   <?php sLOG('sw', $_SESSION['LOG'] ?? null, 1) ?>
   <div class="mb-3">
     <img src="<?php echo route['i'] . $_ENV['APP_LOGO'] ?>" alt="DAHP" class="img-fluid" style="width:80%">

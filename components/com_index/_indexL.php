@@ -65,7 +65,7 @@ $lConA = $mCon->getConsBeetweenDates($sdatetA_ini, $sdatetA_fin);
                 <table class="table table-sm"></table>
                 <?php foreach ($lConH as $row_RSCh) { ?>
                     <?php
-                    $detAud = detRow('db_auditoria', 'id_aud', $row_RSCh['AUD']);
+                    $detAud = $AUD->detAud($row_RSCh['AUD']);
                     $detAud_hor = date('H:i', strtotime($detAud['aud_datet']));
                     ?>
                     <tr>
@@ -96,8 +96,7 @@ $lConA = $mCon->getConsBeetweenDates($sdatetA_ini, $sdatetA_fin);
                 <table class="table table-sm m-0 table-striped">
                     <?php foreach ($lConA as $row_RSCa) { ?>
                         <?php
-                        $detAud = $db->detRow('db_auditoria', null, 'id_aud', $row_RSCa['AUD']);
-                        $detAud_hor = date('H:i', strtotime($detAud['aud_datet']));
+                        $detAud_hor = $AUD->detAudTime($row_RSCa['AUD']);///$db->detRow('db_auditoria', null, 'id_aud', $row_RSCa['AUD']);
                         ?>
                         <tr>
                             <td>

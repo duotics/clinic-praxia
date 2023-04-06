@@ -50,7 +50,10 @@ class Consulta
     }
     public function getConsBeetweenDates($dateBeg, $dateEnd)
     {
-        $sql = "SELECT {$this->mainTable}.con_num AS IDC, {$this->mainTable}.pac_cod AS IDP, {$this->mainTable}.con_fec AS FEC, {$this->mainTable}.id_aud AS AUD, 
+        $sql = "SELECT {$this->mainTable}.con_num AS IDC, 
+        {$this->mainTable}.pac_cod AS IDP, 
+        {$this->mainTable}.con_fec AS FEC, 
+        {$this->mainTable}.idAud AS AUD, 
         CONCAT_WS(' ', db_pacientes.pac_nom, db_pacientes.pac_ape) AS NOM
         FROM {$this->mainTable} 
         INNER JOIN db_pacientes ON {$this->mainTable}.pac_cod=db_pacientes.pac_cod
