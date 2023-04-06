@@ -22,6 +22,7 @@ RewriteRule ^(/)?$ public/index.php [L]
 RewriteRule ^acceso public/user/login.php
 RewriteRule ^salir public/user/logout.php
 RewriteRule ^main components/home/
+
 #RewriteRule ^resetclave public/user/resetclave.php
 #RewriteRule ^resetusuario public/user/resetuser.php
 

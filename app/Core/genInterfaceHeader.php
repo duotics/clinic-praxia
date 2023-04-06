@@ -20,10 +20,10 @@ class genInterfaceHeader extends genInterface
             $obj = null;
             $objMod = null;
             $MOD = array(
-                "ref" => $this->MOD['mod_ref'] ?? null,
-                "icon" => $this->MOD['mod_icon'] ?? null,
-                "des" => $this->MOD['mod_des'] ?? null,
-                "nom" => $this->MOD['mod_nom'] ?? null
+                "ref" => $this->MOD['ref'] ?? null,
+                "icon" => $this->MOD['icon'] ?? $this->MOD['iconM'] ?? null,
+                "nom" => $this->MOD['nom'] ?? $this->MOD['nomM'] ?? null,
+                "des" => $this->MOD['des'] ?? $this->MOD['titM'] ?? null
             );
             //BEGIN OBJ CONSTRUCT
             $obj.="<div class='obj-header-wrapper clearfix'>";

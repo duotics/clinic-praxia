@@ -6,13 +6,13 @@ function vP($est, $log = null)
         $LOGc = cfg['p']['c-ok'];
         $LOGi = cfg['i']['okp'];
         $LOGicon = 'success';
-        $LOGimg = RAIZa . cfg['p']['i-ok'];
+        $LOGimg = route['i'] . cfg['p']['i-ok'];
     } else {
         $LOGt = cfg['p']['m-fail'];
         $LOGc = cfg['p']['c-fail'];
         $LOGi = cfg['i']['failp'];
         $LOGicon = 'error';
-        $LOGimg = RAIZa . cfg['p']['i-fail'];
+        $LOGimg = route['i'] . cfg['p']['i-fail'];
     }
     $_SESSION['LOG']['t'] = $LOGt;
     $_SESSION['LOG']['m'] = $log;

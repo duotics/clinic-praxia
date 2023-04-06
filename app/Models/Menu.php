@@ -5,19 +5,24 @@ namespace App\Models;
 use \PDO;
 use App\Core\Database;
 use App\Core\Paginator;
+use App\Models\Componente;
 
 class Menu
 {
     private $db;
-    protected $mainTableName = "tbl_menus";
-    protected $mainIDName = "id";
-    protected $mainRefName = "ref";
-    protected $secTableName = "tbl_menus_items";
-    protected $secIDName = "men_id";
-    protected $thirdTableName = "tbl_menus_usuario";
-    protected $thirdIDName = "men_usu_id";
+    protected $mCom;
+    protected $mainTableName = "dbMenu";
+    protected $mainIDName = "idMenu";
+    protected $mainRefName = "refMenu";
+    protected $secTableName = "dbMenuItem";
+    protected $secIDName = "idMItem";
+    protected $secRefName = "refMItem";
+    protected $thirdTableName = "dbMenuItemUser";
+    protected $thirdIDName = "idMIUser";
     protected $id;
     protected $idi;
+    protected $refMenu;
+    protected $refMenuItem;
     public $det;
     public $detI;
     public $TR, $TRt, $TRp, $RS, $RSp;
@@ -26,7 +31,9 @@ class Menu
     function __construct()
     {
         $this->db = new Database();
+        $this->mCom = new Componente();
     }
+    //SETTERS
     function setID($id)
     {
         $this->id = $id;
@@ -35,30 +42,77 @@ class Menu
     {
         $this->idi = $id;
     }
+    public function setRefMenuItem($val)
+    {
+        $this->refMenuItem = $val;
+    }
+    //GETTERS
+    public function getMainTableName()
+    {
+        return $this->mainTableName;
+    }
+    public function getMainIDName()
+    {
+        return $this->mainIDName;
+    }
+    public function getSecTableName()
+    {
+        return $this->secTableName;
+    }
+    public function getSecIDName()
+    {
+        return $this->secIDName;
+    }
     function getmainRefName()
     {
         return $this->mainRefName;
     }
+    function getsecRefName()
+    {
+        return $this->secRefName;
+    }
+    //FUNCTIONS
     public function det()
     {
         $this->det = $this->db->detRow("dbMenu", null, 'md5(idMen)', $this->id);
-    }
-    public function detParam($fiel = 1, $val = 1)
-    {
-        $this->det = $this->db->detRow($this->mainTableName, null, $fiel, $val);
     }
     public function detI()
     {
         $this->detI = $this->db->detRow("dbMenuItem", null, 'md5(idMenItem)', $this->idi);
     }
-    public function detILogin($menu = null)
+    public function detParam($fiel = 1, $val = 1)
     {
-        $sql = "SELECT * FROM dbMenuItem 
-		INNER JOIN dbMenuItemUser ON dbMenuItem.idMItem=dbMenuItemUser.idMItem
-		LEFT JOIN dbComponente ON dbMenuItem.idComp=dbComponente.idComp
-		WHERE dbMenuItemUser.idUser={$_SESSION['dU']['ID']} AND dbMenuItem.nomMItem='{$menu}'";
-        dep($sql);
-        $ret = $this->db->selectSQLR($sql);
+        $this->det = $this->db->detRow($this->mainTableName, null, $fiel, $val);
+    }
+    public function detIParam($fiel = 1, $val = 1)
+    {
+        $this->detI = $this->db->detRow($this->secTableName, null, $fiel, $val);
+    }
+    public function detMenuItemLogin()
+    {
+        $sql = "SELECT {$this->secTableName}.{$this->secIDName}
+        FROM {$this->secTableName}
+		INNER JOIN {$this->thirdTableName} ON {$this->secTableName}.idMItem={$this->thirdTableName}.idMItem
+		WHERE {$this->thirdTableName}.idUser={$_SESSION['dU']['ID']} AND {$this->secTableName}.refMItem='{$this->refMenuItem}'";
+        $ret = $this->db->selectSQL($sql);
+        return $ret;
+    }
+    public function detMenuCompData(){
+        $sql = "SELECT 
+        {$this->secTableName}.refMItem AS ref,
+        {$this->secTableName}.nomMItem AS nomM,
+        {$this->secTableName}.titMItem AS titM,
+        {$this->secTableName}.iconMItem AS iconM,
+        {$this->mCom->getMainTableName()}.nomComp AS nom,
+        {$this->mCom->getMainTableName()}.desComp AS des,
+        {$this->mCom->getMainTableName()}.iconComp AS icon
+
+        
+        FROM {$this->secTableName}
+
+		LEFT JOIN {$this->mCom->getMainTableName()} ON {$this->secTableName}.idComp={$this->mCom->getMainTableName()}.{$this->mCom->getMainIDName()}
+		WHERE {$this->secTableName}.refMItem='{$this->refMenuItem}'";
+        $ret = $this->db->selectSQL($sql);
         return $ret;
     }
     function getList() //function to old view data
@@ -134,26 +188,26 @@ class Menu
         $idParent = (int)$idParent;
 
         if ($_SESSION['dU']['LEVEL'] != 1) {
-            $sqlUser['join'] = " INNER JOIN {$this->thirdTableName} ON {$this->secTableName}.men_id = {$this->thirdTableName}.men_id ";
-            $sqlUser['where'] = " AND {$this->thirdTableName}.usr_id = {$_SESSION['dU']['ID']}";
+            $sqlUser['join'] = " INNER JOIN {$this->thirdTableName} ON {$this->secTableName}.{$this->secIDName} = {$this->thirdTableName}.idMItem ";
+            $sqlUser['where'] = " AND {$this->thirdTableName}.idUser = {$_SESSION['dU']['ID']}";
         }
         if ($refMC) {
-            $sqlMenu['join'] = " INNER JOIN {$this->mainTableName} on {$this->secTableName}.men_idc={$this->mainTableName}.{$this->mainIDName} ";
-            $sqlMenu['where'] = " AND {$this->mainTableName}.ref = '{$refMC}' ";
+            $sqlMenu['join'] = " INNER JOIN {$this->mainTableName} on {$this->secTableName}.idMenu={$this->mainTableName}.{$this->mainIDName} ";
+            $sqlMenu['where'] = " AND {$this->mainTableName}.refMenu = '{$refMC}' ";
         }
         $sql = "SELECT 
-        {$this->secTableName}.men_id as id,
-        {$this->secTableName}.men_nombre as nom,
-        {$this->secTableName}.men_tit as tit,
-        {$this->secTableName}.men_icon as ico,
-        {$this->secTableName}.men_css as css,
-        {$this->secTableName}.men_cssl as cssl,
-        {$this->secTableName}.men_sty as sty,
-        {$this->secTableName}.men_precode as pre,
-        {$this->secTableName}.men_postcode as pos,
-        {$this->secTableName}.men_link as link,
-        {$this->secTableName}.men_orden as ord,
-        {$this->secTableName}.mod_cod as idCom
+        {$this->secTableName}.idMItem as id,
+        {$this->secTableName}.idComp as idCom,
+        {$this->secTableName}.nomMItem as nom,
+        {$this->secTableName}.titMItem as tit,
+        {$this->secTableName}.iconMItem as ico,
+        {$this->secTableName}.cssMItem as css,
+        {$this->secTableName}.csslMItem as cssl,
+        {$this->secTableName}.styMItem as sty,
+        {$this->secTableName}.precodeMItem as pre,
+        {$this->secTableName}.poscodeMItem as pos,
+        {$this->secTableName}.linkMItem as link,
+        {$this->secTableName}.ordMItem as ord
 
         FROM {$this->secTableName} 
 
@@ -165,10 +219,10 @@ class Menu
         {$sqlUser['where']}
         {$sqlMenu['where']}
 
-        AND {$this->secTableName}.men_padre = {$idParent} 
-        AND {$this->secTableName}.men_stat = 1 
+        AND {$this->secTableName}.parentMItem = {$idParent} 
+        AND {$this->secTableName}.status = 1 
 
-        ORDER BY men_orden ASC";
+        ORDER BY ord ASC";
         $res = $this->db->selectAllSQL($sql);
         return $res;
     }

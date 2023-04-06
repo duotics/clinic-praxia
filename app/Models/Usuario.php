@@ -4,12 +4,15 @@ namespace App\Models;
 
 use \PDO;
 use App\Core\Database;
-use App\Core\Paginator;
+use App\Models\Empleado;
+use App\Models\Persona;
 use DateTime;
 
-class Usuario
+class Usuario extends Empleado
 {
     private $db;
+    protected static $mainTableName = "dbUsuario";
+    protected static $mainIDName = "idUser";
     protected $id;
     public $det;
     public $detAll;
@@ -147,6 +150,21 @@ class Usuario
         $arrayData = array($val, $id);
         $ret = $this->db->updateSQLR($sql, $arrayData);
         vP($ret['est'], $ret['log']);
+        return $ret;
+    }
+    //VERIFY USER FOR AUTH CLASS
+    public function verifyUser($loginUsername, $loginPassword)
+    {
+        $sql = "SELECT 
+        {$this::$mainTableName}.idUser AS ID, 
+        {$this::$mainTableName}.nameUser AS USER, 
+        {$this::$mainTableName}.status AS EST, 
+        {$this::$mainTableName}.themeUser AS THEME, 
+        {$this::$mainTableName}.levelUser AS LEVEL, 
+        {$this::$mainTableName}.idAud AS AUD 
+        FROM {$this::$mainTableName}
+        WHERE nameUser='{$loginUsername}' AND passUser='{$loginPassword}'";
+        $ret = $this->db->selectSQL($sql);
         return $ret;
     }
 }

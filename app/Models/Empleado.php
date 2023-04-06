@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
-use \PDO;
 use App\Core\Database;
-use App\Core\Paginator;
+use App\Models\Persona;
 
-class Empleado
+class Empleado extends Persona
 {
     private $db;
+    protected static $mainTableName = "dbEmpleado";
+    protected static $mainIDName = "idEmp";
     protected $id;
     public $det;
 
@@ -21,7 +22,10 @@ class Empleado
     {
         $this->id = $id;
     }
-
+    public function getMainTableName()
+    {
+        return $this->mainTableName;
+    }
     public function det()
     {
         $this->det = $this->db->detRow("dbEmpleado", null, 'md5(idEmp)', $this->id);

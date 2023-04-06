@@ -1,5 +1,5 @@
 <?php include('../../init.php');
-$dM = $Auth->vLogin('PACIENTE');
+$dM = $Auth->vLogin('PAC');
 $objHead = new App\Core\genInterfaceHeader($dM, 'header');
 include(root['f'] . "head.php");
 include(root['m'] . 'mod_menu/menuMain.php'); ?>

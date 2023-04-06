@@ -6,6 +6,7 @@ setlocale(LC_ALL, "es_EC");
 
 define("cfg", $cfg = startConfigs("cfg"));
 define("cfgBg", $cfgBg = startConfigs("cfgBg"));
+define("cfgBus", $cfgBus = startConfigs("cfgBus"));
 
 $sdate = date('Y-m-d');
 $sdatet = date('Y-m-d H:i:s');

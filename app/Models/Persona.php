@@ -2,14 +2,13 @@
 
 namespace App\Models;
 
-use \PDO;
 use App\Core\Database;
-use App\Core\Paginator;
-use DateTime;
 
 class Persona
 {
     private $db;
+    protected static $mainTableName = "dbPersona";
+    protected static $mainIDName = "idPer";
     protected $id;
     public $det;
 
@@ -20,6 +19,14 @@ class Persona
     function setID($id)
     {
         $this->id = $id;
+    }
+    public function getMainTableName()
+    {
+        return $this->mainTableName;
+    }
+    public function getMainIDName()
+    {
+        return $this->mainIDName;
     }
     public function det()
     {

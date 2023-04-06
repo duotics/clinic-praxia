@@ -8,8 +8,8 @@ class Componente
 {
     private $db;
 
-    protected $mainTable = "dbComponente";
-    protected $mainID = "idComp";
+    protected $mainTableName = "dbComponente";
+    protected $mainIDName = "idComp";
     protected $id;
     public $det;
     function __construct()
@@ -20,41 +20,58 @@ class Componente
     {
         $this->id = $id;
     }
+    public function getMainTableName()
+    {
+        return $this->mainTableName;
+    }
+    public function getMainIDName()
+    {
+        return $this->mainIDName;
+    }
     public function det()
     {
-        $this->det = $this->db->detRow($this->mainTable, null, "md5({$this->mainID})", $this->id);
+        $this->det = $this->db->detRow($this->mainTableName, null, "md5({$this->mainIDName})", $this->id);
+    }
+    public function detParam($fiel = 1, $val = 1)
+    {
+        $this->det = $this->db->detRow($this->mainTableName, null, $fiel, $val);
     }
 
     public function detComp($comp)
     {
-        $dM = $this->db->detRow('db_componentes', null, 'mod_ref', $comp);
+        $dM = $this->db->detRow($this->mainTableName, null, 'mod_ref', $comp);
         return $dM;
     }
     public function detCompDet($val)
     {
-        $sql = "SELECT mod_cod AS ID, mod_nom AS NOM, mod_des AS DES, mod_icon AS ICON, mod_stat AS STATUS
-        FROM db_componentes 
-        WHERE mod_ref='{$val}'";
+        $sql = "SELECT 
+        {$this->mainIDName} AS ID, 
+        nomComp AS NOM, 
+        desComp AS DES, 
+        iconComp AS ICON, 
+        status AS STATUS
+        FROM {$this->mainTableName} 
+        WHERE refComp='{$val}'";
         $dM = $this->db->selectSQL($sql);
         return $dM;
     }
 
     function getAll()
     {
-        $sql = "SELECT * FROM {$this->mainTable} ORDER BY {$this->mainID} DESC";
+        $sql = "SELECT * FROM {$this->mainTableName} ORDER BY {$this->mainIDName} DESC";
         $res = $this->db->selectAllSQL($sql);
         return $res;
     }
     function getAllListActive()
     {
-        return $this->db->detRowGSelA($this->mainTable, $this->mainID, 'mod_nom', 'mod_stat', 1, TRUE, 'mod_nom', 'ASC');
-        //$sql = "SELECT * FROM {$this->mainTable} ORDER BY {$this->mainID} DESC";
+        return $this->db->detRowGSelA($this->mainTableName, $this->mainIDName, 'mod_nom', 'mod_stat', 1, TRUE, 'mod_nom', 'ASC');
+        //$sql = "SELECT * FROM {$this->mainTableName} ORDER BY {$this->mainIDName} DESC";
         //$res = $this->db->selectAllSQL($sql);
         //return $res;
     }
     function insertComp(string $ref, string $nom, string $des, string $icon)
     {
-        $sql = "INSERT INTO {$this->mainTable} (mod_ref, mod_nom, mod_des, mod_icon) 
+        $sql = "INSERT INTO {$this->mainTableName} (mod_ref, mod_nom, mod_des, mod_icon) 
 		VALUES (?,?,?,?)";
         $arrayData = array($ref, $nom, $des, $icon);
         $ret = $this->db->insertSQLR($sql, $arrayData);
@@ -63,7 +80,7 @@ class Componente
     }
     function updateComp(string $id, string $ref, string $nom, string $des, string $icon, int $status)
     {
-        $sql = "UPDATE {$this->mainTable} SET mod_ref=?, mod_nom=?, mod_des=?, mod_icon=?, mod_stat=? WHERE md5({$this->mainID})=? LIMIT 1";
+        $sql = "UPDATE {$this->mainTableName} SET mod_ref=?, mod_nom=?, mod_des=?, mod_icon=?, mod_stat=? WHERE md5({$this->mainIDName})=? LIMIT 1";
         $arrayData = array($ref, $nom, $des, $icon, $status, $id);
         $ret = $this->db->updateSQLR($sql, $arrayData);
         vP($ret['est'], $ret['log']);
@@ -71,14 +88,14 @@ class Componente
     }
     function deleteComp(string $id)
     {
-        $sql = "DELETE FROM {$this->mainTable} WHERE md5({$this->mainID})='{$id}' LIMIT 1";
+        $sql = "DELETE FROM {$this->mainTableName} WHERE md5({$this->mainIDName})='{$id}' LIMIT 1";
         $ret = $this->db->deleteSQLR($sql);
         vP($ret['est'], $ret['log']);
         return $ret;
     }
     function changeStatus(string $id, int $val)
     {
-        $sql = "UPDATE {$this->mainTable} SET mod_stat=? WHERE md5({$this->mainID})=? LIMIT 1";
+        $sql = "UPDATE {$this->mainTableName} SET mod_stat=? WHERE md5({$this->mainIDName})=? LIMIT 1";
         $arrayData = array($val, $id);
         $ret = $this->db->updateSQLR($sql, $arrayData);
         vP($ret['est'], $ret['log']);
