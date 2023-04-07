@@ -20,6 +20,12 @@
   top: 10px;
   right: 10px;
 }
-.obj-header-wrapper{
-  
+.obj-header-wrapper {
+  clear: both;
+}
+.table-list td {
+  padding: 0.25rem 0.25rem !important;
+}
+.table-list .btn {
+  padding: 0.15rem 0.25rem !important;
 }

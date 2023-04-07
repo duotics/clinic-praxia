@@ -5,22 +5,32 @@ namespace App\Models;
 use \PDO;
 use App\Core\Database;
 use App\Core\Paginator;
+use App\Models\Media;
 
 class Paciente
 {
     private $db;
+    protected $mMedia;
     protected $mainTable = "db_pacientes";
     protected $secTable = "db_pacientes_nom";
     protected $mainID = "pac_cod";
     protected $secID = "pac_cod";
+    protected $mediaTable = "db_pacientes_media";
+    protected $mediaID = "id";
+    protected $mediaIDRef = "pac_cod";
     protected $id;
     protected $detAll;
     protected $termBus, $cadBus;
     public $TR, $TRt, $TRp, $RSp, $pages;
-    public $det, $detF, $detV;
-    public function __construct()
+    public $det, $detF, $detV, $detMedia;
+    public function __construct($id = null)
     {
         $this->db = new Database();
+        $this->mMedia = new Media();
+        if ($id) {
+            $this->id = $id;
+            $this->det();
+        }
     }
     //SETTERS
     function setID($id)
@@ -52,6 +62,10 @@ class Paciente
     public function det()
     {
         $this->det = $this->db->detRow($this->mainTable, null, "md5({$this->mainID})", $this->id);
+    }
+    public function detMediaPac()
+    {
+        $this->detMedia = $this->db->detRow($this->mediaTable, null, "md5({$this->mediaIDRef})", $this->id);
     }
     function getAll()
     {
@@ -188,15 +202,25 @@ class Paciente
         $this->detF = $ret;
         //dep($this->detF);
     }
-    function lastImgPac($param1)
+    function getlastImgPac()
     {
-        $ret = null;
-        $detPacMed = $this->db->detRow('db_pacientes_media', null, 'md5(cod_pac)', $param1, 'id', 'DESC');
-        if ($detPacMed) {
-            $detMed = $this->db->detRow('db_media', null, 'id_med', $detPacMed['id_med']);
-            $ret = $detMed['file'];
+        try {
+            $ret = null;
+            $this->detMediaPac();
+            $detMediaPac = $this->detMedia;
+            if ($detMediaPac) {
+                $idMedia = $detMediaPac['id_med'];
+                $this->mMedia->setID(md5($idMedia));
+                $this->mMedia->det();
+                $detMedia = $this->mMedia->det;
+                if ($detMedia) {
+                    $ret = $detMedia['file'];
+                    return $ret;
+                }
+            }
+        } catch (\Exception $e) {
+            return $e;
         }
-        return $ret;
     }
     public function registrarBusquedaPaciente()
     {

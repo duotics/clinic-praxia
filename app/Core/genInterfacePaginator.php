@@ -17,7 +17,6 @@ class genInterfacePaginator extends genInterface
     private function gen_BS_paginator()
     {
         try {
-            $this->vP = true;
             $obj = null;
             if ($this->TR) {
                 $obj .= "<div class='card card-light mt-3 mb-3'>
@@ -31,12 +30,14 @@ class genInterfacePaginator extends genInterface
             </div>
             </div>
             </div>";
-            }else{
+            } else {
                 throw new Exception("No hay data para paginar");
             }
+            $this->obj = $obj;
+            $this->vP = true;
         } catch (Exception $e) {
             $this->vP = false;
-            $this->log=$e->getMessage();
+            $this->log = $e->getMessage();
         }
     }
 }

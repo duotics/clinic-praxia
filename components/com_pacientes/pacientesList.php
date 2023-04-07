@@ -7,6 +7,7 @@ $sbr = $_GET['sBr'] ?? $_POST['sBr'] ?? null;
 $mPac->setTerm($sbr);
 $mPac->getPacList();
 $lPac = $mPac->getDetAll();
+$objPaginator = new App\Core\genInterfacePaginator($mPac->TR, $mPac->pages->display_pages(), $mPac->pages->display_items_per_page());
 ?>
 <?php if ($sbr) { ?>
 
@@ -15,12 +16,9 @@ $lPac = $mPac->getDetAll();
 		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 	</div>
 <?php } ?>
-<?php if ($mPac->TRp) { ?>
-	<?php
-	$objPaginator = new App\Core\genInterfacePaginator($mPac->TR, $mPac->pages->display_pages(), $mPac->pages->display_items_per_page());
-	$objPaginator->showInterface()
-	?>
-	<table id="mytable_cli" class="table table-bordered table-condensed table-striped table-sm">
+<?php if ($lPac) { ?>
+	<?php $objPaginator->showInterface() ?>
+	<table id="mytable_cli" class="table table-sm table-bordered table-striped table-list">
 		<thead>
 			<tr>
 				<th></th>

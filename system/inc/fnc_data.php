@@ -102,18 +102,6 @@ function detCom($param1)
 	return ($dRS);
 }
 
-//ULTIMA IMAGEN DE UN PACIENTE
-function lastImgPac($param1)
-{
-	$detMedFile = null;
-	$detPacMed = detRow('db_pacientes_media', 'cod_pac', $param1, 'id', 'DESC');
-	if ($detPacMed) {
-		$detMed = detRow('db_media', 'id_med', $detPacMed['id_med']);
-		if ($detMed) $detMedFile = $detMed['file'];
-	}
-	return $detMedFile;
-}
-
 /************************************************************************************************************
 	FUNCIONES DATOS (seleccionados), para seleccionarlos dento del Generar Select
  ************************************************************************************************************/
