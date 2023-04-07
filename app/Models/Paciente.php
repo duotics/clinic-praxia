@@ -175,7 +175,7 @@ class Paciente
         //dep($this->det);
         if ($this->det) {
             $dPac_edad = edad($this->det['pac_fec']);
-            $dPac_img = vImg("data/db/pac/", $this->lastImgPac($this->id));
+            $dPac_img = vImg("data/db/pac/", $this->getlastImgPac());
             $dPacSig = $this->db->detRow("db_signos", null, "md5(pac_cod)", $this->id, "id", "DESC");
             //$typ['tsan']=$this->db->detRow_type($dPac['pac_tipsan'])['VAL'];
             $typ = array(

@@ -10,10 +10,12 @@ $ids = $_GET['id'] ?? $_POST['id'] ?? null;
 $mPac->setID($ids);
 $mPac->detF();
 $dPac = $mPac->det;
-$dPacF = $mPac->detF;
+
+//dep($dPacF);
 if ($dPac) {
 	$idp = $dPac['pac_cod'];
 	$mPac->registrarBusquedaPaciente();
+	$img = vImg("data/db/pac/", $mPac->getlastImgPac());
 	$acc = md5("UPDp");
 	$dPacSig = $mSig->getLastSignPac($ids);
 

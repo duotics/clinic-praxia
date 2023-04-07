@@ -11,8 +11,13 @@
 <div class="row mb-2">
     <div class="col-md-3 text-center">
         <?php if ($dPac) { ?>
-            <a href="<?php echo $img['n'] ?>" class="fancybox"><img class="img-thumbnail img-fluid" src="<?php echo $img['t'] ?>"></a><br>
-            <a href="pacImg/pacImg.php?idp=<?php echo $ids ?>" class="btn btn-light btn-sm btn-block fancyR" data-type="iframe"><i class="fa fa-camera fa-lg"></i> Cargar</a>
+            <a href="<?php echo $img['n'] ?>" data-fancybox>
+                <img class="img-thumbnail img-fluid" src="<?php echo $img['t'] ?>">
+            </a>
+            <br>
+            <a href="pacImg/pacImg.php?idp=<?php echo $ids ?>" class="btn btn-light btn-sm btn-block" data-fancybox>
+                <i class="fa fa-camera fa-lg"></i> Cargar
+            </a>
         <?php } else { ?>
             <a class="btn btn-light disabled"><i class="fa fa-picture-o fa-3x"></i><br>Foto</a>
         <?php } ?>

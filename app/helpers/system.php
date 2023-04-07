@@ -63,7 +63,7 @@ function vImg($ruta, $nombre, $thumb = TRUE, $pthumb = 't_', $retHtml = [])
     //$thumb. TRUE o FALSE en caso de querer recuperar thumb
     //$pthumb PREFIJO de Thumb
     //RAIZ must be named RAIZ0 depends the root folder
-    $imgRet['n'] = route['a'] . 'images/struct/no_image.jpg';
+    $imgRet['n'] = route['i'] . cfg['sys']['noimage'];//'images/struct/no_image.jpg';
     $imgRet['t'] = $imgRet['n'];
     $imgRet['s'] = FALSE; //Verify if file exist is default FALSE
     if ($nombre) {
