@@ -19,12 +19,16 @@ if ($dPac) {
 
 	$IMC = calcIMC($dPacSig['imc'] ?? null, $dPacSig['peso'] ?? null, $dPacSig['talla'] ?? null);
 	$btnAcc = "<button type='button' class='btn btn-success' id='vAcc'>{$cfg['b']['upd']}</button>";
+	$btnCon = '<a href="' . route['c'] . 'com_consultas/form.php?idp=' . $ids . '" class="btn btn-info"><i class="far fa-eye fa-lg"></i> VER CONSULTA</a>';
 } else {
 	$acc = md5("INSp");
 	$btnAcc = "<button type='button' class='btn btn-info' id='vAcc'>{$cfg['b']['ins']}</button>";
+	$btnCon = null;
 }
-$btnNew = "<a href='{$urlc}' class='btn btn-default'>{$cfg['b']['new']}</a>";
-$btnClose = "<a href='index.php' class='btn btn-default'>{$cfg['b']['close']}</a>";
+$btnNew = "<a href='{$urlc}' class='btn btn-light'>{$cfg['b']['new']}</a>";
+
+$cont = array("icon" => $dM['icon'] ?? null, "ref" => $dM['nom'] ?? null, "nom" => $dPacF['dPac_fullname'] ?? null, "des" => $idp ?? null);
+$objHeadCom = new App\Core\genInterfaceTitle($cont, 'card', null, $btnAcc . $btnNew . $btnCon, NULL, 'bg-dark text-light', 'h2');
 ?>
 <form enctype="multipart/form-data" method="post" action="_fncts.php" name="form_grabar" id="form_grabar" role="form">
 	<fieldset>
@@ -33,32 +37,7 @@ $btnClose = "<a href='index.php' class='btn btn-default'>{$cfg['b']['close']}</a
 		<input name="id" type="hidden" value="<?php echo $id; ?>" />
 		<input name="url" type="hidden" value="<?php echo $urlc ?>">
 	</fieldset>
-	<nav class="navbar navbar-default" role="navigation">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-2">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="#"><?php echo $dM['nom'] ?>
-				<span class="label label-primary"><?php echo $dPac['pac_cod'] ?? null ?></span></a>
-		</div>
-		<div class="collapse navbar-collapse" id="navbar-collapse-2">
-			<ul class="nav navbar-nav">
-
-				<li class="active"><a href="#"><?php echo $dPacF['dPac_fullname'] ?? null ?></a></li>
-			</ul>
-			<div class="navbar-right btn-group navbar-btn">
-				<?php echo $btnAcc ?>
-				<?php if ($id) { ?>
-					<a href="<?php echo route['c'] ?>com_consultas/form.php?idp=<?php echo $id ?>" class="btn btn-info"><i class="fa fa-eye"></i> VER CONSULTA</a>
-				<?php } ?>
-				<?php echo $btnNew ?>
-				<?php echo $btnClose ?>
-			</div>
-		</div><!-- /.navbar-collapse -->
-	</nav>
+	<?php $objHeadCom->showInterface(); ?>
 	<div class="row">
 		<div class="col-md-5">
 			<?php include("_formMain.php") ?>

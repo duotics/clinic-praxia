@@ -302,4 +302,4 @@ include(root['f'] . 'head.php'); ?>
 		$('#diagnostico').focus();
 	</script>
 <?php } ?>
-<?php include(root['f'] . 'footer.php'); ?>
+<?php include(root['f'] . 'foot.php'); ?>

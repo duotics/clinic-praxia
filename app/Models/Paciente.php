@@ -22,10 +22,16 @@ class Paciente
     {
         $this->db = new Database();
     }
+    //SETTERS
     function setID($id)
     {
         $this->id = $id;
     }
+    public function setTerm($param)
+    {
+        $this->termBus = $param;
+    }
+    //GETTERS
     public function getMainTableName()
     {
         return $this->mainTable;
@@ -38,10 +44,11 @@ class Paciente
     {
         return $this->detAll;
     }
-    public function setTerm($param)
+    public function getDet()
     {
-        $this->termBus = $param;
+        return $this->det;
     }
+    //FUNCIONES
     public function det()
     {
         $this->det = $this->db->detRow($this->mainTable, null, "md5({$this->mainID})", $this->id);

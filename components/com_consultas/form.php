@@ -1,20 +1,41 @@
 <?php include('../../init.php');
+$dM = $Auth->vLogin('CONSULTA');
 
 use App\Models\Consulta;
+use App\Models\Paciente;
+use App\Models\Agendamiento;
 
-$mCon = new Consulta;
-$dM = $Auth->vLogin('CONSULTA');
+$mCon = new Consulta();
+$mPac = new Paciente();
+$mRes = new Agendamiento();
+
 $tabS = $_SESSION['tab']['con'] ?? null;
-$rowMod = fnc_datamod($_SESSION['MODSEL'] ?? null);
 $acc = $_GET['acc'] ?? $_POST['acc'] ?? null;
 $idp = $_GET['idp'] ?? $_POST['idp'] ?? null;
 $idc = $_GET['idc'] ?? $_POST['idc'] ?? null;
 $idr = $_GET['idr'] ?? $_POST['idr'] ?? null;
-$dRes = detRow('db_fullcalendar', 'id', $idr);
-$dCon = detRow('db_consultas', 'con_num', $idc);
-if ($dRes) $acc = 'NEW';
+
+//verifico si hay una reserva
+//Verifico los detalles dela consulta
+//verifico la existencia del paciente
+
+if ($idr) {
+	$mRes->setID($idr);
+	$mRes->det();
+	$dRes = $mRes->getDet();
+	$acc = 'NEW';
+}
+
+$dRes = $db->detRow('db_fullcalendar', null, 'id', $idr);
+$dCon = $db->detRow('db_consultas', null, 'con_num', $idc);
+
 if ($dCon) $idp = $dCon['pac_cod'];
-$dPac = detRow('db_pacientes', 'pac_cod', $idp);
+
+//DETALLE DE PACIENTE
+$mPac->setID($idp);
+$mPac->det();
+$dPac = $mPac->getDet();
+
 if ($dPac) {
 	if ($acc != 'NEW') {
 		if (!$dCon) $dCon = detRow('db_consultas', 'pac_cod', $idp, 'con_num', 'DESC');
@@ -32,14 +53,16 @@ if ($dCon) {
 	$btnAcc = '<button id="vAcc" type="button" class="btn btn-info navbar-btn">' . $cfg['btn']['insI'] . $cfg['btn']['insT'] . '</button>';
 	$msgErrorNoCons = "<div class='alert alert-warning'><h4>Primero Guarde la Consulta</h4></div>";
 }
-$btnNew = '<a href="' . $urlc . '?idp=' . $dPac['pac_cod'] . '&acc=NEW" class="btn btn-default navbar-btn">' . $cfg['btn']['newI'] . $cfg['btn']['newT'] . '</a>';
+$btnNew = null; //'<a href="' . $urlc . '?idp=' . $dPac['pac_cod'] . '&acc=NEW" class="btn btn-default navbar-btn">' . $cfg['btn']['newI'] . $cfg['btn']['newT'] . '</a>';
 
-$dirimg = vImg("data/db/pac/", lastImgPac($idp));
+$dirimg = null; //vImg("data/db/pac/", lastImgPac($idp));
 $stat = estCon($estCon); //Devuelve el estado de la Consulta en HTML
 include(root['f'] . 'head.php');
 include(root['m'] . 'mod_menu/menuMain.php'); ?>
+***
 <?php if ($dPac) { ?>
-	<?php $mPac->registrarBusquedaPaciente($id) ?>
+	<?php //$mPac->registrarBusquedaPaciente($id) 
+	?>
 	<form action="_fnc.php" method="post">
 		<fieldset>
 			<input name="acc" type="hidden" id="acc" value="<?php echo $acc ?>" />
@@ -188,4 +211,4 @@ include(root['m'] . 'mod_menu/menuMain.php'); ?>
 		}, function(data) {});
 	}
 </script>
-<?php include(root['f'] . "footerC.php"); ?>
+<?php include(root['f'] . "foot.php"); ?>

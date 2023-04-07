@@ -101,30 +101,6 @@ function detCom($param1)
 	mysqli_free_result($RS);
 	return ($dRS);
 }
-//ESTADO FACTURA
-function estCon($est)
-{
-	if ($est == '0') {
-		$stat['txt'] = 'Pendiente';
-		$stat['inf'] = '<a class="btn disabled btn-info navbar-btn">Pendiente <i class="fa fa-exclamation-circle"></i></a>';
-	} else if ($est == '1') {
-		$stat['txt'] = 'Tratada';
-		$stat['inf'] = '<a class="btn disabled btn-info navbar-btn">Tratada <i class="fa fa-check-square-o"></i></a>';
-	} else if ($est == '2') {
-		$stat['txt'] = 'Finalizada';
-		$stat['inf'] = '<a class="btn disabled btn-danger navbar-btn">Finalizada <i class="fa fa-check-square-o"></i></a>';
-	} else if ($est == '3') {
-		$stat['txt'] = 'Anulada';
-		$stat['inf'] = '<a class="btn disabled btn-danger navbar-btn">Anulada <i class="fa fa-check-square-o"></i></a>';
-	} else if ($est == '5') {
-		$stat['txt'] = 'Reservada';
-		$stat['inf'] = '<a class="btn btn-info navbar-btn">Reservada <i class="fa fa-check-square-o"></i></a>';
-	} else if (!$est) {
-		$stat['txt'] = 'NO GUARDADA';
-		$stat['inf'] = '<a class="btn disabled btn-danger navbar-btn">NO GUARDADA <i class="fa fa-arrow-circle-right"></i></a>';
-	}
-	return ($stat);
-}
 
 //ULTIMA IMAGEN DE UN PACIENTE
 function lastImgPac($param1)

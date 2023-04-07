@@ -4,4 +4,4 @@ include(root['f'] . 'head.php'); ?>
 <div class="container">
     <?php include('_grafico.php') ?>
 </div>
-<?php include(root['f'] . 'footer.php'); ?>
+<?php include(root['f'] . 'foot.php'); ?>

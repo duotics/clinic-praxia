@@ -10,4 +10,4 @@ include(root['f'] . "head.php"); ?>
 		<div><?php include('rep_pacProc_list.php'); ?></div>
 	</div>
 </body>
-<?php include(root['f'] . 'footer.php'); ?>
+<?php include(root['f'] . 'foot.php'); ?>

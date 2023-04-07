@@ -1,6 +1,6 @@
 <?php
 
-use App\Core\genInterfaceHeader;
+use App\Core\genInterfaceTitle;
 use App\Models\Menu;
 
 $mMenu = new Menu();
@@ -9,7 +9,7 @@ $cMenu = count($lMenu);
 $btnItems = ' <a href="indexItems.php" class="btn btn-secondary"><i class="far fa-eye"></i> Gestionar Items</a> ';
 $btnNew = " <a href='form.php' class='btn btn-primary' data-type='iframe'>{$cfg['b']['new']}</a> ";
 $btnTR = " <span class='btn btn-outline-secondary disabled'>{$cfg['t']['rows']} <strong>{$cMenu}</strong></span> ";
-$objHead=new genInterfaceHeader($dM, 'card', null, $btnItems . $btnNew . $btnTR, null, 'mt-3 mb-3');
+$objHead=new genInterfaceTitle($dM, 'card', null, $btnItems . $btnNew . $btnTR, null, 'mt-3 mb-3');
 ?>
 <div>
 	<?php $objHead->showInterface() ?>

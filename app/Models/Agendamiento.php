@@ -18,6 +18,7 @@ class Agendamiento
     {
         $this->db = new Database();
     }
+    //SETTERS
     function setID($id)
     {
         $this->id = $id;
@@ -26,6 +27,12 @@ class Agendamiento
     {
         $this->termBus = $param;
     }
+    //GETTERS
+    public function getDet()
+    {
+        return $this->det;
+    }
+    //FUNCTIONS
     public function det()
     {
         $this->det = $this->db->detRow($this->mainTable, null, "md5({$this->mainID})", $this->id);

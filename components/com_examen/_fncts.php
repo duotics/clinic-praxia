@@ -296,7 +296,7 @@ if (isset($accjs) && $accjs == TRUE) {
 		$("#alert").slideDown(300).delay(2000).fadeIn(300);
 		parent.location.reload();
 	</script>
-	<?php include(root['f'] . 'footer.php'); ?>
+	<?php include(root['f'] . 'foot.php'); ?>
 <?php } else {
 	header(sprintf("Location: %s", $goTo));
 }

@@ -5,7 +5,7 @@ use App\Models\Componente;
 $mCom = new Componente;
 $lCom = $mCom->getAll();
 $btnNew = "<a data-type='iframe' href='form.php' class='btn btn-primary'>{$cfg['b']['new']}</a>";
-$objHeader = new App\Core\genInterfaceHeader($dM, 'header', null, $btnNew);
+$objHeader = new App\Core\genInterfaceTitle($dM, 'header', null, $btnNew);
 ?>
 <div>
 	<?php $objHeader->showInterface() ?>

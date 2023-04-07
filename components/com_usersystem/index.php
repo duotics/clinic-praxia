@@ -15,4 +15,4 @@ include(root['f'] . 'head.php') ?>
 	sLOG('g'); ?>
 	<div><?php include('users_list.php'); ?></div>
 </div>
-<?php include(root['f'] . 'footer.php'); ?>
+<?php include(root['f'] . 'foot.php'); ?>
