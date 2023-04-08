@@ -7,7 +7,7 @@ function dep($data, $tit = null)
         $format .= print_r($data);
         $format .= print_r('</pre>');
     } else $format .= print_r(' *null* ');
-    $format = print_r(" END</small></div>");
+    $format = print_r(" END Debug [{$tit}]</small></div>");
     return $format;
 }
 
@@ -27,6 +27,11 @@ if (!function_exists('startConfigs')) {
         }
         return $ret;
     }
+}
+
+function getBSTheme()
+{
+    return $_SESSION['dU']['THEME'] ?? $_ENV["APP_THEME"] ?? "zephyre";
 }
 
 function getRealIpAddress(): string
@@ -63,7 +68,7 @@ function vImg($ruta, $nombre, $thumb = TRUE, $pthumb = 't_', $retHtml = [])
     //$thumb. TRUE o FALSE en caso de querer recuperar thumb
     //$pthumb PREFIJO de Thumb
     //RAIZ must be named RAIZ0 depends the root folder
-    $imgRet['n'] = route['i'] . cfg['sys']['noimage'];//'images/struct/no_image.jpg';
+    $imgRet['n'] = route['i'] . cfg['sys']['noimage']; //'images/struct/no_image.jpg';
     $imgRet['t'] = $imgRet['n'];
     $imgRet['s'] = FALSE; //Verify if file exist is default FALSE
     if ($nombre) {

@@ -7,12 +7,10 @@ if ($param) {
   $Auth->setDataLogin($form['user'], $form['pass']);
   $Auth->AuthLogin();
 }
-$cssBody = "home";
-$comp = 'none';
 $css['body'] = "body-login";
 $css['body-bg'] = getBgBodyfromConfigFile();
-include(root['f'] . 'head.php');
-sLOG('sw', $_SESSION['LOG'] ?? null, 1);
+$mTpl = new App\Core\TemplateGen(["css" => $css], ["showBottom"=>false], "sw", null, null);
+$mTpl->renderHead();
 ?>
 <link rel="stylesheet" type="text/css" href="<?php echo route['a'] . "css/signin.css" ?>">
 <main class="form-signin w-100 m-auto bg-white border rounded text-center wow animate__animated animate__fadeInDown animate__fast">
@@ -35,4 +33,4 @@ sLOG('sw', $_SESSION['LOG'] ?? null, 1);
     <p class="mt-3 mb-3 text-muted">&copy; 2023</p>
   </form>
 </main>
-<?php include(root['f'] . 'footS.php') ?>
+<?php $mTpl->renderFoot() ?>

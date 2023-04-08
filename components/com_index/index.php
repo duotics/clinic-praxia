@@ -1,11 +1,9 @@
 <?php include('../../init.php');
 $Auth->vLogin();
-$obj = new App\Core\genInterfaceTitle(null,'header',"INICIO");
-include(root['f'] . "head.php");
-include(root['m'] . 'mod_menu/menuMain.php');
-sLOG("sw") ?>
+$mTpl = new App\Core\TemplateGen(null, null, "sw", ['mod_menu/menuMain.php'], null);
+$mTpl->renderHead();
+?>
 <div class="container-fluid">
-  <?php $obj->showInterface() ?>
   <?php include('_index.php') ?>
 </div>
-<?php include(root['f'] . "foot.php") ?>
+<?php $mTpl->renderFoot() ?>

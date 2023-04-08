@@ -8,12 +8,12 @@ define('root', array(
     'd' => rootM . 'data/',
     'c' => rootM . 'components/',
     'o' => rootM . 'config/',
-    'i' => rootM . 'assets/images',
     'm' => rootM . 'modules/',
-    'f' => rootM . 'frames/',
     's' => rootM . 'system/',
     'p' => rootM . 'api/',
     'r' => rootM . 'resources/',
+    'i' => rootM . 'resources/images',
+    'f' => rootM . 'resources/frames/',
     't' => rootM . 'resources/templates/'
 ));
 //Paths url
@@ -21,16 +21,16 @@ define('routeP', $_ENV['APP_URLR']);
 define('routeM', $_ENV['APP_URL']);
 define('route', array(
     '0' => routeM,
-    'a' => routeM . 'assets/',
     'd' => routeM . 'data/',
     'c' => routeM . 'components/',
-    'f' => routeM . 'frames/',
-    'o' => routeM . 'config/',
-    'i' => routeM . 'assets/images/',
+    'o' => routeM . 'config/',    
     's' => routeM . 'system/',
     'n' => routeM . 'node_modules/',
     'p' => routeM . 'api/',
     'r' => routeM . 'resources/',
+    'i' => routeM . 'resources/images/',
+    'f' => routeM . 'resources/frames/',
+    'a' => routeM . 'resources/assets/',
     't' => routeM . 'resources/templates/'
 ));
 

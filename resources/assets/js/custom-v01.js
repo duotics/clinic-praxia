@@ -9,6 +9,10 @@ $(document).ready(function () {
     },
   }); //Datatable.js basic initialitation
 
+  Fancybox.bind("[data-fancybox]", {
+    //
+  });
+
   Fancybox.bind('[data-fancybox="form"]', {
     on: {
       destroy: (fancybox, slide) => {

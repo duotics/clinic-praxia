@@ -19,6 +19,7 @@
     ],
     "require": {
         "spipu/html2pdf": "^5.2.7",
-        "vlucas/phpdotenv": "^5.5"
+        "vlucas/phpdotenv": "^5.5",
+        "smarty/smarty": "^4.3"
     }
 }
