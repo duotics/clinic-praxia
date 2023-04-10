@@ -1,4 +1,3 @@
-data/*
 vendor/
 node_modules/
 resources/templates/compiled/
