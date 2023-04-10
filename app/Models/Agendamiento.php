@@ -3,29 +3,25 @@
 namespace App\Models;
 
 use App\Core\Database;
+use App\Models\Paciente;
 
 class Agendamiento
 {
     private $db;
-
+    protected $mPac;
     protected $mainTable = "db_fullcalendar";
     protected $mainID = "id";
     protected $id;
-    protected $termBus, $cadBus;
-    public $TR, $TRt, $TRp, $RSp, $pages;
-    public $det, $detF, $detV;
+    public $det;
     function __construct()
     {
         $this->db = new Database();
+        $this->mPac = new Paciente();
     }
     //SETTERS
     function setID($id)
     {
         $this->id = $id;
-    }
-    public function setTerm($param)
-    {
-        $this->termBus = $param;
     }
     //GETTERS
     public function getDet()
@@ -70,10 +66,12 @@ class Agendamiento
         $sql = "SELECT {$this->mainTable}.id AS ID, {$this->mainTable}.pac_cod AS IDP, 
         {$this->mainTable}.fechai AS DATEI, {$this->mainTable}.fechaf AS DATEF,
         {$this->mainTable}.horai AS TIMEI, {$this->mainTable}.horaf AS TIMEF, 
-        {$this->mainTable}.typ_cod AS TYPE, {$this->mainTable}.obs AS OBS, 
-        CONCAT_WS(' ', db_pacientes.pac_nom, db_pacientes.pac_ape) AS NOM
+        {$this->mainTable}.obs AS OBS, 
+        CONCAT_WS(' ', tPac.pac_nom, tPac.pac_ape) AS NOM,
+        tType.typ_nom AS TYPE
         FROM {$this->mainTable} 
-        INNER JOIN db_pacientes ON {$this->mainTable}.pac_cod=db_pacientes.pac_cod
+        INNER JOIN {$this->mPac->getMainTableName()} tPac ON {$this->mainTable}.pac_cod=tPac.{$this->mPac->getMainIDName()}
+        LEFT JOIN db_types tType ON {$this->mainTable}.typ_cod=tType.typ_cod
         WHERE {$this->mainTable}.fechai>='{$dateBeg}' 
         AND {$this->mainTable}.fechaf<='{$dateEnd}' 
         AND {$this->mainTable}.status=1 

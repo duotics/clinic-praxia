@@ -35,25 +35,25 @@ $lConA = $mCon->getConsBeetweenDates($sdatetA_ini, $sdatetA_fin);
                     <?php foreach ($lRes as $row_RSCr) { ?>
                         <?php
                         $detRes_fec = $row_RSCr['DATEI'];
-                        if ($row_RSCr['horai']) {
+                        if ($row_RSCr['TIMEI']) {
                             $detRes_hor = date('H:i', strtotime($row_RSCr['TIMEI']));
                             $detHor = '<span class="badge bg-light">' . $detRes_hor . '</span> ';
                         } else {
                             $detHor = '<span class="badge bg-light"><i class="fa fa-question-circle fa-lg"></i></span> ';
                         }
-                        $detTyp = detRow('db_types', 'typ_cod', $row_RSCr['typ_cod']);
-                        if ($detTyp) $detTyp_nom = ' / ' . $detTyp['typ_val'];
                         if ($row_RSCr['NOM']) {
-                            $det_tit = '<a href="' . $RAIZc . 'com_consultas/form.php?idp=' . $row_RSCr['IDP'] . '&idr=' . $row_RSCr['ID'] . '">';
-                            $det_tit .= $row_RSCr['NOM'] . $detTyp_nom;
-                            $det_tit .= '</a>';
+                            $detTit = "<a href='" . route['c'] . "'com_consultas/form.php?idp={$row_RSCr['IDP']}&idr={$row_RSCr['ID']}'>
+                            {$row_RSCr['NOM']}";
+                            if ($row_RSCr['TYPE']) $detTit .= "| {$row_RSCr['TYPE']}";
+                            $detTit .= "</a>";
                         } else {
-                            $det_tit = $row_RSCr['OBS'] . $detTyp_nom;
+                            $detTit = "{$row_RSCr['OBS']} ";
+                            if ($row_RSCr['TYPE']) $detTit .= "| {$row_RSCr['TYPE']}";
                         }
                         ?>
                         <li class="list-group-item">
                             <?php echo $detHor ?>
-                            <?php echo $det_tit ?>
+                            <?php echo $detTit ?>
                         </li>
                     <?php } ?>
                 </ul>
@@ -96,7 +96,7 @@ $lConA = $mCon->getConsBeetweenDates($sdatetA_ini, $sdatetA_fin);
                 <table class="table table-sm m-0 table-striped">
                     <?php foreach ($lConA as $row_RSCa) { ?>
                         <?php
-                        $detAud_hor = $AUD->detAudTime($row_RSCa['AUD']);///$db->detRow('db_auditoria', null, 'id_aud', $row_RSCa['AUD']);
+                        $detAud_hor = $AUD->detAudTime($row_RSCa['AUD']); ///$db->detRow('db_auditoria', null, 'id_aud', $row_RSCa['AUD']);
                         ?>
                         <tr>
                             <td>
