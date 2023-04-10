@@ -120,12 +120,15 @@ class Consulta
     }
     public function numCon_Pac_start()
     {
-        $val = $this->db->detRow("db_consultas", null, "md5(pac_cod)", $this->idp, "con_num", "ASC")['con_num'] ?? null;
+        //$val = $this->db->detRow("db_consultas", null, "md5(pac_cod)", $this->idp, "con_num", "ASC")['con_num'] ?? null;
+        $val = $this->db->detRow("db_consultas", "con_num", "md5(pac_cod)", $this->idp, "con_num", "ASC");
+        dep($val,"numCon_Pac_start");
+        $val=$val['con_num'];
         return $val;
     }
     public function numCon_Pac_end()
     {
-        $val = $this->db->detRow("db_consultas", null, "md5(pac_cod)", $this->idp, "con_num", "DESC")['con_num'] ?? null;
+        $val = $this->db->detRow("db_consultas", "con_num", "md5(pac_cod)", $this->idp, "con_num", "DESC")['con_num'] ?? null;
         return $val;
     }
     public function numCon_Pac_prev()
@@ -134,7 +137,7 @@ class Consulta
             array("cond" => "AND", "field" => "md5(pac_cod)", "comp" => "=", "val" => $this->idp),
             array("cond" => "AND", "field" => "md5(con_num)", "comp" => '<', "val" => $this->id)
         );
-        $val = $this->db->detRowNP("db_consultas", $params, 1, "con_num", "DESC")['con_num'];
+        $val = $this->db->detRowNP("db_consultas","con_num", $params, 1, "con_num", "DESC")['con_num'];
         return $val;
     }
     public function numCon_Pac_next()
@@ -143,7 +146,7 @@ class Consulta
             array("cond" => "AND", "field" => "md5(pac_cod)", "comp" => "=", "val" => $this->idp),
             array("cond" => "AND", "field" => "md5(con_num)", "comp" => '>', "val" => $this->id)
         );
-        $val = $this->db->detRowNP("db_consultas", $paramsN, 1, "con_num", "ASC")['con_num'] ?? null;
+        $val = $this->db->detRowNP("db_consultas","con_num", $paramsN, 1, "con_num", "ASC")['con_num'] ?? null;
         return $val;
     }
     /*

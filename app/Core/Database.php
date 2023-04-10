@@ -238,10 +238,12 @@ class Database
         return $ret;
         ////$RS->closeCursor();
     }
-    public function detRowNP($table, $params, $lim = 1, $foN = NULL, $foF = 'ASC')
+    public function detRowNP($table, $select, $params, $lim = 1, $foN = NULL, $foF = 'ASC')
     { //duotics_lib -> php8
         $lP = null;
         $ret = null;
+        if (!$select) $select = "*";
+
         if ($foN) $paramOrd = 'ORDER BY ' . $foN . ' ' . $foF;
         else $paramOrd = "";
 
@@ -260,7 +262,8 @@ class Database
             }
         }
         $sql = sprintf(
-            "SELECT * FROM %s WHERE 1=1 %s %s %s",
+            "SELECT %s FROM %s WHERE 1=1 %s %s %s",
+            htmlentities($select),
             htmlentities($table),
             ($lP),
             htmlentities($paramOrd),
@@ -561,7 +564,7 @@ class Database
         $banG = false;
         $ret = null;
         if ($data) {
-            if(empty($class)) $class = "form-select";
+            if (empty($class)) $class = "form-select";
             $tRS = count($data);
             if (!isset($id)) $id = $nom;
             if (!$nom) $nom = "select";
