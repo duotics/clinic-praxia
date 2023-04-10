@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.1, created on 2023-04-08 11:25:45
+/* Smarty version 4.3.1, created on 2023-04-10 08:22:02
   from '/www/clinic-praxia/resources/templates/head.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.1',
-  'unifunc' => 'content_643195896d1497_29264143',
+  'unifunc' => 'content_64340d7abc05e1_86660889',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '027b0489e1ea77add2a059dea3a447ea23a67868' => 
     array (
       0 => '/www/clinic-praxia/resources/templates/head.tpl',
-      1 => 1680971143,
+      1 => 1681132680,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_643195896d1497_29264143 (Smarty_Internal_Template $_smarty_tpl) {
+function content_64340d7abc05e1_86660889 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html>
 <head>
