@@ -10,14 +10,13 @@ $lPac = $mPac->getDetAll();
 $objPaginator = new App\Core\genInterfacePaginator($mPac->TR, $mPac->pages->display_pages(), $mPac->pages->display_items_per_page());
 ?>
 <?php if ($sbr) { ?>
-
 	<div class="alert alert-warning alert-dismissible fade show" role="alert">
 		Mostrando Su Busqueda: <strong>"<?php echo $sbr ?>"</strong>
 		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 	</div>
 <?php } ?>
 <?php if ($lPac) { ?>
-	<?php $objPaginator->showInterface() ?>
+	<?php $objPaginator->render() ?>
 	<table id="mytable_cli" class="table table-sm table-bordered table-striped table-list">
 		<thead>
 			<tr>
@@ -81,5 +80,5 @@ $objPaginator = new App\Core\genInterfacePaginator($mPac->TR, $mPac->pages->disp
 			<?php } ?>
 		</tbody>
 	</table>
-	<?php $objPaginator->showInterface() ?>
+	<?php $objPaginator->render() ?>
 <?php } ?>

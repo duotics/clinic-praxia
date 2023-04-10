@@ -1,15 +1,14 @@
 <?php include('../../init.php');
-$dM = $Auth->vLogin('MENU ITEMS');
-include(root['f'] . 'head.php');
-include(root['m'] . 'mod_menu/menuMain.php');
+$dM = $Auth->vLogin('MENUITEM');
 $brdItems = array(
   array("nom" => $cfg['i']['config']),
   array("nom" => "Menus Contenedores", "link" => "{route['c']}com_menus")
 );
-genBreadcrumb($brdItems, TRUE, "Menus Items");
+$mTpl = new App\Core\TemplateGen(null, null, "sw", ['mod_menu/menuMain.php'], null);
+$mTpl->renderHead();
 ?>
 <div class="container">
-  <?php sLOG('t') ?>
+  <?php $mTpl->renderTop(); ?>
   <?php include('_indexItems.php'); ?>
 </div>
-<?php include(root['f'] . 'foot.php') ?>
+<?php $mTpl->renderFoot() ?>

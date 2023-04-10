@@ -11,20 +11,32 @@ class TemplateGen
 {
     protected static $head;
     protected static $foot;
-    public function __construct(protected $paramsHead = null, protected $paramsFoot = null, protected $paramAlert = "sw", protected $paramsModulesHead = [], protected $paramsModulesFoot = [])
-    {
+    public function __construct(
+        protected $paramsHead = null,
+        protected $paramsFoot = null,
+        protected $paramAlert = "sw",
+        protected $paramsModulesHead = [],
+        protected $paramsModulesFoot = [],
+        protected $paramsBreadcrumb = [],
+        protected $paramsTitle = []
+    ) {
         self::$head = new TemplateGenHead($paramsHead);
         self::$foot = new TemplateGenFoot($paramsFoot);
     }
     public function renderHead()
     {
-        self::$head->showInterface();
+        self::$head->render();
         $this->renderBodyBeg();
+    }
+    public function renderTop()
+    {
+        $this->generateBreadcrumb();
+        $this->generateTitle();
     }
     public function renderFoot()
     {
         $this->renderBodyEnd();
-        self::$foot->showInterface();
+        self::$foot->render();
     }
     private function renderBodyBeg()
     {
@@ -47,6 +59,31 @@ class TemplateGen
     {
         if ($this->paramAlert) {
             sLOG($this->paramAlert);
+        }
+    }
+    private function generateBreadcrumb()
+    {
+        if ($this->paramsBreadcrumb) {
+            $objBrc = new genInterfaceBreadc(
+                $this->paramsBreadcrumb[0] ?? null,
+                $this->paramsBreadcrumb[1] ?? TRUE,
+                $this->paramsBreadcrumb[2] ?? null
+            );
+            $objBrc->render();
+        }
+    }
+    private function generateTitle()
+    {
+        if ($this->paramsTitle) {
+            $obj = new genInterfaceTitle(
+                $this->paramsTitle[0] ?? null,
+                $this->paramsTitle[1] ?? null,
+                $this->paramsTitle[2] ?? null,
+                $this->paramsTitle[3] ?? null,
+                $this->paramsTitle[4] ?? null,
+                $this->paramsTitle[5] ?? null
+            );
+            $obj->render();
         }
     }
 }

@@ -10,7 +10,7 @@ include(root['m'] . 'mod_menu/menuMain.php');
 sLOG('sw');
 ?>
 <div class="container">
-  <?php $objBrc->showInterface()  ?>
+  <?php $objBrc->render()  ?>
   <?php include('_form.php') ?>
 </div>
 <?php include(root['f'] . 'foot.php'); ?>

@@ -18,6 +18,9 @@ class Consulta
     {
         $this->db = new Database();
     }
+    /*
+    SETTERS
+    */
     function setID($id)
     {
         $this->id = $id;
@@ -26,9 +29,23 @@ class Consulta
     {
         $this->termBus = $param;
     }
+    /*
+    GETTERS
+    */
+    public function getDet()
+    {
+        return $this->det;
+    }
+    /*
+    FUNCTIONS DATA
+    */
     public function det()
     {
         $this->det = $this->db->detRow($this->mainTable, null, "md5({$this->mainID})", $this->id);
+    }
+    public function getLastConsPac($idp)
+    {
+        $this->det = $this->db->detRow($this->mainTable, null, "md5(pac_cod)", $idp, "con_num", "DESC");
     }
     function getAll()
     {
@@ -36,10 +53,10 @@ class Consulta
         $res = $this->db->selectAllSQL($sql);
         return $res;
     }
-    function getAllDiag($limit=null)
+    function getAllDiag($limit = null)
     {
-        $sqlLimit="";
-        if((int)$limit>0) $sqlLimit="LIMIT {$limit}";
+        $sqlLimit = "";
+        if ((int)$limit > 0) $sqlLimit = "LIMIT {$limit}";
         $sql = "SELECT db_consultas_diagostico.id AS ID, db_diagnosticos.codigo AS COD, CONCAT_WS(' ',db_diagnosticos.nombre, db_consultas_diagostico.obs) AS NOM 
         FROM db_consultas_diagostico 
         INNER JOIN `db_diagnosticos` ON db_consultas_diagostico.id_diag=db_diagnosticos.`id_diag`

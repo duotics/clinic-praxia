@@ -1,15 +1,15 @@
 <?php include('../../init.php');
-$dM = $Auth->vLogin('MENUCONTENT');
-include(root['f'] . 'head.php');
-include(root['m'] . 'mod_menu/menuMain.php');
-$brdItems = array(
-  array("nom" => $cfg['i']['config']),
-  array("nom" => "Menus Contenedores", "link" => "{route['c']}com_menus"),
-  array("nom" => "Formulario", "css" => "active")
-);
-genBreadcrumb($brdItems) ?>
+$dM = $Auth->vLogin('MENUCONT');
+$brdItems = [
+  [$cfg['i']['config']],
+  ["Menus Contenedores", route['c'] . "com_menus"],
+  ["Formulario", null, true]
+];
+$mTpl = new App\Core\TemplateGen(null, null, null, ['mod_menu/menuMain.php'], null, [$brdItems]);
+$mTpl->renderHead();
+?>
 <div class="container">
-  <?php sLOG('t') ?>
+  <?php $mTpl->renderTop(); ?>
   <?php include('_form.php') ?>
 </div>
-<?php include(root['f'] . 'foot.php'); ?>
+<?php $mTpl->renderFoot() ?>

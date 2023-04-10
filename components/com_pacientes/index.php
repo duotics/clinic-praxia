@@ -1,17 +1,10 @@
 <?php include('../../init.php');
 $dM = $Auth->vLogin('PAC');
-$objTit = new App\Core\genInterfaceTitle($dM, 'header');
-include(root['f'] . "head.php");
-include(root['m'] . 'mod_menu/menuMain.php'); ?>
+$mTpl = new App\Core\TemplateGen(null, null, null, ['mod_menu/menuMain.php'], null, null, [$dM, 'header']);
+$mTpl->renderHead();
+?>
 <div class="container">
-	<?php $objTit->showInterface() ?>
-	<?php $dataBus = genInterfaceBusqueda($dM['ref'] ?? null); ?>
-	<div class="card mb-3">
-		<div class="card-body p-2">
-			<?php include('pacientesFind.php') ?>
-		</div>
-	</div>
-	<div><?php include('pacientesList.php') ?></div>
+	<?php $mTpl->renderTop() ?>
+	<?php include("pacientesDataSet.php") ?>
 </div>
-
-<?php include(root['f'] . 'foot.php'); ?>
+<?php $mTpl->renderFoot() ?>

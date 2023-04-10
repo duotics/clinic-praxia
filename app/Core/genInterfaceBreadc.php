@@ -11,6 +11,7 @@ class genInterfaceBreadc extends genInterface
 
     public function __construct(protected $items, protected $home = true, protected $css = null, protected $divider = '>')
     {
+        if (empty($this->home)) $this->home = true;
         $this->gen_BS_breadcrumb();
     }
 
@@ -26,15 +27,20 @@ class genInterfaceBreadc extends genInterface
                     $routeTit = cfg['brd']['hometit'];
                     $obj .= "<li class='breadcrumb-item'><a href='" . $routeDir . "'>$routeTit</a></li>";
                 }
+                /*
+                array items
+                [0]=name
+                [1]=link
+                [2]=active
+                */
                 foreach ($this->items as $item) {
-                    foreach ($item as $vars) {
-                        $varv = array(
-                            "css" => $vars['css'] ?? null,
-                            "link" => $vars['link'] ?? null,
-                            "name" => $vars['name'] ?? null,
-                        );
-                        if (isset($vars['link'])) $obj .= "<li class='breadcrumb-item $varv[css]'><a href='$varv[link]'>$varv[name]</a></li>";
-                        else $obj .= "<li class='breadcrumb-item $varv[css]'>$varv[name]</li>";
+                    $itemFinal = [$item[0] ?? null, $item[1] ?? null, $item[2] ?? null];
+                    if ($itemFinal[2]) $cssItem = "active";
+                    else $cssItem = null;
+                    if (isset($itemFinal[1])) {
+                        $obj .= "<li class='breadcrumb-item {$cssItem}'><a href='$itemFinal[1]'>$itemFinal[0]</a></li>";
+                    } else {
+                        $obj .= "<li class='breadcrumb-item {$cssItem}'>$itemFinal[0]</li>";
                     }
                 }
                 $obj .= "</ol>";

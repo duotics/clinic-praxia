@@ -20,7 +20,7 @@ class genInterfaceTitle extends genInterface
             $obj = null;
             $objMod = null;
             $MOD = array(
-                "ref" => $this->MOD['ref'] ?? null,
+                "id" => $this->MOD['id'] ?? null,
                 "icon" => $this->MOD['icon'] ?? $this->MOD['iconM'] ?? null,
                 "nom" => $this->MOD['nom'] ?? $this->MOD['nomM'] ?? null,
                 "des" => $this->MOD['des'] ?? $this->MOD['titM'] ?? null
@@ -29,14 +29,22 @@ class genInterfaceTitle extends genInterface
             $obj .= "<div class='obj-header-wrapper clearfix'>";
             switch ($this->tip) {
                 case 'card':
-                    $objMod .= " <span class='badge bg-primary'>{$MOD["ref"]}</span>
-                    <span class='badge bg-light'><i class='{$MOD["icon"]}'></i></span>
-                    <span class='badge bg-light'>{$MOD["des"]}</span>
-                    <span >{$MOD["nom"]}</span>";
+                    if ($MOD["id"]) {
+                        $objMod .= " <span class='badge bg-primary'>{$MOD["id"]}</span> ";
+                    }
+                    if ($MOD["icon"]) {
+                        $objMod .= " <span class='badge bg-light'><i class='{$MOD["icon"]}'></i></span> ";
+                    }
+                    if ($MOD["nom"]) {
+                        $objMod .= " <span >{$MOD["nom"]}</span> ";
+                    }
+                    if ($MOD["des"]) {
+                        $objMod .= " <span class='badge bg-light'>{$MOD["des"]}</span> ";
+                    }
                     $obj .= "<div class='card mt-2 mb-2 {$this->css}'>
                         <div class='card-body'>
                         <div class='btn-group float-end'>{$this->floatR}</div>
-                        <{$this->tag} class='mb-0'><small> {$objMod}{$this->cont} </small></$this->tag>
+                        <{$this->tag} class='mb-0'><small> {$objMod} {$this->cont} </small></$this->tag>
                     </div></div>";
                     break;
                 case 'header':

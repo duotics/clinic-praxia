@@ -22,7 +22,7 @@ $cont = '<span class="badge bg-primary">' . ($dCom['idComp'] ?? null) . '</span>
 $objHeader2 = new App\Core\genInterfaceTitle(null, 'header', $cont, $btnAcc . $btnNew);
 ?>
 
-<?php $objHeader->showInterface() ?>
+<?php $objHeader->render() ?>
 <form enctype="multipart/form-data" method="post" action="_acc.php" class="form-horizontal">
 	<fieldset>
 		<input name="acc" type="hidden" value="<?php echo $acc ?>">
@@ -30,7 +30,7 @@ $objHeader2 = new App\Core\genInterfaceTitle(null, 'header', $cont, $btnAcc . $b
 		<input name="ids" type="hidden" value="<?php echo $ids ?>" />
 		<input name="url" type="hidden" value="<?php echo $urlc ?>" />
 	</fieldset>
-	<?php $objHeader2->showInterface() ?>
+	<?php $objHeader2->render() ?>
 	<div class="row">
 		<div class="col-sm-7">
 			<div class="card p-4">

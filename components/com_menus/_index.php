@@ -1,18 +1,17 @@
 <?php
 
-use App\Core\genInterfaceTitle;
 use App\Models\Menu;
 
 $mMenu = new Menu();
 $lMenu = $mMenu->getAllMenu();
 $cMenu = count($lMenu);
-$btnItems = ' <a href="indexItems.php" class="btn btn-secondary"><i class="far fa-eye"></i> Gestionar Items</a> ';
+$btnItems = ' <a href="indexItems.php" class="btn btn-info"><i class="far fa-eye"></i> Gestionar Items</a> ';
 $btnNew = " <a href='form.php' class='btn btn-primary' data-type='iframe'>{$cfg['b']['new']}</a> ";
-$btnTR = " <span class='btn btn-outline-secondary disabled'>{$cfg['t']['rows']} <strong>{$cMenu}</strong></span> ";
-$objHead=new genInterfaceTitle($dM, 'card', null, $btnItems . $btnNew . $btnTR, null, 'mt-3 mb-3');
+$btnTR = " <span class='btn btn-light disabled'>{$cfg['t']['rows']} <strong>{$cMenu}</strong></span> ";
+$objHead = new App\Core\genInterfaceTitle($dM, 'card', null, $btnItems . $btnNew . $btnTR, null, 'mt-3 mb-3');
 ?>
 <div>
-	<?php $objHead->showInterface() ?>
+	<?php $objHead->render() ?>
 	<?php if ($cMenu > 0) { ?>
 		<div class="table-responsive">
 			<table class="table table-hover table-condensed table-bordered datatable">

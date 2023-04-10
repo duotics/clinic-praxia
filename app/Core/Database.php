@@ -543,14 +543,25 @@ class Database
         }
         return $ret;
     }
-    function genSelectA($data, $nom = NULL, $sel = NULL, $class = NULL, $opt = NULL, $id = NULL, $showIni = TRUE, $valIni = null, $nomIni = "- Seleccione -", $placeHolder = NULL)
-    { //duotics_lib-> php8 v.0.1
+    function genSelectA(
+        $data,
+        $nom = NULL,
+        $sel = NULL,
+        $class = NULL,
+        $opt = NULL,
+        $id = NULL,
+        $showIni = TRUE,
+        $valIni = null,
+        $nomIni = "- Seleccione -",
+        $placeHolder = NULL
+    ) { //duotics_lib-> php8 v.0.1
         $dRS = null;
         $grpAct = null;
         $grpSel = null;
         $banG = false;
         $ret = null;
         if ($data) {
+            if(empty($class)) $class = "form-select";
             $tRS = count($data);
             if (!isset($id)) $id = $nom;
             if (!$nom) $nom = "select";

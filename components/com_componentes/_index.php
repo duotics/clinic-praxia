@@ -8,7 +8,7 @@ $btnNew = "<a data-type='iframe' href='form.php' class='btn btn-primary'>{$cfg['
 $objHeader = new App\Core\genInterfaceTitle($dM, 'header', null, $btnNew);
 ?>
 <div>
-	<?php $objHeader->showInterface() ?>
+	<?php $objHeader->render() ?>
 	<?php if ($lCom) { ?>
 		<table class="datatable table table-hover table-condensed table-bordered" id="itm_table">
 			<thead>

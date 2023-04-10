@@ -15,33 +15,64 @@ $idp = $_GET['idp'] ?? $_POST['idp'] ?? null;
 $idc = $_GET['idc'] ?? $_POST['idc'] ?? null;
 $idr = $_GET['idr'] ?? $_POST['idr'] ?? null;
 
-//verifico si hay una reserva
-//Verifico los detalles dela consulta
-//verifico la existencia del paciente
-
-if ($idr) {
-	$mRes->setID($idr);
-	$mRes->det();
+if ($idp !== null) {
+	echo "hay id paciente<br>";
+	$mPac->setID($idp);
+	$mPac->det();
+	$dPac = $mPac->getDet();
+	$mRes->getLastResPac($idp);
 	$dRes = $mRes->getDet();
-	$acc = 'NEW';
-}
-
-$dRes = $db->detRow('db_fullcalendar', null, 'id', $idr);
-$dCon = $db->detRow('db_consultas', null, 'con_num', $idc);
-
-if ($dCon) $idp = $dCon['pac_cod'];
-
-//DETALLE DE PACIENTE
-$mPac->setID($idp);
-$mPac->det();
-$dPac = $mPac->getDet();
-
-if ($dPac) {
-	if ($acc != 'NEW') {
-		if (!$dCon) $dCon = detRow('db_consultas', 'pac_cod', $idp, 'con_num', 'DESC');
-		$idc = $dCon['con_num'] ?? null;
+	if ($dRes) {
+		echo "existe reserva<br>";
+		$idr = $dRes['id'] ?? null;
+		$statusCons = 'NEW';
+	} else {
+		echo "no existe reserva obtengo consulta<br>";
+		$idc = $dPac['con_num'] ?? null;
+		$mCon->getLastConsPac($idp);
+		$dCon = $mCon->getDet();
 	}
+	// Opción 1: ID_PACIENTE
+	// Consulta a la base de datos para obtener datos del paciente y última consulta
+	// ...
+} elseif ($idc !== null) {
+	$mCon->setID($idc);
+	$mCon->det();
+	$dCon = $mCon->getDet();
+	$idp = $dCon['pac_cod'] ?? null;
+	$mPac->setID(md5($idp));
+	$mPac->det();
+	$dPac = $mPac->getDet();
+	// Opción 2: ID_CONSULTA
+	// Consulta a la base de datos para obtener datos de la consulta y datos del paciente
+	// ...
+} elseif ($idr !== null) {
+	$mRes->setID($idr);
+	$mRes->detResActive();
+	$dRes = $mRes->getDet();
+	$idp = $dRes['pac_cod'] ?? null;
+	$idc = $dRes['con_num'] ?? null;
+	$mPac->setID(md5($idp));
+	$mPac->det();
+	$dPac = $mPac->getDet();
+	// Opción 3: ID_RESERVA
+	// Consulta a la base de datos para obtener el ID del paciente
+	// ...
+	// Dejar la interfaz lista para una nueva consulta
+} else {
+	$view = false;
 }
+
+dep($idp, "idp");
+dep($idc, "idc");
+dep($idr, "idr");
+echo "<hr>";
+dep($dPac, "dPac");
+dep($dCon, "dCon");
+dep($dRes, "dRes");
+echo "<hr>";
+
+
 if ($dRes) $estCon = 3; //Reservada
 else $estCon = $dCon['con_stat'] ?? null;
 if ($dCon) {

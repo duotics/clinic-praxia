@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use \PDO;
 use App\Core\Database;
-use App\Core\Paginator;
 use App\Models\Componente;
 
 class Menu
@@ -25,8 +23,6 @@ class Menu
     protected $refMenuItem;
     public $det;
     public $detI;
-    public $TR, $TRt, $TRp, $RS, $RSp;
-    public $pages;
 
     function __construct()
     {
@@ -71,14 +67,20 @@ class Menu
     {
         return $this->secRefName;
     }
-    //FUNCTIONS
+    function getDet()
+    {
+        return $this->det;
+    }
+    /*
+    FUNCTIONS DATA SELECTS
+    */
     public function det()
     {
-        $this->det = $this->db->detRow("dbMenu", null, 'md5(idMen)', $this->id);
+        $this->det = $this->db->detRow($this->mainTableName, null, "md5({$this->mainIDName})", $this->id);
     }
     public function detI()
     {
-        $this->detI = $this->db->detRow("dbMenuItem", null, 'md5(idMenItem)', $this->idi);
+        $this->detI = $this->db->detRow($this->secTableName, null, "md5({$this->secIDName})", $this->idi);
     }
     public function detParam($fiel = 1, $val = 1)
     {
@@ -97,7 +99,8 @@ class Menu
         $ret = $this->db->selectSQL($sql);
         return $ret;
     }
-    public function detMenuCompData(){
+    public function detMenuCompData()
+    {
         $sql = "SELECT 
         {$this->secTableName}.refMItem AS ref,
         {$this->secTableName}.nomMItem AS nomM,
@@ -115,68 +118,31 @@ class Menu
         $ret = $this->db->selectSQL($sql);
         return $ret;
     }
-    function getList() //function to old view data
-    {
-        $this->TRt = $this->db->totRowsTab('dbMenu', '1', '1'); //TOTAL RESULTADOS DE LA TABLA
-        $qry = "SELECT * FROM dbMenu";
-        $RS = $this->db->dbh->prepare($qry); //BUSCAR RESULTADOS RELACIONADOS A MI BUSQUEDA SI EXISTIERAN
-        $RS->setFetchMode(PDO::FETCH_ASSOC);
-        $RS->execute();
-        $a = $RS->fetch();
-        $this->TR = $RS->rowCount(); //TOTAL RESULTADOS DE LA BUSQUEDA
-        if ($this->TR > 0) {
-            $this->pages = new Paginator;
-            $this->pages->items_total = $this->TR;
-            $this->pages->mid_range = 8;
-            $this->pages->paginate();
-            $this->RSp = $this->db->dbh->prepare($qry . $this->pages->limit);
-            $this->RSp->execute();
-            $this->TRp = $this->RSp->rowCount();
-        }
-    }
-    function getListI($idMC = null)
-    {
-        $this->TRt = $this->db->totRowsTab('dbMenuItem', '1', '1'); //TOTAL RESULTADOS DE LA TABLA
-        $qry = "SELECT * FROM dbMenuItem";
-        $RS = $this->db->dbh->prepare($qry); //BUSCAR RESULTADOS RELACIONADOS A MI BUSQUEDA SI EXISTIERAN
-        $RS->setFetchMode(PDO::FETCH_ASSOC);
-        $RS->execute();
-        $a = $RS->fetch();
-        $this->TR = $RS->rowCount(); //TOTAL RESULTADOS DE LA BUSQUEDA
-        if ($this->TR > 0) {
-            $this->pages = new Paginator;
-            $this->pages->items_total = $this->TR;
-            $this->pages->mid_range = 8;
-            $this->pages->paginate();
-            $this->RS = $this->db->dbh->prepare($qry . $this->pages->limit);
-            $this->RS->execute();
-            $this->TRp = $this->RS->rowCount();
-        }
-    }
+
     function getAllMenu()
     {
-        $sql = "SELECT * FROM dbMenu";
+        $sql = "SELECT * FROM {$this->mainTableName}";
         $res = $this->db->selectAllSQL($sql);
         return $res;
     }
 
     function getAllMenuItems()
     {
-        $sql = "SELECT * FROM dbMenuItem";
+        $sql = "SELECT * FROM {$this->secTableName}";
         $res = $this->db->selectAllSQL($sql);
         return $res;
     }
 
     function getAllMenuItemsContParent($parent = 0, $status = 1)
     {
-        $sql = "SELECT * FROM dbMenuItem WHERE idMenu={$this->id} AND parentMItem={$parent} AND status={$status}";
+        $sql = "SELECT * FROM {$this->secTableName} WHERE idMenu={$this->id} AND parentMItem={$parent} AND status={$status}";
         $res = $this->db->selectAllSQL($sql);
         return $res;
     }
 
     function getAllMenuItemsParent($parent = 0, $status = 1)
     {
-        $sql = "SELECT * FROM dbMenuItem WHERE parentMItem={$parent} AND status={$status}";
+        $sql = "SELECT * FROM {$this->secTableName} WHERE parentMItem={$parent} AND status={$status}";
         $res = $this->db->selectAllSQL($sql);
         return $res;
     }
@@ -226,25 +192,41 @@ class Menu
         $res = $this->db->selectAllSQL($sql);
         return $res;
     }
-
     function listaItemsCont($id = null)
     {
-        $qryParam = null;
         $ret = [];
-        if (($id) && ($id > 0)) $qryParam = " WHERE idMen={$id} ";
-        $sql = "SELECT idMenItem, nomMenItem, linkMenuItem, titMenItem FROM dbMenuItem " . $qryParam;
+        if ($id > 0) $sqlParam = " WHERE t3.idMenu={$id} ";
+        else $sqlParam = null;
+        $sql = "SELECT 
+        t1.idMItem AS id, 
+        t1.nomMItem AS nom, 
+        t1.refMItem AS ref, 
+        t1.titMItem AS tit, 
+        t1.linkMItem AS link, 
+        t1.iconMItem AS icon, 
+        t1.ordMItem as ord, 
+        t1.status AS status,
+        t2.nomMItem AS nomPadre,
+        t3.nomMenu AS nomCont
+        FROM {$this->secTableName} t1 
+        LEFT JOIN {$this->secTableName} t2 ON t1.parentMItem= t2.{$this->secIDName}
+        LEFT JOIN {$this->mainTableName} t3 ON t1.idMenu = t3.{$this->mainIDName}
+        {$sqlParam}
+        ORDER BY 1 DESC";
         $res = $this->db->selectAllSQL($sql);
-        if ($res) {
-            foreach ($res as $val) {
-                array_push($ret, array("id" => $val['idMenItem'], "text" => $val['nomMenItem'], "link" => $val['linkMenuItem'], "tit" => $val['titMenItem']));
-            }
-        }
-        $ret = array("results" => $ret);
-        return $ret;
+        return $res;
     }
+    public function selectMenuContenedores($nameSelect = null, $selSelect = null, $idSelect = null, $cssSelect = null)
+    {
+        $data = $this->db->detRowGSelA($this->mainTableName, $this->mainIDName, 'nomMenu', 'status', '1');
+        return $this->db->genSelectA($data, $nameSelect, $selSelect, $cssSelect, null, $idSelect, TRUE, null, '- Menu contenedor -');
+    }
+    /*
+    CRUD OPERATIONS
+    */
     function insertMenu(string $nom, string $ref = null, string $stat = null)
     {
-        $sql = "INSERT INTO dbMenu (nom,ref,stat) VALUES (?,?,?)";
+        $sql = "INSERT INTO {$this->mainTableName} (nom,ref,stat) VALUES (?,?,?)";
         $arrayData = array($nom, $ref, $stat);
         $ret = $this->db->insertSQLR($sql, $arrayData);
         vP($ret['est'], $ret['log']);
@@ -264,7 +246,7 @@ class Menu
         int $idM,
         int $stat
     ) {
-        $sql = "INSERT INTO dbMenuItem (
+        $sql = "INSERT INTO {$this->secTableName} (
             men_idc,men_padre,men_nombre,men_tit,men_icon,men_css,
             men_precode,men_postcode,men_link,men_orden,idMod,men_stat
         )VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -275,7 +257,8 @@ class Menu
     }
     function updateMenu(int $id, string $nom, string $ref, int $stat)
     {
-        $sql = "UPDATE dbMenu SET nom=?,ref=?,stat=? WHERE id=? LIMIT 1";
+        $sql = "UPDATE {$this->mainTableName} SET nom=?,ref=?,stat=? 
+        WHERE {$this->mainIDName}=? LIMIT 1";
         $arrayData = array($nom, $ref, $stat, $id);
         $ret = $this->db->updateSQLR($sql, $arrayData);
         vP($ret['est'], $ret['log']);
@@ -296,9 +279,10 @@ class Menu
         int $idM,
         int $stat
     ) {
-        $sql = "UPDATE dbMenuItem SET men_idc=?,men_padre=?,men_nombre=?,
+        $sql = "UPDATE {$this->secTableName} SET men_idc=?,men_padre=?,men_nombre=?,
         men_tit=?,men_icon=?,men_css=?,men_precode=?,men_postcode=?,men_link=?,
-        men_orden=?,idMod=?,men_stat=? WHERE men_id=? LIMIT 1";
+        men_orden=?,idMod=?,men_stat=? 
+        WHERE {$this->secIDName}=? LIMIT 1";
         $arrayData = array($idC, $idP, $nom, $tit, $icon, $css, $precode, $poscode, $link, $ord, $idM, $stat, $id);
         $ret = $this->db->updateSQLR($sql, $arrayData);
         vP($ret['est'], $ret['log']);
@@ -306,27 +290,31 @@ class Menu
     }
     function deleteMenu(string $id)
     {
-        $sql = "DELETE FROM dbMenu WHERE md5(id)='{$id}' LIMIT 1";
+        $sql = "DELETE FROM {$this->mainTableName} 
+        WHERE md5({$this->mainIDName})='{$id}' LIMIT 1";
         $ret = $this->db->deleteSQLR($sql);
         vP($ret['est'], $ret['log']);
         return $ret;
     }
     function deleteMenuItem(string $id)
     {
-        $sql = "DELETE FROM dbMenuItem WHERE md5(men_id)='{$id}' LIMIT 1";
+        $sql = "DELETE FROM {$this->secTableName} 
+        WHERE md5({$this->secIDName})='{$id}' LIMIT 1";
         $ret = $this->db->deleteSQLR($sql);
         vP($ret['est'], $ret['log']);
         return $ret;
     }
     function selectMenu(string $id)
     {
-        $sql = "SELECT * FROM dbMenu WHERE md5(idMen)='{$id}' LIMIT 1";
+        $sql = "SELECT * FROM {$this->mainTableName} 
+        WHERE md5({$this->mainIDName})='{$id}' LIMIT 1";
         $ret = $this->db->selectSQL($sql);
         return $ret;
     }
     function changeStatus(string $id, int $val)
     {
-        $sql = "UPDATE dbMenu SET stat=? WHERE id=? LIMIT 1";
+        $sql = "UPDATE {$this->mainTableName} SET stat=? 
+        WHERE {$this->mainIDName}=? LIMIT 1";
         $arrayData = array($val, $id);
         $ret = $this->db->updateSQLR($sql, $arrayData);
         vP($ret['est'], $ret['log']);
@@ -334,10 +322,22 @@ class Menu
     }
     function changeStatusItem(string $id, int $val)
     {
-        $sql = "UPDATE dbMenuItem SET men_stat=? WHERE men_id =? LIMIT 1";
+        $sql = "UPDATE {$this->secTableName} SET men_stat=? 
+        WHERE {$this->secIDName} =? LIMIT 1";
         $arrayData = array($val, $id);
         $ret = $this->db->updateSQLR($sql, $arrayData);
         vP($ret['est'], $ret['log']);
         return $ret;
+    }
+    /*
+    TOTALS
+    */
+    public function getTRmainTable()
+    {
+        return $this->db->totRowsTab($this->mainTableName);
+    }
+    public function getTRsecTable()
+    {
+        return $this->db->totRowsTab($this->secTableName);
     }
 }

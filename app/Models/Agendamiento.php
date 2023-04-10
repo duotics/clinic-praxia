@@ -37,6 +37,28 @@ class Agendamiento
     {
         $this->det = $this->db->detRow($this->mainTable, null, "md5({$this->mainID})", $this->id);
     }
+    public function detResActive()
+    {
+        $sql = "SELECT * FROM {$this->mainTable} 
+        WHERE md5({$this->mainID})='{$this->id}' 
+        AND status=1 
+        ORDER BY {$this->mainID} DESC LIMIT 1";
+        $res = $this->db->selectSQL($sql);
+        $this->det = $res;
+    }
+    public function detParam($field = 1, $val = 1)
+    {
+        $this->det = $this->db->detRow($this->mainTable, null, "md5({$this->mainID})", $this->id);
+    }
+    public function getLastResPac($idp)
+    {
+        $sql = "SELECT * FROM {$this->mainTable} 
+        WHERE md5(pac_cod)='{$idp}' 
+        AND status=1 
+        ORDER BY {$this->mainID} DESC LIMIT 1";
+        $res = $this->db->selectSQL($sql);
+        $this->det = $res;
+    }
     function getAll()
     {
         $sql = "SELECT * FROM {$this->mainTable} ORDER BY {$this->mainID} DESC";
@@ -52,7 +74,10 @@ class Agendamiento
         CONCAT_WS(' ', db_pacientes.pac_nom, db_pacientes.pac_ape) AS NOM
         FROM {$this->mainTable} 
         INNER JOIN db_pacientes ON {$this->mainTable}.pac_cod=db_pacientes.pac_cod
-        WHERE {$this->mainTable}.fechai>='{$dateBeg}' AND {$this->mainTable}.fechaf<='{$dateEnd}' AND {$this->mainTable}.est=1 ORDER BY {$this->mainTable}.horai ASC";
+        WHERE {$this->mainTable}.fechai>='{$dateBeg}' 
+        AND {$this->mainTable}.fechaf<='{$dateEnd}' 
+        AND {$this->mainTable}.status=1 
+        ORDER BY {$this->mainTable}.horai ASC";
         $res = $this->db->selectAllSQL($sql);
         return $res;
     }

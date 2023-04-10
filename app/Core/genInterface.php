@@ -10,7 +10,7 @@ abstract class genInterface
     protected $vP;
     protected $log;
 
-    public function showInterface()
+    public function render()
     {
         if ($this->vP == true) {
             echo $this->obj;

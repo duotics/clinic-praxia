@@ -1,13 +1,11 @@
 <?php include('../../init.php');
-$dM = $Auth->vLogin('MENUCONTENT');
-$brdItems = array(array("nom" => $cfg['i']['config']));
-$objBrc = new App\Core\genInterfaceBreadc($brdItems, TRUE, "breadcrumb breadcrumb-sm");
-include(root['f'] . 'head.php');
-include(root['m'] . 'mod_menu/menuMain.php');
-echo sLOG('sw');
+$dM = $Auth->vLogin('MENUCONT');
+$brdItems = [[$cfg['i']['config']]];
+$mTpl = new App\Core\TemplateGen(null, null, "sw", ['mod_menu/menuMain.php'], null, [$brdItems]);
+$mTpl->renderHead();
 ?>
 <div class="container">
-  <?php $objBrc->showInterface(); ?>
+  <?php $mTpl->renderTop() ?>
   <?php include('_index.php'); ?>
 </div>
-<?php include(root['f'] . 'foot.php') ?>
+<?php $mTpl->renderFoot() ?>

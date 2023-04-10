@@ -1,10 +1,15 @@
 <?php
+
+use App\Models\Menu;
+
+$mMenu = new Menu();
+
 $ids = null;
-$id = null;
-if (isset($_REQUEST['ids'])) $ids = $_REQUEST['ids'];
-$det = detRow('dbMenu', 'md5(idMenu)', $ids);
+$ids = $_GET['ids'] ?? null;
+$mMenu->setID($ids);
+$mMenu->det();
+$det = $mMenu->getDet();
 if ($det) {
-	//dep($det);
 	$id = $det['idMenu'];
 	$acc = md5('UPDmc');
 	$btnAcc = "<button type='submit' class='btn btn-success' id='vAcc'>{$cfg['b']['upd']}</button>";
@@ -13,11 +18,12 @@ if ($det) {
 	$btnAcc = "<button type='submit' class='btn btn-primary' id='vAcc'>{$cfg['b']['ins']}</button>";
 }
 $btnNew = "<a href='{$urlc}' class='btn btn-outline-dark'>{$cfg['b']['new']}</a>";
+$cont = '<span class="badge bg-info">' . $id . '</span>
+<span class="badge bg-info">' . ($det['nomMenu'] ?? null) . '</span>';
+$objTit = new App\Core\genInterfaceTitle($dM, 'card', $cont, $btnAcc . $btnNew, null, 'mb-3');
 ?>
 <form enctype="multipart/form-data" method="post" action="_acc.php" class="form-horizontal">
-	<?php $cont = '<span class="badge bg-info">' . $id . '</span>
-<span class="badge bg-info">' . ($det['nomMenu'] ?? null) . '</span>';
-	echo genHeader($dM, 'card', $cont, $btnAcc . $btnNew, null, 'mb-3') ?>
+	<?php $objTit->render() ?>
 	<fieldset>
 		<input name="acc" type="hidden" value="<?php echo $acc ?>">
 		<input name="form" type="hidden" value="<?php echo md5('formMC') ?>">

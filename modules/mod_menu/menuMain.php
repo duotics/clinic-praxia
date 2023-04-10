@@ -14,7 +14,7 @@ $objMenuUser = new genInterfaceMenu("USERMENU", "NULL", "navbar-nav d-flex");
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <?php $objMenuMain->showInterface() ?>
+      <?php $objMenuMain->render() ?>
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
           <a class="nav-link">
@@ -26,9 +26,9 @@ $objMenuUser = new genInterfaceMenu("USERMENU", "NULL", "navbar-nav d-flex");
             <div id="loading"><img src="<?php echo route['i'] ?>struct/loader.gif" /></div>
           </a>
         </li>
-        <?php $objMenuConf->showInterface() ?>
+        <?php $objMenuConf->render() ?>
       </ul>
-      <?php $objMenuUser->showInterface() ?>
+      <?php $objMenuUser->render() ?>
     </div>
   </div>
 </nav>

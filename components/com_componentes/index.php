@@ -7,7 +7,7 @@ include(root['m'] . 'mod_menu/menuMain.php');
 sLOG('sw');
 ?>
 <div class="container">
-  <?php echo $objBrc->showInterface(); ?>
+  <?php echo $objBrc->render(); ?>
   <?php include('_index.php'); ?>
 </div>
 <?php include(root['f'] . 'foot.php') ?>

@@ -10,9 +10,8 @@ $ids = $_GET['id'] ?? $_POST['id'] ?? null;
 $mPac->setID($ids);
 $mPac->detF();
 $dPac = $mPac->det;
-
-//dep($dPacF);
 if ($dPac) {
+	$dPacF = $mPac->detF;
 	$idp = $dPac['pac_cod'];
 	$mPac->registrarBusquedaPaciente();
 	$img = vImg("data/db/pac/", $mPac->getlastImgPac());
@@ -28,9 +27,8 @@ if ($dPac) {
 	$btnCon = null;
 }
 $btnNew = "<a href='{$urlc}' class='btn btn-light'>{$cfg['b']['new']}</a>";
-
-$cont = array("icon" => $dM['icon'] ?? null, "ref" => $dM['nom'] ?? null, "nom" => $dPacF['dPac_fullname'] ?? null, "des" => $idp ?? null);
-$objHeadCom = new App\Core\genInterfaceTitle($cont, 'card', null, $btnAcc . $btnNew . $btnCon, NULL, 'bg-dark text-light', 'h2');
+$cont = array("id" => $idp ?? null, "icon" => $dM['icon'] ?? null, "nom" => $dM['nom'] ?? null, "des" => $dPacF['dPac_fullname'] ?? null);
+$objTit = new App\Core\genInterfaceTitle($cont, 'card', null, $btnAcc . $btnNew . $btnCon, NULL, 'bg-dark text-light', 'h2');
 ?>
 <form enctype="multipart/form-data" method="post" action="_fncts.php" name="form_grabar" id="form_grabar" role="form">
 	<fieldset>
@@ -39,7 +37,7 @@ $objHeadCom = new App\Core\genInterfaceTitle($cont, 'card', null, $btnAcc . $btn
 		<input name="id" type="hidden" value="<?php echo $id; ?>" />
 		<input name="url" type="hidden" value="<?php echo $urlc ?>">
 	</fieldset>
-	<?php $objHeadCom->showInterface(); ?>
+	<?php $objTit->render(); ?>
 	<div class="row">
 		<div class="col-md-5">
 			<?php include("_formMain.php") ?>

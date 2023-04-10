@@ -10,9 +10,13 @@ $dotenv->load();
 
 include("config/config.php");
 
-$db         =   new App\Core\Database;
-$Auth       =   new App\Core\Auth;
-$AUD       =   new App\Core\Audit;
+use App\Core\Database;
+use App\Core\Auth;
+use App\Core\Audit;
+
+$db         =   new Database;
+$Auth       =   new Auth;
+$AUD       =   new Audit;
 
 $vD = FALSE;
 $LOG = null;
