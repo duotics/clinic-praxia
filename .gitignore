@@ -1,6 +1,9 @@
 data/
 vendor/
 node_modules/
+resources/templates/compiled/
+resources/templates/configs/
+resources/templates/cache/
 #Files
 *.zip
 *.rar
