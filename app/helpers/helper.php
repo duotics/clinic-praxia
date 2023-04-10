@@ -1,11 +1,27 @@
 <?php
 //Muestra información formateada
-function edad($edad)
+function edadOld($edad)
 {
 	if ($edad) {
 		list($Y, $m, $d) = explode("-", $edad);
 		return (date("md") < $m . $d ? date("Y") - $Y - 1 : date("Y") - $Y);
 	} else return '-';
+}
+// Calcula la edad (formato: año/mes/dia)
+function edad($edad)
+{
+	$ret = null;
+	if ($edad) {
+		$born = new DateTime($edad);
+		$now = new DateTime(date("Y-m-d"));
+		$diff = $now->diff($born);
+		$ret['y'] = $diff->format("%y");
+		$ret['yF'] = "$ret[y] años";
+		$ret['m'] = $diff->format("%M");
+		$ret['d'] = $diff->format("%d");
+		$ret['full'] = "$ret[y] años, $ret[m] meses, $ret[d] dias";
+	}
+	return $ret;
 }
 function fnc_cutblanck($bus)
 {
@@ -65,42 +81,40 @@ function calcIMCm($IMC = NULL, $pesoKG = NULL, $talla = NULL)
 	return $retIMC;
 }
 
-function calcIMC($IMC = NULL, $pesoKG = NULL, $talla = NULL)
+function calcIMC($pesoKG = NULL, $talla = NULL)
 {
-	$val = null;
 	$IMC = null;
-
-	$talla = (int)$talla / 100;
-	if ((!$IMC) || ($IMC == NULL) || ($IMC == 0)) {
-		if (($talla > 0) && ($pesoKG > 0)) {
-			$valTalla = $talla * $talla;
-			$IMC = (float)$pesoKG / (float)$valTalla;
+	$ret = null;
+	if (($talla > 0) && ($pesoKG > 0)) {
+		$talla = $talla / 100;
+		$IMC = $pesoKG / ($talla * $talla);
+		if ($IMC) {
+			if (($IMC > 0) && ($IMC < 18)) {
+				$ret = array("IMC" => $IMC, "min" => "Peso Bajo", "full" => "<span class='badge bg-danger'>Peso Bajo</span>", "css" => "bg-danger");
+				//'<span class="label label-danger">Peso Bajo</span>';
+			}
+			if (($IMC >= 18) && ($IMC < 25)) {
+				$ret = array("IMC" => $IMC, "min" => "Normal", "full" => "<span class='badge bg-info'>Normal</span>", "css" => "bg-info");
+				//$infIMC='<span class="label label-info">Normal</span>';
+			}
+			if (($IMC >= 25) && ($IMC < 30)) {
+				$ret = array("IMC" => $IMC, "min" => "Sobrepeso", "full" => "<span class='badge bg-success'>Sobrepeso</span>", "css" => "bg-success");
+				//$infIMC='<span class="label label-success">Sobrepeso</span>';
+			}
+			if (($IMC >= 30) && ($IMC < 35)) {
+				$ret = array("IMC" => $IMC, "min" => "Obesidad", "full" => "<span class='badge bg-warning'>Obesidad</span>", "css" => "bg-warning");
+				//$infIMC='<span class="label label-warning">Obesidad I</span>';
+			}
+			if (($IMC >= 35) && ($IMC < 40)) {
+				$ret = array("IMC" => $IMC, "min" => "Obesidad Severa", "full" => "<span class='badge bg-danger'>Obesidad Severa</span>", "css" => "bg-danger");
+				//$infIMC='<span class="label label-warning">Obesidad II</span>';
+			}
+			if ($IMC >= 40) {
+				$ret = array("IMC" => $IMC, "min" => "Obesidad Morbida", "full" => "<span class='badge bg-danger'>Obesidad Morbida</span>", "css" => "bg-danger");
+				//$infIMC='<span class="label label-danger"> Obesidad III</span>';
+			}
 		}
 	}
-
-	if ($IMC <= 0) $infIMC = ' <span class="label label-default"> IMC </span> ';
-	if (($IMC > 0) && ($IMC < 18)) {
-		$infIMC = '<span class="label label-danger">Peso Bajo</span>';
-	}
-	if (($IMC >= 18) && ($IMC < 25)) {
-		$infIMC = '<span class="label label-info">Normal</span>';
-	}
-	if (($IMC >= 25) && ($IMC < 30)) {
-		$infIMC = '<span class="label label-success">Sobrepeso</span>';
-	}
-	if (($IMC >= 30) && ($IMC < 35)) {
-		$infIMC = '<span class="label label-warning">Obesidad I</span>';
-	}
-	if (($IMC >= 35) && ($IMC < 40)) {
-		$infIMC = '<span class="label label-warning">Obesidad II</span>';
-	}
-	if ($IMC >= 40) {
-		$infIMC = '<span class="label label-danger"> Obesidad III</span>';
-	}
-	if (isset($IMC)) $val = number_format($IMC, 2);
-	$ret['val'] = $val;
-	$ret['inf'] = $infIMC;
-
 	return $ret;
 }
 
@@ -300,28 +314,4 @@ function bisiesto($anio_actual)
 		$bisiesto = true;
 	}
 	return $bisiesto;
-}
-//ESTADO CONSULTA
-function estCon($est)
-{
-	if ($est == '0') {
-		$stat['txt'] = 'Pendiente';
-		$stat['inf'] = '<a class="btn disabled btn-info navbar-btn">Pendiente <i class="fa fa-exclamation-circle"></i></a>';
-	} else if ($est == '1') {
-		$stat['txt'] = 'Tratada';
-		$stat['inf'] = '<a class="btn disabled btn-info navbar-btn">Tratada <i class="fa fa-check-square-o"></i></a>';
-	} else if ($est == '2') {
-		$stat['txt'] = 'Finalizada';
-		$stat['inf'] = '<a class="btn disabled btn-danger navbar-btn">Finalizada <i class="fa fa-check-square-o"></i></a>';
-	} else if ($est == '3') {
-		$stat['txt'] = 'Anulada';
-		$stat['inf'] = '<a class="btn disabled btn-danger navbar-btn">Anulada <i class="fa fa-check-square-o"></i></a>';
-	} else if ($est == '5') {
-		$stat['txt'] = 'Reservada';
-		$stat['inf'] = '<a class="btn btn-info navbar-btn">Reservada <i class="fa fa-check-square-o"></i></a>';
-	} else if (!$est) {
-		$stat['txt'] = 'NO GUARDADA';
-		$stat['inf'] = '<a class="btn disabled btn-danger navbar-btn">NO GUARDADA <i class="fa fa-arrow-circle-right"></i></a>';
-	}
-	return ($stat);
 }

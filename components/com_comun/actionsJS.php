@@ -1,12 +1,13 @@
 <?php include('../../init.php');
 $LOG = null;
 $data = array(
-	"tbl" => $_REQUEST['tbl'],
-	"field" => $_REQUEST['campo'],
-	"param" => $_REQUEST['valor'],
-	"ids" => $_REQUEST['cod']
+	"tbl" => $_REQUEST['tbl'] ?? null,
+	"field" => $_REQUEST['campo'] ?? null,
+	"param" => $_REQUEST['valor'] ?? null,
+	"ids" => $_REQUEST['cod'] ?? null
 );
 $id = $data['ids'];
+$param = $data['param'];
 $vP = false;
 try {
 	if (($data['tbl']) && ($data['ids'])) { //Verify if tbl params isset  open transaction
@@ -25,8 +26,8 @@ try {
 				if ($ret['est']) $vP = true;
 				break;
 			case "hc":
-				$tbl = 'db_paciente_hc';
-				$key = 'hc_id';
+				$tbl = 'db_pacientes_hc';
+				$key = 'pac_cod';
 				$_SESSION['tab']['con'] = NULL;
 				$params = array($data['field'] => $data['param']);
 				$cond = array("md5($key)", "=", $data['ids'], $key);
@@ -36,7 +37,7 @@ try {
 				break;
 			case "gin":
 				$tbl = 'db_pacientes_gin';
-				$key = 'gin_id';
+				$key = 'pac_cod';
 				$_SESSION['tab']['con'] = NULL;
 				$params = array($data['field'] => $data['param']);
 				$cond = array("md5($key)", "=", $data['ids'], $key);

@@ -20,7 +20,9 @@ class Paciente
     protected $mediaIDRef = "pac_cod";
     protected $id;
     protected $detAll;
-    protected $termBus, $cadBus;
+    protected $termBus;
+    protected $cadBus;
+    protected $termBusPac;
     public $TR, $TRt, $TRp, $RSp, $pages;
     public $det, $detF, $detV, $detMedia;
     public function __construct($id = null)

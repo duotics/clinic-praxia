@@ -6,11 +6,12 @@ use App\Models\Signo;
 $mPac = new Paciente;
 $mSig = new Signo;
 
-$ids = $_GET['id'] ?? $_POST['id'] ?? null;
+$ids = $_GET['kp'] ?? $_POST['kp'] ?? null;
 $mPac->setID($ids);
 $mPac->detF();
 $dPac = $mPac->det;
 if ($dPac) {
+	$idsPac = $ids;
 	$dPacF = $mPac->detF;
 	$idp = $dPac['pac_cod'];
 	$mPac->registrarBusquedaPaciente();
