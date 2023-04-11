@@ -1,13 +1,24 @@
 // JavaScript Document
 $(document).ready(function () {
+  // Add event listeners to the form controls
   $(".setDB").on("keyup change", function () {
+    handleFormControlEvents($(this));
+  });
+
+  /* 
+  OLD CODE 
+  */
+
+  //IMPORTANT UPDATE DB
+  $(".setDB2").on("keyup change", function () {
     console.log("setDB2 v2");
+    console.log($(this));
     //var temp=$(this).val();
     var campo = $(this).attr("name");
     var valor = $(this).val();
     var cod = $(this).attr("data-id");
     var tbl = $(this).attr("data-rel");
-    setDB(campo, valor, cod, tbl);
+    setDB2(campo, valor, cod, tbl);
   });
 
   $("#loaderFrame")
@@ -141,47 +152,68 @@ $(document).ready(function () {
   contlog.delay(3800).slideUp(200);
   //FANCYBOX
   var loading = $("#loading");
-  /*
-  $(".fancybox").fancybox();
-  $(".fancyreload").fancybox({
-    autoSize: false,
-    width: "95%",
-    height: "95%",
-    beforeClose: function () {
-      location.reload();
-    },
-  });
-  $(".fancyMed").fancybox({
-    autoSize: false,
-    width: "60%",
-    height: "90%",
-    beforeClose: function () {
-      location.reload();
-    },
-  });
-  $(".fancyclose").fancybox({
-    autoSize: true,
-    beforeClose: function () {
-      location.reload();
-    },
-  });
-  */
   //
 });
+/*
+END DOCUMENT READY
+*/
 
-// JavaScript Document
-function getDataVal(id, val, acc, res) {
-  $.get(
-    RAIZ + "system/fnc/gen.php",
-    { id: id, val: val, acc: acc, res: res },
-    function (data) {
-      $("#" + res).html(data.val);
-    },
-    "json"
-  );
+//FUNCTIONS
+
+function handleFormControlEvents(control) {
+  // Get the form control values
+  var campo = control.attr("name");
+  var valor = control.val();
+  var cod = control.data("id");
+  var tbl = control.data("rel");
+  var acc = control.data("acc");
+
+  // Handle input (keyup) event
+  if (control.is('input[type="text"]') && event.type === "keyup") {
+    // Add any additional logic to handle the input value here
+  }
+
+  // Handle checkbox (change) event
+  if (control.is('input[type="checkbox"]') && event.type === "change") {
+    valor = control.is(":checked") ? "1" : "0";
+    // Add any additional logic to handle the checkbox value here
+  }
+
+  // Handle select (change) event
+  if (control.is("select") && event.type === "change") {
+    // Add any additional logic to handle the select value here
+  }
+
+  // Call the AJAX function to send the form data
+  sendFormData(campo, valor, cod, tbl, acc);
 }
 
-function setDB(campo, valor, cod, tbl, acc = null) {
+// Define a function to send the form data via AJAX
+function sendFormData(campo, valor, cod, tbl, acc = null) {
+  $.get(
+    RAIZc + "com_comun/actionsJS.php",
+    {
+      campo: campo,
+      valor: valor,
+      cod: cod,
+      tbl: tbl,
+      acc: acc,
+    },
+    function (data) {},
+    "json"
+  )
+    .done(function (data) {
+      showLoading();
+      console.log("SetDB done. " + data.inf);
+      $("#logF").show(100).text(data.inf).delay(3000).hide(200);
+      hideLoading();
+    })
+    .fail(function (data) {
+      console.log("SetDB fail. " + data.inf);
+    });
+}
+
+function setDB2(campo, valor, cod, tbl, acc = null) {
   $.get(
     RAIZc + "com_comun/actionsJS.php",
     {
@@ -203,6 +235,18 @@ function setDB(campo, valor, cod, tbl, acc = null) {
     .fail(function (data) {
       console.log("SetDB fail. " + data.inf);
     });
+}
+
+// JavaScript Document
+function getDataVal(id, val, acc, res) {
+  $.get(
+    RAIZ + "system/fnc/gen.php",
+    { id: id, val: val, acc: acc, res: res },
+    function (data) {
+      $("#" + res).html(data.val);
+    },
+    "json"
+  );
 }
 
 //Tiny MCE
