@@ -1,8 +1,8 @@
 <?php include('../../init.php');
-$dM=$Auth->vLogin('TYPES');
-include(root['f'].'head.php') ?>
+$dM = $Auth->vLogin('TYPES');
+$mTpl = new App\Core\TemplateGen();
+$mTpl->renderHead() ?>
 <div class="container-fluid">
-	<?php sLog('t'); ?>
 	<?php include('_form.php') ?>
 </div>
-<?php include(root['f'].'foot.php') ?>
+<?php $mTpl->renderFoot() ?>

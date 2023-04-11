@@ -12,10 +12,6 @@ class Database
     private $strQuery;
     private $arrValues;
 
-    protected $tableType = "db_types";
-    protected $idType = "typ_cod";
-    protected $valType = "typ_val";
-
     function __construct()
     {
         $this->dbh = Conexion::getInstance()->dbh;
@@ -486,15 +482,6 @@ class Database
         } catch (Exception $e) {
             dep($e, "totRowsTabNP()");
         }
-    }
-    public function detRow_type($param)
-    { // GIT *
-        $sql = "SELECT {$this->valType} as VAL FROM {$this->tableType} WHERE {$this->idType} = ?";
-        $RS = $this->dbh->prepare($sql);
-        $RS->bindValue(1, $param, PDO::PARAM_INT);
-        $RS->execute();
-        $dRS = $RS->fetch();
-        return $dRS;
     }
     function genSelect($RS, $nom = NULL, $sel = NULL, $class = NULL, $opt = NULL, $id = NULL, $showIni = TRUE, $valIni = null, $nomIni = "- Seleccione -", $placeHolder = NULL)
     { //duotics_lib-> php8 v.0.1

@@ -1,23 +1,30 @@
 <?php
-$det = null;
-$dNom = null;
-$id = $_REQUEST['id'] ?? null;
-$ref = $_REQUEST['ref'] ?? null;
-$det = detRow('dbTypes', 'idType', $id);
+
+use App\Models\Tipo;
+
+$mTip = new Tipo;
+$ids = $_REQUEST['k'] ?? null;
+$valRef = $_REQUEST['ref'] ?? null;
+$mTip->setID($ids);
+$mTip->setValRef($valRef);
+$mTip->det();
+$det = $mTip->getDet();
 if ($det) {
 	$acc = md5("UPDt");
 	$btnAcc = "<button type='submit' class='btn btn-success' id='vAcc'>{$cfg['b']['upd']}</button>";
 	$detRef = $det['refType'] ?? null;
-	$btnNewR = "<a href='{$urlc}?ref={$detRef}' class='btn btn-outline-dark'>{$cfg['i']['new']} NUEVO SIMILAR</a>";
-	$btnClon = '<a href="_acc.php?id=' . $id . '&acc=' . md5('CLONEt') . '&url=' . $urlc . '" class="btn btn-info"><i class="fas fa-clone"></i> CLONAR</a>';
+	$btnClon = "<a href='_acc.php?k=$ids&acc=" . md5('CLONEt') . "&url=$urlc' class='btn btn-info'>{$cfg['b']['clone']}</a>";
+	$dNom = "{$det['nomType']}";
 } else {
 	$acc = md5("INSt");
 	$btnAcc = "<button type='submit' class='btn btn-primary' id='vAcc'>{$cfg['b']['ins']}</button>";
-	$btnNewR = null;
 	$btnClon = null;
-	$detRef = $ref;
+	$detRef = $valRef;
+	$dNom = null;
 }
 $btnNew = "<a href='$urlc' class='btn btn-outline-dark'>{$cfg['b']['new']}</a>";
+$cont = "<span class='badge badge-info'>$ids</span> $dNom";
+$objTit = new App\Core\genInterfaceTitle($dM, 'card', $cont, $btnAcc . $btnNew . $btnClon, null, 'mt-3');
 ?>
 <form enctype="multipart/form-data" method="post" action="_acc.php" class="form-horizontal">
 	<fieldset>
@@ -26,9 +33,7 @@ $btnNew = "<a href='$urlc' class='btn btn-outline-dark'>{$cfg['b']['new']}</a>";
 		<input name="id" type="hidden" value="<?php echo $id ?>" />
 		<input name="url" type="hidden" value="<?php echo $urlc ?>" />
 	</fieldset>
-	<?php
-	$cont = '<span class="badge badge-info">' . $id . '</span>' . $dNom;
-	echo genHeader($dM, 'card', $cont, $btnAcc . $btnNew . $btnNewR . $btnClon, null, 'mt-3') ?>
+	<?php $objTit->render() ?>
 	<div class="card">
 		<div class="card-body">
 			<div class="row mb-3">

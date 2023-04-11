@@ -10,7 +10,10 @@ class Tipo
     protected $db;
     protected $mainTableName = "dbTypes";
     protected $mainIDName = "idType";
+
+    protected $valRefName = "valType";
     protected $det;
+    protected $valRef;
     protected $TR;
 
     function __construct()
@@ -23,6 +26,10 @@ class Tipo
     function setID($id)
     {
         $this->id = $id;
+    }
+    public function setValRef($val)
+    {
+        $this->valRef = $val;
     }
     /*
     GETTERS
@@ -82,6 +89,17 @@ class Tipo
         $res = $this->db->selectAllSQL($sql);
         return $res;
     }
+    public function getTypeVal($param)
+    { // GIT *
+        $sql = "SELECT {$this->valRefName} as VAL 
+        FROM {$this->mainTableName} 
+        WHERE {$this->mainIDName} = ?";
+        $RS = $this->db->dbh->prepare($sql);
+        $RS->bindValue(1, $param, \PDO::PARAM_INT);
+        $RS->execute();
+        $dRS = $RS->fetch();
+        return $dRS['VAL'] ?? null;
+    }
     /*
     CRUD
     */
@@ -107,7 +125,9 @@ class Tipo
         vP($ret['est'], $ret['log']);
         return $ret;
     }
-
+    public function clonTipo()
+    {
+    }
     function deleteTipo()
     {
         $sql = "DELETE FROM {$this->mainTableName} WHERE md5({$this->mainIDName})='{$this->id}' LIMIT 1";

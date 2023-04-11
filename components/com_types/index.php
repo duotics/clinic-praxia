@@ -1,6 +1,6 @@
 <?php include('../../init.php');
 $dM = $Auth->vLogin('TYPES');
-$mTpl = new App\Core\TemplateGen(null, null, null, ['mod_menu/menuMain.php'], null, null, [$dM, "head"]);
+$mTpl = new App\Core\TemplateGen(null, null, null, ['mod_menu/menuMain.php']);
 $mTpl->renderHead() ?>
 <div class="container">
 	<?php $mTpl->renderTop() ?>

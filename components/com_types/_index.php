@@ -11,9 +11,9 @@ $TRt = $mType->getTRmain();
 $TR = ($lType) ? count($lType) : 0;
 $btnNew = "<a href='form.php' data-fancybox='form' data-width='800' class='btn btn-primary' data-type='iframe'>{$cfg['b']['new']}</a>";
 $btnTR = "<span class='btn btn-dark disabled'>{$cfg['t']['rows']} <strong>{$TRt}</strong></span>";
-//echo genHeader($dM, 'header', null, $btnTR . $btnNew) 
+$objTit = new App\Core\genInterfaceTitle($dM, 'card', null, $btnNew . $btnTR);
+$objTit->render();
 ?>
-<?php sLOG('t'); ?>
 <div class="card p-2 mb-2">
 	<form class="row row-cols-lg-auto g-3 align-items-center">
 		<div class="col-12">
@@ -42,10 +42,12 @@ $btnTR = "<span class='btn btn-dark disabled'>{$cfg['t']['rows']} <strong>{$TRt}
 			</tr>
 		</thead>
 		<tbody>
-			<?php foreach ($lType as $dType) {
+			<?php foreach ($lType as $dType) :
 				$idRow = $dType['idType'];
 				$idsRow = md5($idRow);
-				$btnStat = genStatus('_acc.php', array('ids' => $idRow, 'val' => $dType['status'], 'acc' => md5('STt'), 'ref' => $rTyp, "url" => $urlc));
+				$btnStat = genStatus('_acc.php', array('k' => $idsRow, 'val' => $dType['status'], 'acc' => md5('STt'), 'ref' => $rTyp, "url" => $urlc));
+				$btnEdit = "<a data-fancybox='form' data-type='iframe' data-width='800' href='form.php?k=$idsRow' class='btn btn-info btn-sm'>{$cfg['i']['edit']}</a>";
+				$btnDel = "<a href='_acc.php?k=$idsRow&acc=" . md5('DELt') . "&url={$urlc}' class='btn btn-danger btn-sm'>{$cfg['i']['trash']}</a>";
 			?>
 				<tr>
 					<td><?php echo $idRow ?></td>
@@ -57,16 +59,11 @@ $btnTR = "<span class='btn btn-dark disabled'>{$cfg['t']['rows']} <strong>{$TRt}
 					<td><?php echo $dType['auxType'] ?></td>
 					<td>
 						<div class="btn-group">
-							<a data-fancybox="form" data-width="800" href="form.php?id=<?php echo $idRow ?>" class="btn btn-info btn-sm" data-type="iframe">
-								<?php echo $cfg['i']['edit'] ?>
-							</a>
-							<a href="_acc.php?id=<?php echo $idRow ?>&acc=<?php echo md5('DELt') ?>&url=<?php echo $urlc . $uTyp ?>" class="btn btn-danger btn-sm">
-								<?php echo $cfg['i']['trash'] ?>
-							</a>
+							<?php echo $btnEdit . $btnDel ?>
 						</div>
 					</td>
 				</tr>
-			<?php } ?>
+			<?php endforeach ?>
 		</tbody>
 	</table>
 <?php } else { ?>

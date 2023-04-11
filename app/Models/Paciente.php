@@ -6,11 +6,13 @@ use \PDO;
 use App\Core\Database;
 use App\Core\Paginator;
 use App\Models\Media;
+use App\Models\Tipo;
 
 class Paciente
 {
     private $db;
     protected $mMedia;
+    protected $mTipo;
     protected $mainTable = "db_pacientes";
     protected $secTable = "db_pacientes_nom";
     protected $mainID = "pac_cod";
@@ -28,6 +30,7 @@ class Paciente
     public function __construct($id = null)
     {
         $this->db = new Database();
+        $this->mTipo = new Tipo();
         $this->mMedia = new Media();
         if ($id) {
             $this->id = $id;
@@ -185,11 +188,11 @@ class Paciente
             $dPacSig = $this->db->detRow("db_signos", null, "md5(pac_cod)", $this->id, "id", "DESC");
             //$typ['tsan']=$this->db->detRow_type($dPac['pac_tipsan'])['VAL'];
             $typ = array(
-                "tsan" => $this->db->detRow_type($this->det['pac_tipsan'])['VAL'] ?? null,
-                "tsanp" => $this->db->detRow_type($this->det['pac_tipsanpar'])['VAL'] ?? null,
-                "eciv" => $this->db->detRow_type($this->det['pac_estciv'])['VAL'] ?? null,
-                "sex" => $this->db->detRow_type($this->det['pac_sexo'])['VAL'] ?? null,
-                "est" => $this->db->detRow_type($this->det['pac_tipst'])['VAL'] ?? null
+                "tsan" => $this->mTipo->getTypeVal($this->det['pac_tipsan']),
+                "tsanp" => $this->mTipo->getTypeVal($this->det['pac_tipsanpar']),
+                "eciv" => $this->mTipo->getTypeVal($this->det['pac_estciv']),
+                "sex" => $this->mTipo->getTypeVal($this->det['pac_sexo']),
+                "est" => $this->mTipo->getTypeVal($this->det['pac_tipst'])
             );
             $IMC = calcIMC($dPacSig['peso'] ?? null, $dPacSig['talla'] ?? null);
             $ret = array(
