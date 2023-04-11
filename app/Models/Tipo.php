@@ -10,8 +10,8 @@ class Tipo
     protected $db;
     protected $mainTableName = "dbTypes";
     protected $mainIDName = "idType";
-
-    protected $valRefName = "valType";
+    protected $valRefName = "refType";
+    protected $valValName = "valType";
     protected $det;
     protected $valRef;
     protected $TR;
@@ -69,6 +69,16 @@ class Tipo
     {
         $this->det = $this->db->detRow($this->mainTableName, null, "md5({$this->mainIDName})", $this->id);
     }
+    public function getAllTipRef($val)
+    {
+        $sql = "SELECT 
+        tM.{$this->mainIDName} AS sID,
+        tM.{$this->valValName} AS sVAL
+        FROM {$this->getMainTableName()} tM
+        WHERE {$this->valRefName} = '{$val}'";
+        $ret = $this->db->selectAllSQL($sql);
+        return $ret;
+    }
     function getAll()
     {
         $sql = "SELECT * FROM {$this->mainTableName}";
@@ -91,7 +101,7 @@ class Tipo
     }
     public function getTypeVal($param)
     { // GIT *
-        $sql = "SELECT {$this->valRefName} as VAL 
+        $sql = "SELECT {$this->valValName} as VAL 
         FROM {$this->mainTableName} 
         WHERE {$this->mainIDName} = ?";
         $RS = $this->db->dbh->prepare($sql);

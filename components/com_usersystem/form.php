@@ -89,7 +89,7 @@ sLOG('g') ?>
                                                   SSQL($idE, 'int')
                                              );
                                              $RSlenu = mysqli_query(conn, $qryLENU) or die(mysqli_error(conn));
-                                             genSelect('inpEmpCod', $RSlenu, $det['emp_cod'], 'form-control', ''); ?>
+                                             genSelectA('inpEmpCod', $RSlenu, $det['emp_cod'], 'form-control', ''); ?>
                                         </div>
                                    </div>
                                    <div class="form-group">

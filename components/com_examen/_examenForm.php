@@ -86,7 +86,7 @@ if ($dExa) {
 									<label class="control-label col-sm-3" for="resultado">Formato</label>
 									<div class="col-sm-9">
 										<input type="text" class="form-control disabled" value="<?php echo $dEF["nom"] ?>" disabled>
-										<?php //genSelect('idef', $RSe, $dExa['id_ef'], 'form-control', NULL, 'idEf', NULL, TRUE, NULL, "- Seleccione Formato -")
+										<?php //genSelectA('idef', $RSe, $dExa['id_ef'], 'form-control', NULL, 'idEf', NULL, TRUE, NULL, "- Seleccione Formato -")
 										?>
 									</div>
 								</div>
@@ -237,27 +237,7 @@ if ($dExa) {
 		$('#idEf').on('change', function(evt, params) {
 			doGetEF(evt, params);
 		});
-		$('.setDB_old').keyup(function() {
-			var campo = $(this).attr("name");
-			var valor = $(this).val();
-			var cod = $(this).attr("data-id");
-			var tbl = $(this).attr("data-rel");
-			setDB(campo, valor, cod, tbl);
-		});
 	});
-
-	function setDB_old(campo, valor, cod, tbl) {
-		$.get(RAIZc + "com_comun/actionsJS.php", {
-			campo: campo,
-			valor: valor,
-			cod: cod,
-			tbl: tbl
-		}, function(data) {
-			showLoading();
-			$("#logF").show(100).text(data.inf).delay(3000).hide(200);
-			hideLoading();
-		}, "json");
-	}
 
 	function doGetEF(evt, params) {
 		var url = RAIZs + 'fnc/getRow.php';

@@ -23,7 +23,7 @@ $tRSd=$RSd->rowCount();
 				<div class="row">
 					<div class="col-sm-6">
 						<div class="mb-3">
-						<?php echo $db->genSelect($RSd,"diagSel[]",NULL,'form-control', '', 'chosDiag',true,null);?>
+						<?php echo $db->genSelectA($RSd,"diagSel[]",NULL,'form-control', '', 'chosDiag',true,null);?>
 						</div>
 						<div class="mb-3">
 							<input type="text" class="form-control" name="diagD" id="diagD" placeholder="Otros Diagnósticos">

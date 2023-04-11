@@ -98,6 +98,30 @@ function genFormsInpRadio($params, $sel = null, $typ = null, $def = null, $name 
     }
     return $val;
 }
+function genFormsInpSwitch($name, $status = null, $text = null, $css = null, $opt = null)
+{
+    $ret = null;
+    try {
+        if ($name) {
+            if ($status == 1) {
+                $statusCheck = "checked";
+                $statusVal = 1;
+            } else {
+                $statusCheck = "";
+                $statusVal = 0;
+            }
+            $ret = "
+            <div class='form-check form-switch'>
+            <input name='{$name}' class='form-check-input {$css}' type='checkbox' role='switch' id='{$name}' {$opt} value='{$statusVal}' {$statusCheck}>
+            <label class='form-check-label' for='{$name}'>{$text}</label>
+            </div>
+            ";
+        } else throw new Exception("Error genFormsInpSwitch() param 'name' empty");
+    } catch (Exception $e) {
+        $ret = $e->getMessage();
+    }
+    return $ret;
+}
 function genStatus($dest, $params, $css = NULL, $icons = NULL)
 { //duotics_lib->v.4.4
     $lP = null;

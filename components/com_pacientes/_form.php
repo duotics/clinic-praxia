@@ -2,9 +2,13 @@
 
 use App\Models\Paciente;
 use App\Models\Signo;
+use App\Models\Tipo;
+use App\Models\Pais;
 
 $mPac = new Paciente;
 $mSig = new Signo;
+$mTipo = new Tipo;
+$mPais = new Pais;
 
 $ids = $_GET['kp'] ?? $_POST['kp'] ?? null;
 $mPac->setID($ids);

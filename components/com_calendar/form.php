@@ -104,13 +104,13 @@ include(root['f'] . 'head.php');
           <div class="form-group">
             <label for="horaf" class="col-sm-3 control-label">Paciente</label>
             <div class="col-sm-9">
-              <?php genSelect('pac_cod', $RSLP, $detRes['pac_cod'] ?? null, ' form-control '); ?>
+              <?php genSelectA('pac_cod', $RSLP, $detRes['pac_cod'] ?? null, ' form-control '); ?>
             </div>
           </div>
           <div class="form-group">
             <label for="horaf" class="col-sm-3 control-label">Tipo Visita</label>
             <div class="col-sm-9">
-              <?php genSelect('typ_cod', detRowGSel('db_types', 'typ_cod', 'typ_val', 'typ_ref', 'TIPVIS'), $detRes['typ_cod'] ?? null, ' form-control '); ?>
+              <?php genSelectA('typ_cod', detRowGSel('db_types', 'typ_cod', 'typ_val', 'typ_ref', 'TIPVIS'), $detRes['typ_cod'] ?? null, ' form-control '); ?>
             </div>
           </div>
           <div class="form-group">

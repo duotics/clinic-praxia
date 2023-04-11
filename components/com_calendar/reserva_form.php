@@ -86,7 +86,7 @@ include(root['f'] . 'head.php'); ?>
               <div class="form-group">
                 <label for="horaf" class="col-sm-3 control-label">Tipo Visita</label>
                 <div class="col-sm-9">
-                  <?php genSelect('typ_cod', detRowGSel('db_types', 'typ_cod', 'typ_val', 'typ_ref', 'TIPVIS'), $detRes['typ_cod'], ' form-control '); ?>
+                  <?php genSelectA('typ_cod', detRowGSel('db_types', 'typ_cod', 'typ_val', 'typ_ref', 'TIPVIS'), $detRes['typ_cod'], ' form-control '); ?>
                 </div>
               </div>
               <div class="form-group">

@@ -34,7 +34,7 @@
             <div class="row mb-2">
                 <label for="pac_nac" class="col-sm-4 col-form-label">Nacionalidad</label>
                 <div class="col-sm-8">
-                    <?php echo $db->genSelect($db->detRowGSel('dbPais', 'idPais', 'nomPais', '1', '1'), 'pac_nac', $dPac['pac_nac'] ?? null, ' form-control input-sm setDB', "data-rel='pac' data-id='{$ids}'"); ?>
+                    <?php echo $db->genSelectA($mPais->getAllSelect(), 'pac_nac', $dPac['pac_nac'] ?? null, ' form-control input-sm setDB', "data-rel='pac' data-id='{$ids}'"); ?>
                 </div>
             </div>
             <div class="row mb-2">

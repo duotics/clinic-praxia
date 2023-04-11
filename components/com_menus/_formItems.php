@@ -36,7 +36,7 @@ $btnNew = "<a href='{$urlc}' class='btn btn-outline-dark'>{$cfg['b']['new']}</a>
 						<div class="row mb-3">
 							<label class="col-form-label col-sm-4" for="menu_id">MENU CONTENEDOR</label>
 							<div class="col-sm-8">
-								<?php echo $db->genSelect($db->detRowGSel('dbMenu', 'idMenu', 'nomMenu', 'status', '1'), 'dIDC', $det['idMenu'] ?? null, 'form-control', 'required onChange="loadMI(this.value,0)"'); ?>
+								<?php echo $db->genSelectA($db->detRowGSel('dbMenu', 'idMenu', 'nomMenu', 'status', '1'), 'dIDC', $det['idMenu'] ?? null, 'form-control', 'required onChange="loadMI(this.value,0)"'); ?>
 							</div>
 						</div>
 						<div class="row mb-3">
@@ -56,7 +56,7 @@ $btnNew = "<a href='{$urlc}' class='btn btn-outline-dark'>{$cfg['b']['new']}</a>
 						<div class="row mb-3">
 							<label class="col-form-label col-sm-4" for="menu_id">COMPONENTE</label>
 							<div class="col-sm-8">
-								<?php echo $db->genSelect($db->detRowGSel('dbComponente', 'idComp', 'nomComp', 'status', '1'), 'dMod', $det['idComp'] ?? null, 'form-select'); ?>
+								<?php echo $db->genSelectA($db->detRowGSel('dbComponente', 'idComp', 'nomComp', 'status', '1'), 'dMod', $det['idComp'] ?? null, 'form-select'); ?>
 							</div>
 						</div>
 

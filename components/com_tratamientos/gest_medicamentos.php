@@ -64,7 +64,7 @@ include(root['f'].'head.php');
     <div class="form-group">
     	<label for="generico" class="col-sm-2 control-label">Laboratorio</label>
     	<div class="col-sm-10">
-    	<?php genSelect('lab',detRowGSel('db_types','typ_cod','typ_val','typ_ref','LABORATORIO'),$detMed['lab'],' form-control input-sm', NULL,'tlab',NULL, TRUE ,NULL, 'Seleccione') ?>
+    	<?php genSelectA('lab',detRowGSel('db_types','typ_cod','typ_val','typ_ref','LABORATORIO'),$detMed['lab'],' form-control input-sm', NULL,'tlab',NULL, TRUE ,NULL, 'Seleccione') ?>
     	</div>
 	</div>
     <div class="form-group">

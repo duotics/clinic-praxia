@@ -97,7 +97,7 @@ include(root['f'] . 'head.php'); ?>
 					array("cond" => "AND", "field" => "typ_stat", "comp" => '=', "val" => 1)
 				);
 				$RS = detRowGSelNP('db_types', 'typ_cod', 'typ_val', $paramsN, TRUE, 'typ_val', 'ASC');
-				genSelect('con_typvisP', $RS, $dCon['con_typvisP'], 'form-control input-sm', ' onChange="setDB(this.name,this.value,' . $idc . ',' . "'con'" . ')"', 'con_typvisP', NULL, TRUE, NULL, '- Seleccione -'); ?>
+				genSelectA('con_typvisP', $RS, $dCon['con_typvisP'], 'form-control input-sm', ' onChange="setDB(this.name,this.value,' . $idc . ',' . "'con'" . ')"', 'con_typvisP', NULL, TRUE, NULL, '- Seleccione -'); ?>
 			</fieldset>
 		</div>
 	</div>
@@ -129,13 +129,13 @@ include(root['f'] . 'head.php'); ?>
 								<div class="form-group">
 									<label for="generico" class="col-sm-3 control-label">Listado Medicamentos</label>
 									<div class="col-sm-9">
-										<?php genSelect('listMed', $RSlm, NULL, 'form-control input-sm', ''); ?>
+										<?php genSelectA('listMed', $RSlm, NULL, 'form-control input-sm', ''); ?>
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="generico" class="col-sm-3 control-label">Listado Indicaciones</label>
 									<div class="col-sm-9">
-										<?php genSelect('listInd', detRowGSel('db_indicaciones', 'id', 'des', 'est', '1'), NULL, ' form-control input-sm', NULL, NULL, 'Seleccione');
+										<?php genSelectA('listInd', detRowGSel('db_indicaciones', 'id', 'des', 'est', '1'), NULL, ' form-control input-sm', NULL, NULL, 'Seleccione');
 										?>
 									</div>
 								</div>

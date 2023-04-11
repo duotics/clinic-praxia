@@ -23,7 +23,7 @@ $objTit->render();
 			<label class="mr-2">Referencia</label>
 		</div>
 		<div class="col-12">
-			<?php echo $db->genSelect($db->detRowGSel('dbTypes', 'refType', 'DISTINCT (refType)', '1', '1'), 'idType', $rTyp, 'form-select form-select-sm', 'required', NULL, 'Seleccione', TRUE, NULL, 'Todos') ?>
+			<?php echo $db->genSelectA($db->detRowGSel('dbTypes', 'refType', 'DISTINCT (refType)', '1', '1'), 'idType', $rTyp, 'form-select form-select-sm', 'required', NULL, 'Seleccione', TRUE, NULL, 'Todos') ?>
 		</div>
 	</form>
 </div>

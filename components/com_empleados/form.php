@@ -42,7 +42,7 @@ sLOG('g') ?>
                 <div class="form-group">
                 	<label class="col-sm-3 control-label">Tipo</label>
                      <div class="col-sm-9">
-                     <?php genSelect('typ_cod',detRowGSel('db_types','typ_cod','typ_val','typ_ref','TIPEMP'),$detE['typ_cod'],'form-control','required'); ?>
+                     <?php genSelectA('typ_cod',detRowGSel('db_types','typ_cod','typ_val','typ_ref','TIPEMP'),$detE['typ_cod'],'form-control','required'); ?>
                      </div>
                 </div>
                 <div class="form-group">

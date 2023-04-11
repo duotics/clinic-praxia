@@ -17,7 +17,7 @@ else $param = null;
 		<span class="label label-default">Filtros</span>
 		<div class="form-group">
 			<label for="typ_cod">Tipo Examen</label>
-			<?php genSelect('typ_cod', detRowGSel('db_types', 'typ_cod', 'typ_val', 'typ_ref', 'TIPEXAM'), $idTyp, ' form-control input-sm', NULL, NULL, 'Todos'); ?>
+			<?php genSelectA('typ_cod', detRowGSel('db_types', 'typ_cod', 'typ_val', 'typ_ref', 'TIPEXAM'), $idTyp, ' form-control input-sm', NULL, NULL, 'Todos'); ?>
 		</div>
 	</fieldset>
 </div>

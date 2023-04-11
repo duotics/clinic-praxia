@@ -30,7 +30,7 @@ else $dCon_fec = date("d M Y");
 						array("cond" => "AND", "field" => "typ_stat", "comp" => '=', "val" => 1)
 					);
 					$RStc = detRowGSelNP('db_types', 'typ_cod', 'typ_val', $paramsTC, TRUE, 'typ_val', 'ASC');
-					genSelect('con_typ', $RStc, $dCon['con_typ'] ?? null, 'form-control input-sm', ' onChange="setDB(this.name,this.value,' . $idc . ',' . "'con'" . ')"', 'con_typ', NULL, TRUE, NULL, '- Seleccione -'); 			 ?>
+					genSelectA('con_typ', $RStc, $dCon['con_typ'] ?? null, 'form-control input-sm', ' onChange="setDB(this.name,this.value,' . $idc . ',' . "'con'" . ')"', 'con_typ', NULL, TRUE, NULL, '- Seleccione -'); 			 ?>
 				</div>
 			</div>
 
@@ -46,13 +46,13 @@ else $dCon_fec = date("d M Y");
 						array("cond" => "AND", "field" => "typ_stat", "comp" => '=', "val" => 1)
 					);
 					$RS = detRowGSelNP('db_types', 'typ_cod', 'typ_val', $paramsN, TRUE, 'typ_val', 'ASC');
-					genSelect('con_typvis', $RS, $dCon['con_typvis'] ?? null, 'form-control input-sm', ' onChange="setDB(this.name,this.value,' . $idc . ',' . "'con'" . ')"', 'con_typvis', NULL, TRUE, NULL, '- Seleccione -'); ?>
+					genSelectA('con_typvis', $RS, $dCon['con_typvis'] ?? null, 'form-control input-sm', ' onChange="setDB(this.name,this.value,' . $idc . ',' . "'con'" . ')"', 'con_typvis', NULL, TRUE, NULL, '- Seleccione -'); ?>
 				</div>
 				<div class="form-group">
 					<input name="con_val" type="text" value="<?php echo $dCon['con_val'] ?? null ?>" class="form-control input-sm" placeholder="Valor" onkeyup="setDB(this.name,this.value,'<?php echo $idc ?>','con')" />
 				</div>
 				<div class="form-group">
-					<?php genSelect('tip_pag', detRowGSel('db_types', 'typ_cod', 'typ_val', 'typ_ref', 'TIPPAG'), $dCon['tip_pag'] ?? null, 'form-control input-sm', ' onChange="setDB(this.name,this.value,' . $idc . ',' . "'con'" . ')"', NULL, NULL, TRUE, NULL, '- Tipo de Pago -'); ?>
+					<?php genSelectA('tip_pag', detRowGSel('db_types', 'typ_cod', 'typ_val', 'typ_ref', 'TIPPAG'), $dCon['tip_pag'] ?? null, 'form-control input-sm', ' onChange="setDB(this.name,this.value,' . $idc . ',' . "'con'" . ')"', NULL, NULL, TRUE, NULL, '- Tipo de Pago -'); ?>
 				</div>
 
 			</div>

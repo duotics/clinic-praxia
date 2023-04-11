@@ -50,7 +50,7 @@ $dPacHC = $mPacHC->det;
     <div class="col-md-3">
       <div class="mb-2">
         <label class="col-xs-4 form-label"><strong>FUMA</strong></label>
-        <?php echo $db->genSelect($db->detRowGSel('db_types', 'typ_cod', 'typ_val', 'typ_ref', 'SINO'), 'hc_fuma', $dPacHC['hc_fuma'], "form-control input-sm setDB", "data-rel='hc' data-id='$idsPac'") ?>
+        <?php echo genFormsInpSwitch("hc_fuma", $dPacHC['hc_fuma'], "Seleccionar si considera", "setDB", "data-rel='hc' data-id='{$idsPac}'") ?>
       </div>
       <div class="mb-2">
         <label for="hc_fumat" class="form-label">Tiempo Fuma (Años)</label>
@@ -70,7 +70,7 @@ $dPacHC = $mPacHC->det;
     <div class="col-md-3">
       <div class="mb-3">
         <label for="hc_alco" class="form-label"><strong>ALCOHOL</strong></label>
-        <?php echo $db->genSelect($db->detRowGSel('db_types', 'typ_cod', 'typ_val', 'typ_ref', 'SINO'), 'hc_alco', $dPacHC['hc_alco'], "form-control input-sm setDB", "data-rel='hc' data-id='$idsPac'") ?>
+        <?php echo genFormsInpSwitch("hc_alco", $dPacHC['hc_alco'], "Seleccionar si considera", "setDB", "data-rel='hc' data-id='{$idsPac}'") ?>
       </div>
       <div class="mb-2">
         <label for="hc_alcot" class="form-label">Tiempo Alcohol</label>
@@ -84,7 +84,7 @@ $dPacHC = $mPacHC->det;
     <div class="col-md-3">
       <div class="mb-2">
         <label for="hc_drog" class="form-label"><strong>DROGAS</strong></label>
-        <?php echo $db->genSelect($db->detRowGSel('db_types', 'typ_cod', 'typ_val', 'typ_ref', 'SINO'), 'hc_drog', $dPacHC['hc_drog'], "form-control input-sm setDB", "data-rel='hc' data-id='$idsPac'") ?>
+        <?php echo genFormsInpSwitch("hc_drog", $dPacHC['hc_drog'], "Seleccionar si considera", "setDB", "data-rel='hc' data-id='{$idsPac}'") ?>
       </div>
       <div class="mb-2">
         <label for="hc_drogt" class="form-label">Tiempo Drogas</label>
