@@ -1,8 +1,8 @@
 <?php include('../../init.php');
 $dM=$Auth->vLogin('TYPES');
-$css['body']='cero';
 include(root['f'].'head.php') ?>
-<div class="container">
+<div class="container-fluid">
+	<?php sLog('t'); ?>
 	<?php include('_form.php') ?>
 </div>
-<?php include(root['f'].'footer.php') ?>
+<?php include(root['f'].'foot.php') ?>

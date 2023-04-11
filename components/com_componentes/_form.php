@@ -16,7 +16,7 @@ if ($dCom) {
 	$btnAcc = "<button type='submit' class='btn btn-primary' id='vAcc'>{$cfg['b']['ins']}</button>";
 }
 $btnNew = '<a href="' . $urlc . '" class="btn btn-outline-dark"><i class="fas fa-plus-square fa-lg"></i> NUEVO</a>';
-$objHeader = new App\Core\genInterfaceTitle($dM, 'navbar');
+$objHeader = new App\Core\genInterfaceTitle($dM, 'navbar', null, null, null, "p-1");
 $cont = '<span class="badge bg-primary">' . ($dCom['idComp'] ?? null) . '</span>
 	<span class="badge bg-primary">' . ($dCom['nomComp'] ?? null) . '</span>';
 $objHeader2 = new App\Core\genInterfaceTitle(null, 'header', $cont, $btnAcc . $btnNew);

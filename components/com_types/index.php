@@ -1,9 +1,9 @@
 <?php include('../../init.php');
 $dM = $Auth->vLogin('TYPES');
-include(root['f'] . "head.php"); ?>
-<?php include(root['m'] . 'mod_menu/menuMain.php'); ?>
+$mTpl = new App\Core\TemplateGen(null, null, null, ['mod_menu/menuMain.php'], null, null, [$dM, "head"]);
+$mTpl->renderHead() ?>
 <div class="container">
-	<?php echo genHeader($dM, 'page-header') ?>
+	<?php $mTpl->renderTop() ?>
 	<div><?php include('_index.php'); ?></div>
 </div>
-<?php include(root['f'] . 'foot.php') ?>
+<?php $mTpl->renderFoot(); ?>

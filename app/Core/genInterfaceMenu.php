@@ -39,8 +39,8 @@ class genInterfaceMenu extends genInterface
                         $cssSM = null;
                         if ($tRSmi > 0) $cssSM = "dropdown"; //Si hay menus hijos se establece el css 'dropdown'
                         //variable para establecer si el link se obtiene de la base o se deja default #
-                        $link = "#";
-                        if ($dRSmp['link']) $link = route['c'] . $dRSmp['link'];
+                        $link = ($valLink = $this->genLinkMenu($dRSmp['link'], $dRSmp['linkt'])) ? $valLink : "#";
+                        //$link = route['c'] . $dRSmp['link'];
                         //Verifico si hay precodigo
                         if ($dRSmp['pre']) $obj .= $dRSmp['pre'];
                         $obj .= '<li class="nav-item ' . $cssSM . ' ' . $dRSmp['css'] . '" style="' . $dRSmp['sty'] . '">';
@@ -57,11 +57,7 @@ class genInterfaceMenu extends genInterface
                             //BEG DROPDOWN MENU ITEMS DEPLOY
                             $obj .= "<ul class='dropdown-menu {$dRSmp['cssl']}' aria-labelledby='navbarDropdown'>";
                             foreach ($RSmi as $dRSmi) {
-                                if ($dRSmi['link']) {
-                                    $link = route['c'] . $dRSmi['link'];
-                                } else {
-                                    $link = "#";
-                                }
+                                $link = ($valLink = $this->genLinkMenu($dRSmi['link'], $dRSmi['linkt'])) ? $valLink : "#";
                                 if ($dRSmi['pre']) $obj .= $dRSmi['pre'];
                                 $obj .= '<li><a class="dropdown-item ' . $dRSmi['css'] . '" href="' . $link . '">';
                                 if ($dRSmi['ico']) $obj .= '<i class="' . $dRSmi['ico'] . '"></i> ';
@@ -94,6 +90,24 @@ class genInterfaceMenu extends genInterface
             $this->obj = $obj;
         } catch (Exception $e) {
             $this->vP = false;
+        }
+    }
+    private function genLinkMenu($link, $type)
+    {
+        try {
+            if ($link) {
+                $result = match ($type) {
+                    "c" => route['c'] . $link,
+                    "i" => routeM . $link,
+                    "e" => $link,
+                };
+                return $result;
+            } else {
+                throw new Exception("No hay link");
+            }
+        } catch (Exception $e) {
+            //dep($e->getMessage(), "genInterfaceMenu->genLink()");
+            return null;
         }
     }
 }

@@ -173,6 +173,7 @@ class Menu
         {$this->secTableName}.precodeMItem as pre,
         {$this->secTableName}.poscodeMItem as pos,
         {$this->secTableName}.linkMItem as link,
+        {$this->secTableName}.linktMItem as linkt,
         {$this->secTableName}.ordMItem as ord
 
         FROM {$this->secTableName} 

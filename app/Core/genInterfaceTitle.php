@@ -29,18 +29,10 @@ class genInterfaceTitle extends genInterface
             $obj .= "<div class='obj-header-wrapper clearfix'>";
             switch ($this->tip) {
                 case 'card':
-                    if ($MOD["id"]) {
-                        $objMod .= " <span class='badge bg-primary'>{$MOD["id"]}</span> ";
-                    }
-                    if ($MOD["icon"]) {
-                        $objMod .= " <span class='badge bg-light'><i class='{$MOD["icon"]}'></i></span> ";
-                    }
-                    if ($MOD["nom"]) {
-                        $objMod .= " <span >{$MOD["nom"]}</span> ";
-                    }
-                    if ($MOD["des"]) {
-                        $objMod .= " <span class='badge bg-light'>{$MOD["des"]}</span> ";
-                    }
+                    $objMod .= $MOD["id"] ? " <span class='badge bg-primary'>{$MOD["id"]}</span> " : null;
+                    $objMod .= $MOD["icon"] ? " <span class='badge bg-light'><i class='{$MOD["icon"]}'></i></span> " : null;
+                    $objMod .= $MOD["nom"] ? " <span >{$MOD["nom"]}</span> " : null;
+                    $objMod .= $MOD["des"] ? " <span class='badge bg-light'>{$MOD["des"]}</span> " : null;
                     $obj .= "<div class='card mt-2 mb-2 {$this->css}'>
                         <div class='card-body'>
                         <div class='btn-group float-end'>{$this->floatR}</div>
@@ -55,18 +47,19 @@ class genInterfaceTitle extends genInterface
                     $obj .= "<{$this->tag}> {$objMod} {$this->cont} </{$this->tag}></div>";
                     break;
                 case 'navbar':
-                    $obj = "<nav class='navbar navbar-dark bg-dark {$this->css}'>
+                    $obj .= "<nav class='navbar navbar-dark bg-dark {$this->css}'>
                         <div class='container-fluid'>
                         <a class='navbar-brand' href='#'> <i class='{$MOD["icon"]}'></i>
                         {$MOD['nom']} <small class='badge badge-secondary'> {$MOD["des"]} </small>
                         </a>
                         <ul class='navbar-nav mr-auto'>{$this->cont}</ul>
-                        </div></nav>";
+                        </div>
+                        </nav>";
                     break;
                 default:
                     $obj = '<div class="mt-2 mb-2">';
-                    if (isset($MOD['idMod'])) $obj .= "<span class='badge bg-secondary'>{$MOD['idMod']}</span>";
-                    $obj .= "{$MOD['nomMod']}</div>";
+                    if (isset($MOD['id'])) $obj .= "<span class='badge bg-secondary'>{$MOD['id']}</span>";
+                    $obj .= "<{$this->tag}>{$MOD['nom']}</{$this->tag}>";
                     break;
             }
             $obj .= "</div>";
