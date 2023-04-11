@@ -19,9 +19,9 @@ if ($dPac) {
 	$acc = md5("UPDp");
 	$dPacSig = $mSig->getLastSignPac($ids);
 
-	$IMC = calcIMC($dPacSig['imc'] ?? null, $dPacSig['peso'] ?? null, $dPacSig['talla'] ?? null);
+	$IMC = calcIMC($dPacSig['peso'] ?? null, $dPacSig['talla'] ?? null);
 	$btnAcc = "<button type='button' class='btn btn-success' id='vAcc'>{$cfg['b']['upd']}</button>";
-	$btnCon = '<a href="' . route['c'] . 'com_consultas/form.php?idp=' . $ids . '" class="btn btn-info"><i class="far fa-eye fa-lg"></i> VER CONSULTA</a>';
+	$btnCon = "<a href='" . route['c'] . "com_consultas/form.php?kp=$ids' class='btn btn-info'><i class='far fa-eye fa-lg'></i> VER CONSULTA</a>";
 } else {
 	$acc = md5("INSp");
 	$btnAcc = "<button type='button' class='btn btn-info' id='vAcc'>{$cfg['b']['ins']}</button>";

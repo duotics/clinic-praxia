@@ -34,49 +34,10 @@
 	</div>
 	<div class="col-sm-3">
 		<?php
-		$resDiag = null;
-		$qrlLCA = sprintf(
-			'SELECT * FROM db_consultas WHERE pac_cod=%s AND con_num<>%s ORDER BY con_num DESC LIMIT 5',
-			SSQL($idp, 'int'),
-			SSQL($idc, 'int')
-		);
-		$RSlca = mysqli_query(conn, $qrlLCA);
-		$dRSlca = mysqli_fetch_assoc($RSlca);
-		$tRSlca = mysqli_num_rows($RSlca);
-		if ($tRSlca > 0) {
-			$resDiag .= '<table class="table">';
-			do {
-				$resDiag .= '<tr>';
-				$resDiag .= '<td>' . date("Y-m-d", strtotime($dRSlca["con_fec"])) . '</td>';
-				$resDiag .= '<td>';
-				$qLD = sprintf(
-					'SELECT * FROM db_consultas_diagostico WHERE con_num=%s ORDER BY id ASC LIMIT 2',
-					SSQL($dRSlca['con_num'], 'int')
-				);
-				$RSld = mysqli_query(conn, $qLD);
-				$dRSld = mysqli_fetch_assoc($RSld);
-				$tRSld = mysqli_num_rows($RSld);
-				if ($tRSld > 0) {
-					do {
-						if ($dRSld["id_diag"] > 1) {
-							$dDiag = detRow('db_diagnosticos', 'id_diag', $dRSld["id_diag"]);
-							$dDiag_cod = $dDiag["codigo"] . '-';
-							$dDiag_nom = $dDiag["nombre"];
-						} else {
-							$dDiag_cod = NULL;
-							$dDiag_nom = $dRSld["obs"];
-						}
-						$resDiag .= ' <span class="btn btn-default btn-xs">' . $dDiag_cod . $dDiag_nom . '</span> ';
-					} while ($dRSld = mysqli_fetch_assoc($RSld));
-				}
-				$resDiag .= '</td></tr>';
-			} while ($dRSlca = mysqli_fetch_assoc($RSlca));
-			$resDiag .= '</table>';
-		} else $resDiag = '<div class="panel-body">Sin resultados anteriores</div>';
-		?>
-		<div class="panel panel-default">
-			<div class="panel-heading">Historial Diagnósticos anteriores</div>
-			<?php echo $resDiag ?>
+		$lConDiagHist = $objCon->ConsultaInterfaz_ListDiagHist(); ?>
+		<div class="card">
+			<div class="card-header">Historial Diagnósticos anteriores</div>
+			<?php echo $lConDiagHist ?>
 		</div>
 	</div>
 </div>

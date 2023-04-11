@@ -14,7 +14,22 @@ class ConsultaInterfaz extends Consulta
     public function ConsultaInterfaz_pacienteLat()
     {
     }
-
+    public function ConsultaInterfaz_ListDiagHist()
+    {
+        $ret = null;
+        $lConDiagHist = $this->getAllConsultasPacienteDiagnosticos();
+        if ($lConDiagHist) {
+            $ret .= "<table class='table table-sm m-0'>";
+            foreach ($lConDiagHist as $dRow) :
+                $ret .= "<tr>
+						<th><span class='badge bg-light'>{$dRow['date']}</span></th>
+						<td>{$dRow['diag']}</td>
+					</tr>";
+            endforeach;
+            $ret .= "</table>";
+        }
+        return $ret;
+    }
     public function ConsultaInterfaz_BotonHistory()
     {
         $ret = null;

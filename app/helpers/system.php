@@ -1,13 +1,14 @@
 <?php
 function dep($data, $tit = null)
 {
-    $format = print_r("<div><small>/ BEG Debug [{$tit}] > " . date('Y-m-d H:i:s'));
+    $date=date('Y-m-d H:i:s');
+    $format = print_r("<div><small>* BEG Debug [{$tit}] > $date | -> ");
     if (isset($data)) {
         $format .= print_r('<pre>');
         $format .= print_r($data);
         $format .= print_r('</pre>');
     } else $format .= print_r(' *null* ');
-    $format = print_r("| END Debug [{$tit}] > " . date('Y-m-d H:i:s') . "</small></div>");
+    $format = print_r("<- | END Debug [{$tit}] ></small></div>");
     return $format;
 }
 

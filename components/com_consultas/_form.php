@@ -7,7 +7,6 @@ use App\Models\Agendamiento;
 $objCon = new ConsultaInterfaz();
 $objPac = new PacienteInterfaz();
 
-
 $tabS = $_SESSION['tab']['con'] ?? null;
 
 $view = false;
@@ -18,9 +17,6 @@ $dRes = null;
 $LOG = null;
 $statusCon = null;
 
-
-
-$tabS = $_SESSION['tab']['con'] ?? null;
 $idsPac = $_GET['kp'] ?? null;
 $idsCon = $_GET['kc'] ?? null;
 $idsRes = $_GET['kr'] ?? null;
@@ -37,21 +33,17 @@ if ($idsCon) {
 		$objCon->setIDp($idsPac);
 	}
 }
-
 if ($idsPac) {
 	$LOG .= "Recibo id paciente<br>";
 	$objPac->setID($idsPac);
 	$objPac->detF();
 	$dPac = $objPac->det;
 	$dPacF = $objPac->detF;
-
 	$objCon->setIDp($idsPac);
 	if ($acc == 'new') {
 		$LOG .= "Nueva consulta<br>";
 	} else {
-
-		//$objCon->setIDp($idsPac);
-		if (!($dCon)) {
+		if (is_null($dCon)) {
 			$LOG .= "RECUPERO LA ULTIMA DATA SI NO EXISTE AUN<br>";
 			$objCon->getLastConsPac();
 			$dCon = $objCon->getDet();
@@ -68,8 +60,6 @@ if ($idsPac) {
 
 if ($dPac) $view = true;
 
-echo $LOG;
-
 if ($dCon) :
 	$acc = md5('UPDc');
 	$btnAcc = "<button type='submit' class='btn btn-success'>{$cfg['b']['upd']}</button>";
@@ -81,11 +71,7 @@ $idc = $dCon['con_num'];
 $stat = $objCon->statusCons($statusCon); //Devuelve el estado de la Consulta en HTML
 $btnNew = "<a href='$urlc?kp=$idsPac&acc=NEW' class='btn btn-light'>{$cfg['b']['new']}</a>";
 $btnStat = "<span class='btn btn-light disabled'>Estado</span> $stat[inf]";
-
-//dep($dPac);
-//dep($dCon);
 ?>
-
 <?php if ($dPac) : ?>
 	<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
 		<a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#">Consulta</a>
@@ -94,7 +80,6 @@ $btnStat = "<span class='btn btn-light disabled'>Estado</span> $stat[inf]";
 		</button>
 		<input class="form-control form-control-dark w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search">
 	</header>
-
 	<div class="container-fluid">
 		<div class="row">
 			<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-dark text-light sidebar collapse">
@@ -105,7 +90,6 @@ $btnStat = "<span class='btn btn-light disabled'>Estado</span> $stat[inf]";
 			</main>
 		</div>
 	</div>
-
 <?php else : ?>
 	<div class="container">
 		<div class="alert alert-danger">

@@ -60,6 +60,10 @@ class Paciente
     {
         return $this->det;
     }
+    public function getDetID()
+    {
+        return $this->det[$this->mainTable];
+    }
     //FUNCIONES
     public function det()
     {
@@ -246,7 +250,7 @@ class Paciente
             array("cond" => "AND", "field" => "pac_cod", "comp" => "=", "val" => $idp),
             array("cond" => "AND", "field" => "date", "comp" => '=', "val" => sys['date'])
         );
-        $ret = $this->db->detRowNP('db_pacientes_bus', $paramsN);
+        $ret = $this->db->detRowNP('db_pacientes_bus', null, $paramsN);
         return $ret;
     }
 }

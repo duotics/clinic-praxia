@@ -1,12 +1,5 @@
 <?php
 //Muestra información formateada
-function edadOld($edad)
-{
-	if ($edad) {
-		list($Y, $m, $d) = explode("-", $edad);
-		return (date("md") < $m . $d ? date("Y") - $Y - 1 : date("Y") - $Y);
-	} else return '-';
-}
 // Calcula la edad (formato: año/mes/dia)
 function edad($edad)
 {

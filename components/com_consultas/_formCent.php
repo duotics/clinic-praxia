@@ -22,7 +22,7 @@
 			<div class="tab-pane fade <?php if ($tabS == 'cCON') echo 'active' ?>" id="v-pills-con" role="tabpanel" aria-labelledby="v-pills-con-tab" tabindex="0">
 				<div id="contCons">
 					<?php $vVT = TRUE; ?>
-					<?php include(root['c'] . 'com_hc/_formConsDet.php') ?>
+					<?php include('consultaDet.php') ?>
 				</div>
 			</div>
 			<div class="tab-pane fade <?php if ($tabS == 'cTRA') echo 'active' ?>" id="v-pills-tra" role="tabpanel" aria-labelledby="v-pills-tra-tab" tabindex="0">

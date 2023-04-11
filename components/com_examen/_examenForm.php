@@ -135,7 +135,7 @@ if ($dExa) {
 											array("cond" => "AND", "field" => "idefd", "comp" => "=", "val" => $dRSltef["id"]),
 											array("cond" => "AND", "field" => "ide", "comp" => '=', "val" => $ide)
 										);
-										$dEFDS = detRowNP('db_examenes_det', $paramsN);
+										$dEFDS = detRowNP('db_examenes_det',null, $paramsN);
 										$checkSel = NULL;
 										//$enabRes='disabled';
 										if ($dEFDS) {

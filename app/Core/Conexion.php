@@ -38,6 +38,7 @@ class Conexion
         try {
             $this->dbh = new PDO($dsn_conn, $username_conn, $password_conn, $dsn_param);
             $this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->dbh->query("SET lc_time_names = 'es_ES'");
             //$ret= $this->dbh->getAttribute(PDO::ATTR_SERVER_INFO);
             //dep($ret);
         } catch (PDOException $e) {

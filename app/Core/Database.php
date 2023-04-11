@@ -2,6 +2,7 @@
 
 namespace App\Core;
 
+use Exception;
 use PDO;
 use PDOException;
 
@@ -178,10 +179,7 @@ class Database
         return (array("est" => $vP, "ret" => $ret, "log" => $LOG));
     }
 
-
-
     /////////////////////////////
-
 
     public function detRow($table, $select, $field, $param, $foN = NULL, $foF = 'ASC')
     { //duotics_lib -> php8
@@ -205,9 +203,7 @@ class Database
             //dep($dRS,"detRow");
             return $dRS;
         } catch (PDOException $e) {
-            $LOG = $e->getMessage();
-            dep($LOG, "detRow({$table})");
-            return null;
+            dep($e->getMessage(), "Database->detRow({$table})");
         }
     }
     public function detRowL($table, $field, $param, $lim = 1, $foN = NULL, $foF = 'ASC')
@@ -239,53 +235,56 @@ class Database
         ////$RS->closeCursor();
     }
     public function detRowNP($table, $select, $params, $lim = 1, $foN = NULL, $foF = 'ASC')
-    { //duotics_lib -> php8
-        $lP = null;
-        $ret = null;
-        if (!$select) $select = "*";
+    {
+        try {
+            $lP = null;
+            $ret = null;
+            if (!$select) $select = "*";
 
-        if ($foN) $paramOrd = 'ORDER BY ' . $foN . ' ' . $foF;
-        else $paramOrd = "";
+            if ($foN) $paramOrd = 'ORDER BY ' . $foN . ' ' . $foF;
+            else $paramOrd = "";
 
-        $limit = "";
-        if ($lim != 0) {
-            if (($lim <= 0) || (!$lim)) $lim = 1;
-            $limit = " LIMIT " . $lim;
-        }
-        $contParams = 0;
-        if ($params) {
-            foreach ($params as $x) {
-                foreach ($x as $y) {
-                    $lP .= $y['cond'] . ' ' . $y['field'] . ' ' . $y['comp'] . ' ? ';
-                    $contParams++;
+            $limit = "";
+            if ($lim != 0) {
+                if (($lim <= 0) || (!$lim)) $lim = 1;
+                $limit = " LIMIT " . $lim;
+            }
+            $contParams = 0;
+            if ($params) {
+                foreach ($params as $x) {
+                    foreach ($x as $y) {
+                        $lP .= $y['cond'] . ' ' . $y['field'] . ' ' . $y['comp'] . ' ? ';
+                        $contParams++;
+                    }
                 }
             }
-        }
-        $sql = sprintf(
-            "SELECT %s FROM %s WHERE 1=1 %s %s %s",
-            htmlentities($select),
-            htmlentities($table),
-            ($lP),
-            htmlentities($paramOrd),
-            htmlentities($limit)
-        );
-        $RS = $this->dbh->prepare($sql);
-        $contParams = 1;
-        if ($params) {
-            foreach ($params as $x) {
-                foreach ($x as $y) {
-                    $RS->bindValue($contParams, $y['val']);
-                    $contParams++;
+            $sql = sprintf(
+                "SELECT %s FROM %s WHERE 1=1 %s %s %s",
+                htmlentities($select),
+                htmlentities($table),
+                ($lP),
+                htmlentities($paramOrd),
+                htmlentities($limit)
+            );
+            $RS = $this->dbh->prepare($sql);
+            $contParams = 1;
+            if ($params) {
+                foreach ($params as $x) {
+                    foreach ($x as $y) {
+                        $RS->bindValue($contParams, $y['val']);
+                        $contParams++;
+                    }
                 }
             }
+            $RS->setFetchMode(PDO::FETCH_ASSOC);
+            $RS->execute();
+            $tRS = $RS->rowCount();
+            if ((($tRS > 1) && ($lim == 0)) || (($tRS > 1) && ($lim > 0))) $ret = $RS;
+            else $ret = ($RS->fetch());
+            return $ret;
+        } catch (Exception $e) {
+            dep($e->getMessage(), "Database->detRowNP()");
         }
-        $RS->setFetchMode(PDO::FETCH_ASSOC);
-        $RS->execute();
-        $tRS = $RS->rowCount();
-        if ((($tRS > 1) && ($lim == 0)) || (($tRS > 1) && ($lim > 0))) $ret = $RS;
-        else $ret = ($RS->fetch());
-        return $ret;
-        //$RS->closeCursor();
     }
     /************************************************************************************************************
         FUNCIONES DATOS (seleccionados), para seleccionarlos dento del Generar Select
@@ -456,36 +455,37 @@ class Database
     }
 
     public function totRowsTabNP($table, $params)
-    { //GIT
-        //dep($params, "function totRowsTabNP $table");
-        $lP = null;
-        $contParams = 0;
-        if ($params) {
-            foreach ($params as $x) {
-                foreach ($x as $y) {
-                    $lP .= $y['cond'] . ' ' . $y['field'] . ' ' . $y['comp'] . ' ? ';
-                    $contParams++;
+    {
+        try {
+            $lP = null;
+            $contParams = 0;
+            if ($params) {
+                foreach ($params as $x) {
+                    foreach ($x as $y) {
+                        $lP .= $y['cond'] . ' ' . $y['field'] . ' ' . $y['comp'] . ' ? ';
+                        $contParams++;
+                    }
                 }
             }
-        }
-        $sql = sprintf("SELECT COUNT(*) AS TR FROM %s WHERE 1=1 %s", htmlentities($table), ($lP));
-        //dep($sql);
-        $RS = $this->dbh->prepare($sql);
-        $contParams = 1;
-        if ($params) {
-            foreach ($params as $x) {
-                foreach ($x as $y) {
-                    $RS->bindValue($contParams, $y['val']);
-                    $contParams++;
+            $sql = sprintf("SELECT COUNT(*) AS TR FROM %s WHERE 1=1 %s", htmlentities($table), ($lP));
+            //dep($sql);
+            $RS = $this->dbh->prepare($sql);
+            $contParams = 1;
+            if ($params) {
+                foreach ($params as $x) {
+                    foreach ($x as $y) {
+                        $RS->bindValue($contParams, $y['val']);
+                        $contParams++;
+                    }
                 }
             }
+            $RS->setFetchMode(PDO::FETCH_ASSOC);
+            $RS->execute();
+            $dRS = $RS->fetch();
+            return ($dRS['TR']);
+        } catch (Exception $e) {
+            dep($e, "totRowsTabNP()");
         }
-        $RS->setFetchMode(PDO::FETCH_ASSOC);
-        $RS->execute();
-        $tRS = $RS->rowCount();
-        $dRS = $RS->fetch();
-        //$RS->closeCursor();
-        return ($dRS['TR']);
     }
     public function detRow_type($param)
     { // GIT *

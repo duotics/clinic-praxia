@@ -44,6 +44,10 @@ class Consulta
     {
         return $this->det;
     }
+    public function getDetID()
+    {
+        return $this->det[$this->mainID];
+    }
     /*
     FUNCTIONS DATA
     */
@@ -81,6 +85,36 @@ class Consulta
         $res = $this->db->selectAllSQL($sql);
         return $res;
     }
+    public function getAllConsultasPacienteDiagnosticos()
+    {
+        $idc = $this->getDetID();
+        if ($idc) $sqlCon = "AND tCon.con_num <> {$idc}";
+        else $sqlCon = null;
+        $sql = "SELECT 
+        t.id,
+        t.date AS date,
+        CONCAT_WS(' ', COALESCE(t.cod, t.obs), COALESCE(t.nom, NULL)) AS diag 
+      FROM (
+        SELECT 
+          tCon.con_num AS id,
+          DATE_FORMAT(tCon.date, '%d %M %Y') AS date,
+          tConD.id_diag AS idd,
+          tDiag.codigo AS cod,
+          tDiag.nombre AS nom,
+          tConD.obs AS obs,
+          ROW_NUMBER() OVER (PARTITION BY tCon.con_num ORDER BY tConD.id_diag) AS rn
+        FROM {$this->mainTable} tCon
+        LEFT JOIN db_consultas_diagostico tConD ON tCon.con_num = tConD.con_num
+        LEFT JOIN db_diagnosticos tDiag ON tConD.id_diag = tDiag.id_diag
+        WHERE MD5(tCon.pac_cod)='{$this->idp}'
+        AND tConD.id_diag>0 
+        $sqlCon 
+      ) t
+      WHERE t.rn <= 2
+      ORDER BY t.id DESC;";
+        $ret = $this->db->selectAllSQL($sql);
+        return $ret;
+    }
     public function getConsBeetweenDates($dateBeg, $dateEnd)
     {
         $sql = "SELECT {$this->mainTable}.con_num AS IDC, 
@@ -96,12 +130,13 @@ class Consulta
     }
     public function btnHisCon()
     {
-        $this->btnHis['TR'] = (!empty($this->numCons_Pac_TR())) ? ($this->numCons_Pac_TR()) : null;
-        $this->btnHis['TRs'] = (!empty($this->numCon_Pac_Act())) ? ($this->numCon_Pac_Act()) : null;
-        $this->btnHis['idS'] = (!empty($this->numCon_Pac_start())) ? md5($this->numCon_Pac_start()) : null;
-        $this->btnHis['idE'] = (!empty($this->numCon_Pac_end())) ? md5($this->numCon_Pac_end()) : null;
-        $this->btnHis['idP'] = (!empty($this->numCon_Pac_prev())) ? md5($this->numCon_Pac_prev()) : null;
-        $this->btnHis['idN'] = (!empty($this->numCon_Pac_next())) ? md5($this->numCon_Pac_next()) : null;
+        $idc = $this->getDetID();
+        $this->btnHis['TR'] = (!empty($TR = $this->numCons_Pac_TR())) ? $TR : null;
+        $this->btnHis['TRs'] = (!empty($TRs = $this->numCon_Pac_Act($idc))) ? $TRs : null;
+        $this->btnHis['idP'] = (!empty($idP = $this->numCon_Pac_prev($idc))) ? md5($idP) : null;
+        $this->btnHis['idN'] = (!empty($idN = $this->numCon_Pac_next($idc))) ? md5($idN) : null;
+        $this->btnHis['idS'] = (!empty($idS = $this->numCon_Pac_start())) ? md5($idS) : null;
+        $this->btnHis['idE'] = (!empty($idE = $this->numCon_Pac_end())) ? md5($idE) : null;
     }
 
     public function numCons_Pac_TR()
@@ -109,21 +144,18 @@ class Consulta
         $val = $this->db->totRowsTab("db_consultas", "md5(pac_cod)", $this->idp);
         return $val;
     }
-    public function numCon_Pac_Act()
+    public function numCon_Pac_Act($idc)
     {
         $params[] = array(
             array("cond" => "AND", "field" => "md5(pac_cod)", "comp" => "=", "val" => $this->idp),
-            array("cond" => "AND", "field" => "md5(con_num)", "comp" => '<=', "val" => $this->id)
+            array("cond" => "AND", "field" => "con_num", "comp" => '<=', "val" => $idc)
         );
         $val = $this->db->totRowsTabNP("db_consultas", $params);
         return $val;
     }
     public function numCon_Pac_start()
     {
-        //$val = $this->db->detRow("db_consultas", null, "md5(pac_cod)", $this->idp, "con_num", "ASC")['con_num'] ?? null;
-        $val = $this->db->detRow("db_consultas", "con_num", "md5(pac_cod)", $this->idp, "con_num", "ASC");
-        dep($val,"numCon_Pac_start");
-        $val=$val['con_num'];
+        $val = $this->db->detRow("db_consultas", "con_num", "md5(pac_cod)", $this->idp, "con_num", "ASC")['con_num'] ?? null;
         return $val;
     }
     public function numCon_Pac_end()
@@ -131,22 +163,22 @@ class Consulta
         $val = $this->db->detRow("db_consultas", "con_num", "md5(pac_cod)", $this->idp, "con_num", "DESC")['con_num'] ?? null;
         return $val;
     }
-    public function numCon_Pac_prev()
+    public function numCon_Pac_prev($idc)
     {
         $params[] = array(
             array("cond" => "AND", "field" => "md5(pac_cod)", "comp" => "=", "val" => $this->idp),
-            array("cond" => "AND", "field" => "md5(con_num)", "comp" => '<', "val" => $this->id)
+            array("cond" => "AND", "field" => "con_num", "comp" => '<', "val" => $idc)
         );
-        $val = $this->db->detRowNP("db_consultas","con_num", $params, 1, "con_num", "DESC")['con_num'];
+        $val = $this->db->detRowNP("db_consultas", "con_num", $params, 1, "con_num", "DESC")['con_num'] ?? null;
         return $val;
     }
-    public function numCon_Pac_next()
+    public function numCon_Pac_next($idc)
     {
         $paramsN[] = array(
             array("cond" => "AND", "field" => "md5(pac_cod)", "comp" => "=", "val" => $this->idp),
-            array("cond" => "AND", "field" => "md5(con_num)", "comp" => '>', "val" => $this->id)
+            array("cond" => "AND", "field" => "con_num", "comp" => '>', "val" => $idc)
         );
-        $val = $this->db->detRowNP("db_consultas","con_num", $paramsN, 1, "con_num", "ASC")['con_num'] ?? null;
+        $val = $this->db->detRowNP("db_consultas", "con_num", $paramsN, 1, "con_num", "ASC")['con_num'] ?? null;
         return $val;
     }
     /*

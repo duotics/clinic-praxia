@@ -4,7 +4,7 @@ else $dCon_fec = date("d M Y");
 //dep($dM);
 $dataHead = array("icon" => $dM['icon'] ?? null, "nom" => $dM['nom'] ?? null, "des" => $idc ?? null);
 
-$contHead = " <span class='badge bg-secondary'>Visita " . $objCon->numCon_Pac_Act() . "</span> 
+$contHead = " <span class='badge bg-secondary'>Visita " . $objCon->btnHis['TRs'] . "</span> 
 <span class='badge bg-info'>{$dCon_fec}</span>
 <a class='btn btn-primary' data-bs-toggle='offcanvas' href='#offcanvasExample' role='button' aria-controls='offcanvasExample'>
 <i class='fas fa-history fa-lg'></i>
