@@ -1,6 +1,6 @@
 <div class="position-sticky pt-3 sidebar-sticky me-2 ms-2 mb-4">
     <div class="nav flex-column nav-pills text-light" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-        <button class="nav-link active setTab" id="v-pills-hc-tab" data-bs-toggle="pill" data-bs-target="#v-pills-hc" type="button" role="tab" aria-selected="true">
+        <button class="nav-link setTab" id="v-pills-hc-tab" data-bs-toggle="pill" data-bs-target="#v-pills-hc" type="button" role="tab" aria-selected="true">
             <i class="fa fa-book fa-lg"></i> Historia Clinica
         </button>
         <button class="nav-link setTab" id="v-pills-con-tab" data-bs-toggle="pill" data-bs-target="#v-pills-con" type="button" role="tab" aria-selected="false">

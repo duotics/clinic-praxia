@@ -5,53 +5,76 @@ namespace App\Models;
 class ConsultaInterfaz extends Consulta
 {
     public $objBtnHis;
+    protected $objNavLis;
+    protected $objNavTab;
 
     function __construct()
     {
         parent::__construct();
     }
-
+    /*
+    GETTERS
+    */
+    public function getobjNavList(){
+        return $this->objNavLis;
+    }
+    public function getobjNavTab(){
+        return $this->objNavTab;
+    }
+    /*
+    FAT
+    */
     public function ConsultaInterfaz_nav()
     {
         $list = [
-            "id" => "v-pills-hc-tab",
-            "data-bs-toggle" => "pill",
-            "nom" => "Historia Clinica",
-            "icon" => "<i class='fa fa-book fa-lg'></i>"
-
+            ["id" => "v-pills-hc", "nom" => "Historia Clinica", "icon" => '<i class="fa fa-book fa-lg"></i>', "include" => root['c'] . 'com_hc/_hcDet.php'],
+            ["id" => "v-pills-con", "nom" => "Consulta", "icon" => '<i class="fa fa-book fa-lg"></i>', "include" => root['c'] . 'consultaDet.php'],
+            ["id" => "v-pills-tra", "nom" => "Tratamientos", "icon" => '<i class="fa fa-columns fa-lg"></i>', "include" => root['c'] . 'com_tratamientos/tratLisCon.php'],
+            ["id" => "v-pills-exa", "nom" => "Examenes", "icon" => '<i class="fa fa-list-alt fa-lg"></i>', "include" => root['c'] . 'com_examen/examLisCon.phpp'],
+            ["id" => "v-pills-cir", "nom" => "Cirugías", "icon" => '<i class="fa fa-medkit fa-lg"></i> ', "include" => root['c'] . 'com_cirugia/cirLisCon.php'],
+            ["id" => "v-pills-doc", "nom" => "Documentos", "icon" => '<i class="fas fa-file fa-lg"></i>', "include" => root['c'] . 'com_docs/docLisCon.php'],
+            ["id" => "v-pills-iess", "nom" => "IESS", "icon" => '<i class="fas fa-hospital"></i> ', "include" => root['c'] . 'com_iess/iessRepList.php'],
+            ["id" => "v-pills-ant", "nom" => "Historia Anterior", "icon" => '<i class="fa fa-history fa-lg"></i> ', "include" => root['c'] . 'com_hc/consulta_ant.php'],
         ];
-
-        /*
-        <button class="nav-link active setTab" id="v-pills-hc-tab" data-bs-toggle="pill" data-bs-target="#v-pills-hc" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">
-             
-        </button>
-        <button class="nav-link setTab" id="v-pills-con-tab" data-bs-toggle="pill" data-bs-target="#v-pills-con" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">
-            <i class="fas fa-user-md fa-lg fa-fw"></i> Consulta
-        </button>
-        <button class="nav-link setTab" id="v-pills-tra-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tra" type="button" role="tab" aria-controls="v-pills-disabled" aria-selected="false">
-            <i class="fa fa-columns fa-lg"></i> Tratamientos
-        </button>
-        <button class="nav-link setTab" id="v-pills-exa-tab" data-bs-toggle="pill" data-bs-target="#v-pills-exa" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">
-            <i class="fa fa-list-alt fa-lg"></i> Examenes
-        </button>
-        <button class="nav-link setTab" id="v-pills-cir-tab" data-bs-toggle="pill" data-bs-target="#v-pills-cir" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">
-            <i class="fa fa-medkit fa-lg"></i> Cirugías
-        </button>
-        <button class="nav-link setTab" id="v-pills-doc-tab" data-bs-toggle="pill" data-bs-target="#v-pills-doc" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">
-            <i class="fas fa-file fa-lg"></i> Documentos
-        </button>
-        <button class="nav-link setTab" id="v-pills-iess-tab" data-bs-toggle="pill" data-bs-target="#v-pills-iess" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">
-            <i class="fas fa-hospital"></i> IESS
-        </button>
-        <button class="nav-link setTab" id="v-pills-ant-tab" data-bs-toggle="pill" data-bs-target="#v-pills-ant" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">
-            <i class="fa fa-history fa-lg"></i> Historia Anterior
-        </button>*/
+        $this->objNavLis= ConsultaINterfaz_nav_list($list);
+        $this->objNavTab= ConsultaInterfaz_nav_tab($list);
     }
-    private function ConsultaINterfaz_nav_list()
+    //FOR CONSULTA INTERFACE : ConsultaInterfaz_nav
+    private function ConsultaINterfaz_nav_list($list)
     {
+        $ret = null;
+        if ($list) :
+            $ret .= "<div class='position-sticky pt-3 sidebar-sticky me-2 ms-2 mb-4'>
+            <div class='nav flex-column nav-pills text-light' id='v-pills-tab" role="tablist' aria-orientation='vertical'>";
+            foreach ($list as $dList) :
+                $selTab = $_SESSION['tab']['con'];
+                $cssActive = ($selTab == $dList['id']) ? "active" : null;
+                $ret .= "
+                <button class='nav-link setTab {$cssActive}' id='{$dList['id']}-tab' data-bs-toggle='pill' data-bs-target='#{$dList['id']}' type='button' role='tab' aria-controls='{$dList['id']}' aria-selected='false'>
+                {$dList['icon']} {$dList['nom']}
+                </button>";
+            endforeach;
+            $ret .= "</div></div>";
+        endif;
+        return $ret;
     }
-    public function ConsultaInterfaz_nav_tab()
+    //FOR CONSULTA INTERFACE : ConsultaInterfaz_nav
+    public function ConsultaInterfaz_nav_tab($list)
     {
+        $ret = null;
+        if ($list) :
+            $ret .= "<div class='tab-content card card-body mt-2' id='v-pills-tabContent'>";
+            foreach ($list as $dList) :
+                $selTab = $_SESSION['tab']['con'];
+                $cssActive = ($selTab == $dList['id']) ? "active" : null;
+                $ret .= "
+                <div class='tab-pane fade show {$cssActive}' id='{$dList['id']}' role='tabpanel' tabindex='0'>
+				<?php include('{$dList}') ?>
+                </div>";
+            endforeach;
+            $ret .= "</div>";
+        endif;
+        return $ret;
     }
     public function ConsultaInterfaz_pacienteLat()
     {
