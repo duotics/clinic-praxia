@@ -42,6 +42,14 @@ class Tipo
     {
         return $this->mainIDName;
     }
+    public function getValRefName()
+    {
+        return $this->valRefName;
+    }
+    public function getValValName()
+    {
+        return $this->valValName;
+    }
     public function getDet()
     {
         return $this->det;
@@ -69,13 +77,14 @@ class Tipo
     {
         $this->det = $this->db->detRow($this->mainTableName, null, "md5({$this->mainIDName})", $this->id);
     }
-    public function getAllTipRef($val)
+    public function getSelTipRef($val)
     {
         $sql = "SELECT 
         tM.{$this->mainIDName} AS sID,
         tM.{$this->valValName} AS sVAL
         FROM {$this->getMainTableName()} tM
-        WHERE {$this->valRefName} = '{$val}'";
+        WHERE {$this->valRefName} = '{$val}'
+        AND status = 1";
         $ret = $this->db->selectAllSQL($sql);
         return $ret;
     }

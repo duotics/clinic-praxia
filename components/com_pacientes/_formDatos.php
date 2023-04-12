@@ -21,7 +21,7 @@
 		<div class="row mb-2">
 			<label class="col-md-4 col-form-label" for="pac_sect">Sector</label>
 			<div class="col-md-8">
-				<?php echo $db->genSelectA($mTipo->getAllTipRef("SECTOR"), 'pac_sect', $dPac['pac_sect'] ?? null, ' form-control input-sm setDB', 'data-id="' . $ids . '" data-rel="pac"', NULL, true, 0) ?>
+				<?php echo $db->genSelectA($mTipo->getSelTipRef("SECTOR"), 'pac_sect', $dPac['pac_sect'] ?? null, ' form-control input-sm setDB', 'data-id="' . $ids . '" data-rel="pac"', NULL, true, 0) ?>
 			</div>
 		</div>
 		<div class="row mb-2">
@@ -45,7 +45,7 @@
 		<div class="row mb-2">
 			<label class="col-md-4 col-form-label" for="pac_ins">Instrucción</label>
 			<div class="col-md-8">
-				<?php echo $db->genSelectA($mTipo->getAllTipRef("INST"), 'pac_ins', $dPac['pac_ins'] ?? null, ' form-control input-sm setDB', 'data-id="' . $ids . '" data-rel="pac"') ?>
+				<?php echo $db->genSelectA($mTipo->getSelTipRef("INST"), 'pac_ins', $dPac['pac_ins'] ?? null, ' form-control input-sm setDB', 'data-id="' . $ids . '" data-rel="pac"') ?>
 			</div>
 		</div>
 		<div class="row mb-2">
@@ -57,7 +57,7 @@
 		<div class="row mb-2">
 			<label class="col-md-4 col-form-label" for="pac_emp">Empresa</label>
 			<div class="col-md-8">
-				<?php echo $db->genSelectA($mTipo->getAllTipRef("EMPTRB"), 'pac_emp', $dPac['pac_emp'] ?? null, ' form-control input-sm setDB', 'data-id="' . $ids . '" data-rel="pac"') ?>
+				<?php echo $db->genSelectA($mTipo->getSelTipRef("EMPTRB"), 'pac_emp', $dPac['pac_emp'] ?? null, ' form-control input-sm setDB', 'data-id="' . $ids . '" data-rel="pac"') ?>
 			</div>
 		</div>
 		<div class="row mb-2">
@@ -84,14 +84,14 @@
 		<div class="row mb-3">
 			<label class="col-md-5 col-form-label" for="pac_tipsanpar">Tipo Sangre</label>
 			<div class="col-md-7">
-				<?php echo $db->genSelectA($mTipo->getAllTipRef("TIPSAN"), 'pac_tipsanpar', $dPac['pac_tipsanpar'] ?? null, ' form-control input-sm setDB', "data-rel='pac' data-id='$ids'") ?>
+				<?php echo $db->genSelectA($mTipo->getSelTipRef("TIPSAN"), 'pac_tipsanpar', $dPac['pac_tipsanpar'] ?? null, ' form-control input-sm setDB', "data-rel='pac' data-id='$ids'") ?>
 			</div>
 		</div>
 		<hr>
 		<div class="row mb-3">
 			<label class="col-md-5 col-form-label" for="publi">Publicidad</label>
 			<div class="col-md-7">
-				<?php echo $db->genSelectA($mTipo->getAllTipRef("PUBLI"), 'publi', $dPac['publi'] ?? null, 'form-control setDB', 'data-id="' . $ids . '" data-rel="pac"', NULL, 'Todos') ?>
+				<?php echo $db->genSelectA($mTipo->getSelTipRef("PUBLI"), 'publi', $dPac['publi'] ?? null, 'form-control setDB', 'data-id="' . $ids . '" data-rel="pac"', NULL, 'Todos') ?>
 			</div>
 		</div>
 		<div class="row mb-3">

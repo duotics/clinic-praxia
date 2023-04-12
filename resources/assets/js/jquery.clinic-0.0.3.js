@@ -4,6 +4,21 @@ $(document).ready(function () {
   $(".setDB").on("keyup change", function () {
     handleFormControlEvents($(this));
   });
+  $(".setTab").on("click", function () {
+    var val = $(this).data("val");
+    var com = $(this).data("rel");
+    $.get(
+      RAIZp + "js.setTab.php",
+      {
+        val: val,
+        com: com,
+      },
+      function (data) {},
+      "json"
+    ).fail(function (data) {
+      console.log("SetTab fail. " + data.inf);
+    });
+  });
 
   /* 
   OLD CODE 

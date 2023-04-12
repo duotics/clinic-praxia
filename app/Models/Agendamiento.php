@@ -4,11 +4,13 @@ namespace App\Models;
 
 use App\Core\Database;
 use App\Models\Paciente;
+use App\Models\Tipo;
 
 class Agendamiento
 {
     private $db;
     protected $mPac;
+    protected $mTipo;
     protected $mainTable = "db_fullcalendar";
     protected $mainID = "id";
     protected $id;
@@ -17,6 +19,7 @@ class Agendamiento
     {
         $this->db = new Database();
         $this->mPac = new Paciente();
+        $this->mTipo = new Tipo();
     }
     //SETTERS
     function setID($id)
@@ -68,10 +71,10 @@ class Agendamiento
         {$this->mainTable}.horai AS TIMEI, {$this->mainTable}.horaf AS TIMEF, 
         {$this->mainTable}.obs AS OBS, 
         CONCAT_WS(' ', tPac.pac_nom, tPac.pac_ape) AS NOM,
-        tType.typ_nom AS TYPE
+        tType.{$this->mTipo->getValValName()} AS TYPE
         FROM {$this->mainTable} 
         INNER JOIN {$this->mPac->getMainTableName()} tPac ON {$this->mainTable}.pac_cod=tPac.{$this->mPac->getMainIDName()}
-        LEFT JOIN db_types tType ON {$this->mainTable}.typ_cod=tType.typ_cod
+        LEFT JOIN {$this->mTipo->getMainTableName()} tType ON {$this->mainTable}.typ_cod=tType.{$this->mTipo->getMainIDName()}
         WHERE {$this->mainTable}.fechai>='{$dateBeg}' 
         AND {$this->mainTable}.fechaf<='{$dateEnd}' 
         AND {$this->mainTable}.status=1 

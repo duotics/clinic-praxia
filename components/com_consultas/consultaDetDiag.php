@@ -1,13 +1,11 @@
 <div class="row">
 	<div class="col-sm-9">
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<h3 class="panel-title">
-					<i class="fa fa-user-md fa-lg"></i> Diagnosticos
-					<a href="<?php echo route['c'] ?>com_comun/gest_diag.php" class="btn btn-info btn-xs fancybox fancybox.iframe fancyreload pull-right" onClick="ansclose=false;"><i class="fa fa-plus-square-o"></i> Gestionar Diagnosticos</a>
-				</h3>
+		<div class="card">
+			<div class="card-header">
+				<i class="fa fa-user-md fa-lg"></i> Diagnosticos
+				<a href="<?php echo route['c'] ?>com_comun/gest_diag.php" class="btn btn-info btn-xs fancybox fancybox.iframe fancyreload pull-right" onClick="ansclose=false;"><i class="fa fa-plus-square-o"></i> Gestionar Diagnosticos</a>
 			</div>
-			<div class="panel-body">
+			<div class="card-body">
 				<div class="row">
 					<div class="col-sm-6">
 						<fieldset>

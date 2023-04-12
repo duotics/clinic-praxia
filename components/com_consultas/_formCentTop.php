@@ -30,25 +30,14 @@ $objHead = new App\Core\genInterfaceTitle($dataHead, 'card', $contHead, $btnStat
 						<label class="visually-hidden" for="con_typ">Origen Paciente</label>
 						<div class="input-group">
 							<div class="input-group-text">Origen Paciente</div>
-							<?php $paramsTC[] = array(
-								array("cond" => "AND", "field" => "typ_ref", "comp" => "=", "val" => 'TIPCON'),
-								array("cond" => "AND", "field" => "typ_stat", "comp" => '=', "val" => 1)
-							);
-							$RStc = $db->detRowGSelNP('db_types', 'typ_cod', 'typ_val', $paramsTC, TRUE, 'typ_val', 'ASC');
-							echo $db->genSelectA($RStc, 'con_typ', $dCon['con_typ'] ?? null, 'form-control mr-sm-2 setDB', ' data-rel="con" data-id="' . $idsCon . '"') ?>
+							<?php echo $db->genSelectA($mTipo->getSelTipRef("TIPCON"), 'con_typ', $dCon['con_typ'] ?? null, 'form-select form-select-sm mr-sm-2 setDB', " data-rel='con' data-id='{$idsCon}' ") ?>
 						</div>
 					</div>
 					<div class="col-12">
 						<label class="visually-hidden" for="typ_cod">Tipo Visita</label>
 						<div class="input-group">
 							<div class="input-group-text">Tipo Visita</div>
-							<?php $paramsTV[] = array(
-								array("cond" => "AND", "field" => "typ_ref", "comp" => "=", "val" => 'TIPVIS'),
-								array("cond" => "AND", "field" => "typ_stat", "comp" => '=', "val" => 1)
-							);
-							$RStv = $db->detRowGSelNP('db_types', 'typ_cod', 'typ_val', $paramsTV, TRUE, 'typ_val', 'ASC');
-							//var_dump($RStv);
-							echo $db->genSelectA($RStv, 'con_typvis', $dCon['con_typvis'] ?? null, 'form-control mr-sm-2 setDB', ' data-rel="con" data-id="' . $idsCon . '"') ?>
+							<?php echo $db->genSelectA($mTipo->getSelTipRef("TIPVIS"), 'con_typvis', $dCon['con_typvis'] ?? null, 'form-select form-select-sm mr-sm-2 setDB', " data-rel='con' data-id='{$idsCon}' ") ?>
 						</div>
 					</div>
 					<div class="col-12">
@@ -62,7 +51,7 @@ $objHead = new App\Core\genInterfaceTitle($dataHead, 'card', $contHead, $btnStat
 						<label class="visually-hidden" for="tip_pag">Forma Pago</label>
 						<div class="input-group">
 							<div class="input-group-text">Forma Pago</div>
-							<?php echo $db->genSelectA($db->detRowGSel('db_types', 'typ_cod', 'typ_val', 'typ_ref', 'TIPPAG'), 'tip_pag', $dCon['tip_pag'] ?? null, 'form-control mr-sm-2 setDB', 'data-rel="con" data-id="' . $idsCon . '"'); ?>
+							<?php echo $db->genSelectA($mTipo->getSelTipRef("TIPPAG"), 'tip_pag', $dCon['tip_pag'] ?? null, 'form-control mr-sm-2 setDB', 'data-rel="con" data-id="' . $idsCon . '"'); ?>
 						</div>
 					</div>
 

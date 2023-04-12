@@ -2,10 +2,12 @@
 
 use App\Models\ConsultaInterfaz;
 use App\Models\PacienteInterfaz;
+use App\Models\Tipo;
 use App\Models\Agendamiento;
 
 $objCon = new ConsultaInterfaz();
 $objPac = new PacienteInterfaz();
+$mTipo = new Tipo();
 
 $tabS = $_SESSION['tab']['con'] ?? null;
 

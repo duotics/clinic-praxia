@@ -5,8 +5,6 @@ use App\Models\Diagnostico;
 $mDiag = new Diagnostico;
 ?>
 <?php if ($dCon) { ?>
-
-
 	<nav>
 		<div class="nav nav-tabs" id="nav-tab" role="tablist">
 			<button class="nav-link active" id="nav-cdet-tab" data-bs-toggle="tab" data-bs-target="#nav-cdet" type="button" role="tab" aria-controls="nav-cdet" aria-selected="true">
