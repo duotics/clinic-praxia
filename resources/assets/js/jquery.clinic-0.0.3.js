@@ -15,9 +15,19 @@ $(document).ready(function () {
       },
       function (data) {},
       "json"
-    ).fail(function (data) {
-      console.log("SetTab fail. " + data.inf);
-    });
+    )
+      .done(function (data) {
+        if (data.status === true) {
+          console.log("Tab set: "+data.data);
+        } else {
+          console.log("Tab not set: "+data.log);
+        }
+      })
+      .fail(function (jqXHR, textStatus, errorThrown) {
+        console.log(
+          "Ha ocurrido un error en la solicitud: " + jqXHR.responseText
+        );
+      });
   });
 
   /* 

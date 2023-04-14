@@ -9,8 +9,6 @@ $objCon = new ConsultaInterfaz();
 $objPac = new PacienteInterfaz();
 $mTipo = new Tipo();
 
-$tabS = $_SESSION['tab']['con'] ?? null;
-
 $view = false;
 $acc = null;
 $dPac = null;

@@ -27,7 +27,6 @@ if ((isset($mod)) && ($mod == md5('consForm'))) {
 		);
 		if (mysqli_query(conn, $qryins)) {
 			$vP = TRUE;
-			$_SESSION['tab']['con'] = 'cCON';
 			$idc = mysqli_insert_id(conn);
 			$LOG .= "<p>Consulta Grabada Correctamente</p>";
 			if ($idr) $LOG .= verifyRESid($idr);

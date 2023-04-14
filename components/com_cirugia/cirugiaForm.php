@@ -6,7 +6,6 @@ use App\Models\Paciente;
 $mCir = new Cirugia;
 $mPac = new Paciente;
 
-$_SESSION['tab']['con'] = 'cCIR';
 $acc = $_GET['acc'] ?? $_POST['acc'] ?? null;
 $idp = $_GET['idp'] ?? $_POST['idp'] ?? null;
 $idc = $_GET['idc'] ?? $_POST['idc'] ?? null;

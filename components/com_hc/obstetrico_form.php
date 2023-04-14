@@ -1,5 +1,4 @@
 <?php require('../../init.php');
-$_SESSION['tab']['con']='cGIN';
 $idp=$_GET['idp'] ?? $_POST['idp'] ?? null;
 $ido=$_GET['ido'] ?? $_POST['ido'] ?? null;
 $action=$_GET['action'] ?? $_POST['action'] ?? null;

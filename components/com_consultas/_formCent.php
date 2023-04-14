@@ -11,8 +11,7 @@
 		<?php include('_formCentTop.php') ?>
 		<?php include('_formCentHis.php') ?>
 		<?php include('_formCentPac.php') ?>
-
-		<div><?php $objCon->getobjNavList() ?></div>
+		<div><?php include('_formCentTabsContent.php') ?></div>
 
 	</div>
 </form>

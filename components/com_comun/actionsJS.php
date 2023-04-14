@@ -18,7 +18,6 @@ try {
 			case "pac":
 				$tbl = 'db_pacientes';
 				$key = 'pac_cod';
-				$_SESSION['tab']['con'] = NULL;
 				$params = array($data['field'] => $data['param']);
 				$cond = array("md5($key)", "=", $data['ids'], $key);
 				$ret = $db->updRow($tbl, $params, $cond);
@@ -28,7 +27,6 @@ try {
 			case "hc":
 				$tbl = 'db_pacientes_hc';
 				$key = 'pac_cod';
-				$_SESSION['tab']['con'] = NULL;
 				$params = array($data['field'] => $data['param']);
 				$cond = array("md5($key)", "=", $data['ids'], $key);
 				$ret = $db->updRow($tbl, $params, $cond);
@@ -38,7 +36,6 @@ try {
 			case "gin":
 				$tbl = 'db_pacientes_gin';
 				$key = 'pac_cod';
-				$_SESSION['tab']['con'] = NULL;
 				$params = array($data['field'] => $data['param']);
 				$cond = array("md5($key)", "=", $data['ids'], $key);
 				$ret = $db->updRow($tbl, $params, $cond);
@@ -48,7 +45,6 @@ try {
 			case "con":
 				$tbl = 'db_consultas';
 				$key = 'con_num';
-				$_SESSION['tab']['con'] = 'cCON';
 				$params = array($data['field'] => $data['param']);
 				$cond = array("md5($key)", "=", $data['ids'], $key);
 				$ret = $db->updRow($tbl, $params, $cond);
@@ -58,7 +54,6 @@ try {
 			case "exa":
 				$tbl = 'db_examenes';
 				$key = 'id_exa';
-				$_SESSION['tab']['con'] = 'cEXA';
 				$params = array($data['field'] => $data['param']);
 				$cond = array("md5($key)", "=", $data['ids'], $key);
 				$ret = $db->updRow($tbl, $params, $cond);
@@ -68,7 +63,6 @@ try {
 			case "exadet":
 				$tbl = 'db_examenes_det';
 				$key = 'id';
-				$_SESSION['tab']['con'] = 'cEXA';
 				$params = array($data['field'] => $data['param']);
 				$cond = array("md5($key)", "=", $data['ids'], $key);
 				$ret = $db->updRow($tbl, $params, $cond);
@@ -160,7 +154,7 @@ try {
 					$res = FALSE;
 					$LOG .= 'Error, Diagnostico Consulta ExP000';
 				}
-				//$_SESSION['tab']['con']='cCON';
+				
 				//$qryIns=sprintf('INSERT INTO db_consultas_diagostico (con_num, id_diad) VALUES (%s,%s)',
 				//SSQL($field,''),
 				//SSQL($param,'text'),

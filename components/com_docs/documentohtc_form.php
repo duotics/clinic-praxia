@@ -1,5 +1,4 @@
 <?php require('../../init.php');
-$_SESSION['tab']['con']='cHTC';
 $idp=$_GET['idp'] ?? $_POST['idp'] ?? null;
 $idc=$_GET['idc'] ?? $_POST['idc'] ?? null;
 $idd=$_GET['idd'] ?? $_POST['idd'] ?? null;

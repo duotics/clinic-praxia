@@ -3,8 +3,8 @@
 use App\Models\Tratamiento;
 
 $mTrat = new Tratamiento();
-
-$lTratAnt = $mTrat->listadoTratamientosAnteriores($idp);
+$mTrat->setIDp($idsPac);
+$lTratAnt = $mTrat->listadoTratamientosAnteriores();
 ?>
 
 <div class="panel panel-primary">
@@ -16,7 +16,7 @@ $lTratAnt = $mTrat->listadoTratamientosAnteriores($idp);
 	</div>
 	<div class="panel-body">
 		<?php if ($lTratAnt) { ?>
-			<table class="table table-striped table-bordered table-condensed">
+			<table class="table table-striped table-bordered table-sm">
 				<thead>
 					<tr>
 						<th>ID</th>
@@ -28,17 +28,18 @@ $lTratAnt = $mTrat->listadoTratamientosAnteriores($idp);
 				<tbody>
 					<?php foreach ($lTratAnt as $dRSt) { ?>
 						<?php
-						$listTratAntDetMed = $mTrat->listTratamientosDetalle($dRSt['tid'], 'M');
-						$listTratAntDetInd = $mTrat->listTratamientosDetalle($dRSt['tid'], 'I');
+						$mTrat->setID(md5($dRSt['idTrat']));
+						$listTratAntDet = $mTrat->listTratamientosDetalleAll();
+						//dep($listTratAntDet);
 						?>
 						<tr>
-							<td><?php echo $dRSt['tid'] ?></td>
+							<td><?php echo $dRSt['idTrat'] ?></td>
 							<td><?php echo $dRSt['fecha'] ?></td>
 							<td>
 								<div class="row">
 									<div class="col-sm-6">
-										<?php if ($listTratAntDetMed) { ?>
-											<table class="table table-bordered" style="font-size:0.8em; margin-bottom:0px;">
+										<?php if ($listTratAntDet) { ?>
+											<table class="table table-bordered table-sm table-list mb-0" style="font-size:0.8em;">
 												<thead>
 													<tr>
 														<th width="90%">Medicamento</th>
@@ -46,10 +47,11 @@ $lTratAnt = $mTrat->listadoTratamientosAnteriores($idp);
 													</tr>
 												</thead>
 												<tbody>
-													<?php foreach ($listTratAntDetMed as  $dRStl) { ?>
+													<?php foreach ($listTratAntDet as $dRStl) { ?>
+														<?php if (($dRStl['tipo'] != "M") || (empty($dRStl['nombre']))) continue; ?>
 														<tr>
-															<td><?php echo "{$dRStl['generico']} ({$dRStl['comercial']})" ?></td>
-															<td><?php echo $dRStl['numero'] ?></td>
+															<td><?php echo $dRStl['nombre'] ?></td>
+															<td><?php echo $dRStl['can'] ?></td>
 														</tr>
 													<?php } ?>
 												</tbody>
@@ -57,17 +59,18 @@ $lTratAnt = $mTrat->listadoTratamientosAnteriores($idp);
 										<?php } else echo '<div>No hay Medicamentos Prescritos</div>' ?>
 									</div>
 									<div class="col-sm-6">
-										<?php if ($listTratAntDetInd) { ?>
-											<table class="table table-bordered" style="font-size:0.8em; margin-bottom:0px;">
+										<?php if ($listTratAntDet) { ?>
+											<table class="table table-bordered table-sm table-list mb-0" style="font-size:0.8em;">
 												<thead>
 													<tr>
 														<th>Instrucciones</th>
 													</tr>
 												</thead>
 												<tbody>
-													<?php foreach ($listTratAntDetInd as $dRStli) { ?>
+													<?php foreach ($listTratAntDet as $dRStli) { ?>
+														<?php if (($dRStli['tipo'] != "I") || (is_null($dRStli['nombre']))) continue; ?>
 														<tr>
-															<td><?php echo $dRStli['indicacion'] ?></td>
+															<td><?php echo $dRStli['nombre'] ?? null ?></td>
 														</tr>
 													<?php } ?>
 												</tbody>
@@ -78,13 +81,13 @@ $lTratAnt = $mTrat->listadoTratamientosAnteriores($idp);
 							</td>
 							<td>
 								<div class="btn-group">
-									<a href="<?php echo "{$RAIZc}com_tratamientos/tratamientoForm.php?idt={$dRSt['tid']}" ?>" class=" btn btn-primary fancybox fancybox.iframe fancyreload">
+									<a href="<?php echo route['c'] . "com_tratamientos/tratamientoForm.php?idt={$dRSt['idTrat']}" ?>" class=" btn btn-primary fancybox fancybox.iframe fancyreload">
 										<?php echo $cfg['b']['edit'] ?>
 									</a>
-									<a class="printerButton btn btn-default" data-id="<?php echo $dRSt['tid'] ?>" data-rel="<?php echo route['c'] ?>com_tratamientos/recetaPrintJS.php">
+									<a class="printerButton btn btn-default" data-id="<?php echo $dRSt['idTrat'] ?>" data-rel="<?php echo route['c'] . "com_tratamientos/recetaPrintJS.php" ?>">
 										<?php echo $cfg['b']['print'] ?>
 									</a>
-									<a href="<?php echo "{$RAIZc}com_tratamientos/tratamientoForm.php?idt={$dRSt['tid']}&acc=" . md5("DELtf") ?>" class="btn btn-danger fancybox fancybox.iframe">
+									<a href=" <?php echo route['c'] . "com_tratamientos/tratamientoForm.php?idt={$dRSt['idTrat']}&acc=" . md5("DELtf") ?>" class="btn btn-danger fancybox fancybox.iframe">
 										<?php echo $cfg['i']['del'] ?>
 									</a>
 								</div>

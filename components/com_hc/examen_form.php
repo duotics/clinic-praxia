@@ -1,5 +1,4 @@
 <?php require('../../init.php');
-$_SESSION['tab']['con']='cEXA';
 $idp=$_GET['idp'] ?? $_POST['idp'] ?? null;
 $idc=$_GET['idc'] ?? $_POST['idc'] ?? null;
 $ide=$_GET['ide'] ?? $_POST['ide'] ?? null;

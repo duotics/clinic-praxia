@@ -1,5 +1,4 @@
 <?php require('../../init.php');
-$_SESSION['tab']['con']='cTRA';
 $idc=$_GET['idc'] ?? $_POST['idc'] ?? null;
 $idt=$_GET['idt'] ?? $_POST['idt'] ?? null;
 $action=$_GET['action'] ?? $_POST['action'] ?? null;

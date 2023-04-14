@@ -1,5 +1,4 @@
 <?php require('../../init.php');
-//$_SESSION['tab']['con']='cDOC';
 $qrydf='SELECT * FROM db_documentos_formato ORDER BY nombre ASC';
 $RSdf=mysqli_query(conn,$qrydf);
 $row_RSdf=mysqli_fetch_assoc($RSdf);

@@ -7,6 +7,8 @@ class ConsultaInterfaz extends Consulta
     public $objBtnHis;
     protected $objNavLis;
     protected $objNavTab;
+    protected $list;
+    protected $tabAct;
 
     function __construct()
     {
@@ -15,42 +17,55 @@ class ConsultaInterfaz extends Consulta
     /*
     GETTERS
     */
-    public function getobjNavList(){
+    public function getobjNavList()
+    {
         return $this->objNavLis;
     }
-    public function getobjNavTab(){
+    public function getobjNavTab()
+    {
         return $this->objNavTab;
+    }
+    public function getTabAct()
+    {
+        return $this->tabAct;
+    }
+    /*
+    SETTERS
+    */
+    private function setTabAct()
+    {
+        $this->tabAct = $_SESSION['tab']['con'] ?? "con-hc";
     }
     /*
     FAT
     */
     public function ConsultaInterfaz_nav()
     {
-        $list = [
-            ["id" => "v-pills-hc", "nom" => "Historia Clinica", "icon" => '<i class="fa fa-book fa-lg"></i>', "include" => root['c'] . 'com_hc/_hcDet.php'],
-            ["id" => "v-pills-con", "nom" => "Consulta", "icon" => '<i class="fa fa-book fa-lg"></i>', "include" => root['c'] . 'consultaDet.php'],
-            ["id" => "v-pills-tra", "nom" => "Tratamientos", "icon" => '<i class="fa fa-columns fa-lg"></i>', "include" => root['c'] . 'com_tratamientos/tratLisCon.php'],
-            ["id" => "v-pills-exa", "nom" => "Examenes", "icon" => '<i class="fa fa-list-alt fa-lg"></i>', "include" => root['c'] . 'com_examen/examLisCon.phpp'],
-            ["id" => "v-pills-cir", "nom" => "Cirugías", "icon" => '<i class="fa fa-medkit fa-lg"></i> ', "include" => root['c'] . 'com_cirugia/cirLisCon.php'],
-            ["id" => "v-pills-doc", "nom" => "Documentos", "icon" => '<i class="fas fa-file fa-lg"></i>', "include" => root['c'] . 'com_docs/docLisCon.php'],
-            ["id" => "v-pills-iess", "nom" => "IESS", "icon" => '<i class="fas fa-hospital"></i> ', "include" => root['c'] . 'com_iess/iessRepList.php'],
-            ["id" => "v-pills-ant", "nom" => "Historia Anterior", "icon" => '<i class="fa fa-history fa-lg"></i> ', "include" => root['c'] . 'com_hc/consulta_ant.php'],
+        $this->setTabAct();
+        $this->list = [
+            ["id" => "con-hc", "nom" => "Historia Clinica", "icon" => '<i class="fa fa-book fa-lg"></i>', "include" => root['c'] . 'com_hc/_hcDet.php'],
+            ["id" => "con-con", "nom" => "Consulta", "icon" => '<i class="fa fa-book fa-lg"></i>', "include" => root['c'] . 'com_consultas/consultaDet.php'],
+            ["id" => "con-tra", "nom" => "Tratamientos", "icon" => '<i class="fa fa-columns fa-lg"></i>', "include" => root['c'] . 'com_tratamientos/tratListCon.php'],
+            ["id" => "con-exa", "nom" => "Examenes", "icon" => '<i class="fa fa-list-alt fa-lg"></i>', "include" => root['c'] . 'com_examen/examLisCon.phpp'],
+            ["id" => "con-cir", "nom" => "Cirugías", "icon" => '<i class="fa fa-medkit fa-lg"></i> ', "include" => root['c'] . 'com_cirugia/cirLisCon.php'],
+            ["id" => "con-doc", "nom" => "Documentos", "icon" => '<i class="fas fa-file fa-lg"></i>', "include" => root['c'] . 'com_docs/docLisCon.php'],
+            ["id" => "con-iess", "nom" => "IESS", "icon" => '<i class="fas fa-hospital"></i> ', "include" => root['c'] . 'com_iess/iessRepList.php'],
+            ["id" => "con-ant", "nom" => "Historia Anterior", "icon" => '<i class="fa fa-history fa-lg"></i> ', "include" => root['c'] . 'com_hc/consulta_ant.php'],
         ];
-        $this->objNavLis= ConsultaINterfaz_nav_list($list);
-        $this->objNavTab= ConsultaInterfaz_nav_tab($list);
+        $this->objNavLis = $this->ConsultaINterfaz_nav_list();
+        $this->objNavTab = $this->ConsultaInterfaz_nav_tab();
     }
     //FOR CONSULTA INTERFACE : ConsultaInterfaz_nav
-    private function ConsultaINterfaz_nav_list($list)
+    private function ConsultaINterfaz_nav_list()
     {
         $ret = null;
-        if ($list) :
+        if ($this->list) :
             $ret .= "<div class='position-sticky pt-3 sidebar-sticky me-2 ms-2 mb-4'>
-            <div class='nav flex-column nav-pills text-light' id='v-pills-tab" role="tablist' aria-orientation='vertical'>";
-            foreach ($list as $dList) :
-                $selTab = $_SESSION['tab']['con'];
-                $cssActive = ($selTab == $dList['id']) ? "active" : null;
+            <div class='nav flex-column nav-pills text-light' id='v-pills-tab' role='tablist' aria-orientation='vertical'>";
+            foreach ($this->list as $dList) :
+                $cssActive = ($this->tabAct == $dList['id']) ? "active" : null;
                 $ret .= "
-                <button class='nav-link setTab {$cssActive}' id='{$dList['id']}-tab' data-bs-toggle='pill' data-bs-target='#{$dList['id']}' type='button' role='tab' aria-controls='{$dList['id']}' aria-selected='false'>
+                <button class='nav-link setTab {$cssActive}' id='{$dList['id']}-tab' data-val='{$dList['id']}' data-rel='con' data-bs-toggle='pill' data-bs-target='#{$dList['id']}' type='button' role='tab' aria-controls='{$dList['id']}' aria-selected='false'>
                 {$dList['icon']} {$dList['nom']}
                 </button>";
             endforeach;
@@ -59,25 +74,26 @@ class ConsultaInterfaz extends Consulta
         return $ret;
     }
     //FOR CONSULTA INTERFACE : ConsultaInterfaz_nav
-    public function ConsultaInterfaz_nav_tab($list)
+    public function ConsultaInterfaz_nav_tab()
     {
         $ret = null;
+        $ret = $this->list;
+        /*
         if ($list) :
             $ret .= "<div class='tab-content card card-body mt-2' id='v-pills-tabContent'>";
             foreach ($list as $dList) :
-                $selTab = $_SESSION['tab']['con'];
-                $cssActive = ($selTab == $dList['id']) ? "active" : null;
-                $ret .= "
-                <div class='tab-pane fade show {$cssActive}' id='{$dList['id']}' role='tabpanel' tabindex='0'>
-				<?php include('{$dList}') ?>
-                </div>";
+                $cssActive = ($this->tabAct == $dList['id']) ? "active" : null;
+                $ret .= "<div class='tab-pane fade show {$cssActive}' id='{$dList['id']}' role='tabpanel' tabindex='0'>";
+                ob_start();
+                $idsPac=$this->idp;
+                $dCon=$this->getDet();
+                include($dList['include']);
+                $ret .= ob_get_clean();
+                $ret .= "</div>";
             endforeach;
             $ret .= "</div>";
-        endif;
+        endif;*/
         return $ret;
-    }
-    public function ConsultaInterfaz_pacienteLat()
-    {
     }
     public function ConsultaInterfaz_ListDiagHist()
     {
