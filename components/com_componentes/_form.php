@@ -26,7 +26,7 @@ $objHeader2 = new App\Core\genInterfaceTitle(null, 'header', $cont, $btnAcc . $b
 <form enctype="multipart/form-data" method="post" action="_acc.php" class="form-horizontal">
 	<fieldset>
 		<input name="acc" type="hidden" value="<?php echo $acc ?>">
-		<input name="form" type="hidden" value="<?php echo md5('formC') ?>">
+		<input name="form" type="hidden" value="<?php echo md5($dM['ref']) ?>">
 		<input name="ids" type="hidden" value="<?php echo $ids ?>" />
 		<input name="url" type="hidden" value="<?php echo $urlc ?>" />
 	</fieldset>

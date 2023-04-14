@@ -16,6 +16,9 @@ class Database
     {
         $this->dbh = Conexion::getInstance()->dbh;
     }
+    /*
+    BEGIN TRANSACTION FUNCTIONS
+    */
     public function startTransaction()
     {
         $this->dbh->beginTransaction();
@@ -30,47 +33,106 @@ class Database
     {
         $this->dbh->rollBack();
     }
-
-    public function insertSQL(string $qry, array $values)
+    /*
+    CRUD FUNCTIONS
+    */
+    //SELECT
+    public function selectSQL(string $sql)
     {
-        $this->strQuery = $qry;
-        $this->arrValues = $values;
-        $qry = $this->dbh->prepare($this->strQuery);
-        $qry->execute($this->arrValues);
-        $id = $this->dbh->lastInsertId() ?? null;
-        return $id;
-    }
-    public function selectSQLR(string $qry)
-    {
-        $vP = false;
-        $ret = null;
-        $LOG = null;
         try {
-            $this->strQuery = $qry;
-            $qry = $this->dbh->prepare($this->strQuery);
+            $qry = $this->dbh->prepare($sql);
+            $qry->execute();
+            $data = $qry->fetch(PDO::FETCH_ASSOC);
+            return $data;
+        } catch (PDOException $e) {
+            $LOG = $e->getMessage();
+            dep($LOG, __FUNCTION__ . "({$sql})");
+            return null;
+        }
+    }
+    public function selectSQLR(string $sql)
+    {
+        try {
+            $qry = $this->dbh->prepare($sql);
             $qry->execute();
             $ret = $qry->fetch(PDO::FETCH_ASSOC);
             $vP = TRUE;
         } catch (PDOException $e) {
             $LOG = $e->getMessage();
-            dep($LOG, "selectSQLR({$qry})");
+            $vP = FALSE;
         }
-        return (array("est" => $vP, "ret" => $ret, "log" => $LOG));
+        return (array("est" => $vP, "ret" => $ret ?? null, "log" => $LOG ?? null));
     }
-    public function selectAllSQL(string $qry)
+    //SELECT ALL
+    public function selectAllSQL(string $sql)
+    {
+        try {
+            $qry = $this->dbh->prepare($sql);
+            $qry->execute();
+            $ret = $qry->fetchAll(PDO::FETCH_ASSOC);
+            return $ret;
+        } catch (PDOException $e) {
+            $LOG = $e->getMessage();
+            dep($LOG, __FUNCTION__ . "({$sql})");
+            return null;
+        }
+    }
+    public function selectAllSQLR(string $qry)
     {
         try {
             $this->strQuery = $qry;
             $qry = $this->dbh->prepare($this->strQuery);
             $qry->execute();
-            $data = $qry->fetchAll(PDO::FETCH_ASSOC);
-            return $data;
+            $ret = $qry->fetchAll(PDO::FETCH_ASSOC);
+            $vP = TRUE;
         } catch (PDOException $e) {
             $LOG = $e->getMessage();
-            dep($LOG, "selectAllSQL({$qry})");
+            $vP = FALSE;
+        }
+        return (array("est" => $vP, "ret" => $ret, "log" => $LOG ?? null));
+    }
+    /*
+    INSERT
+    */
+    public function insertSQL(string $sql, array $values)
+    {
+        try {
+            $qry = $this->dbh->prepare($sql);
+            $qry->execute($values);
+            $id = $this->dbh->lastInsertId() ?? null;
+            return $id;
+        } catch (PDOException $e) {
+            $LOG = $e->getMessage();
+            dep($LOG, __FUNCTION__ . "({$sql})");
             return null;
         }
     }
+    public function insertSQLR(string $qry, array $values)
+    {
+        $this->strQuery = $qry;
+        $this->arrValues = $values;
+        try {
+            $qry = $this->dbh->prepare($this->strQuery);
+            //Asign Null to Empty Params
+            foreach ($this->arrValues as $key => $value) {
+                if (empty($value)) {
+                    $this->arrValues[$key] = null;
+                }
+            }
+            $qry->execute($this->arrValues);
+            $id = $this->dbh->lastInsertId() ?? null;
+            $ret = $id;
+            $vP = TRUE;
+            $LOG = cfg['p']['ins-true'];
+        } catch (PDOException $e) {
+            $LOG = cfg['p']['ins-false'] . $e->getMessage();
+            //dep($LOG, "insertSQLR({$qry})");
+        }
+        return (array("est" => $vP, "val" => $ret, "log" => $LOG));
+    }
+    /*
+    UPDATE
+    */
     public function updateSQL(string $qry, array $values)
     {
         $this->strQuery = $qry;
@@ -79,17 +141,7 @@ class Database
         $qry->execute($this->arrValues);
         return $qry;
     }
-    public function deleteSQL(string $qry)
-    {
-        $this->strQuery = $qry;
-        $qry = $this->dbh->prepare($this->strQuery);
-        $res = $qry->execute();
-        return $res;
-    }
-
-    /////////////////////////////
-
-    public function insertSQLR(string $qry, array $values)
+    public function updateSQLR(string $qry, array $values)
     {
         $vP = FALSE;
         $ret = null;
@@ -103,61 +155,25 @@ class Database
                     $this->arrValues[$key] = null;
                 }
             }
-            //
             $qry->execute($this->arrValues);
-            $id = $this->dbh->lastInsertId() ?? null;
-            $ret = $id;
             $vP = TRUE;
-            $LOG = cfg['p']['ins-true'];
+            $LOG = cfg['p']['upd-truet'];
         } catch (PDOException $e) {
-            $LOG = cfg['p']['ins-false'] . $e->getMessage();
-            dep($LOG, "insertSQLR({$qry})");
+            $LOG = cfg['p']['upd-falset'] . $e->getMessage();
         }
-        return (array("est" => $vP, "val" => $ret, "log" => $LOG));
+        return (array("est" => $vP, "log" => $LOG));
     }
-    public function selectSQL(string $qry)
+    /*
+    DELETE
+    */
+    public function deleteSQL(string $qry)
     {
         $this->strQuery = $qry;
         $qry = $this->dbh->prepare($this->strQuery);
-        $qry->execute();
-        $data = $qry->fetch(PDO::FETCH_ASSOC);
-        return $data;
+        $res = $qry->execute();
+        return $res;
     }
-    public function selectAllSQLR(string $qry)
-    {
-        $this->strQuery = $qry;
-        $qry = $this->dbh->prepare($this->strQuery);
-        $qry->execute();
-        $data = $qry->fetchAll(PDO::FETCH_ASSOC);
-        return $data;
-    }
-    public function updateSQLR(string $qry, array $values)
-    {
-        $vP = FALSE;
-        $ret = null;
-        $this->strQuery = $qry;
-        $this->arrValues = $values;
-        try {
-            $qry = $this->dbh->prepare($this->strQuery);
-            //Asign Null to Empty Params
-            //echo "<hr>";
-            foreach ($this->arrValues as $key => $value) {
-                if (empty($value)) {
-                    $this->arrValues[$key] = null;
-                    //echo "SI empty = $value : $key<br>";
-                } //else echo "NO empty = $value : $key<br>";
-            }
-            //echo "<hr>";
-            //
-            $ret = $qry->execute($this->arrValues);
-            $vP = TRUE;
-            $LOG = cfg['p']['upd-true'];
-        } catch (PDOException $e) {
-            $LOG = cfg['p']['upd-false'] . $e->getMessage();
-            //dep($LOG, "updateSQLR({$qry})");
-        }
-        return (array("est" => $vP, "ret" => $ret, "log" => $LOG));
-    }
+
     public function deleteSQLR(string $qry)
     {
         $vP = FALSE;
@@ -165,15 +181,16 @@ class Database
         try {
             $this->strQuery = $qry;
             $qry = $this->dbh->prepare($this->strQuery);
-            $ret = $qry->execute();
+            $qry->execute();
             $vP = TRUE;
             $LOG = cfg['p']['del-true'];
         } catch (PDOException $e) {
             $LOG = cfg['p']['del-false'] . $e;
-            dep($e, "deleteSQLR $qry");
+            //dep($LOG, "deleteSQLR
         }
-        return (array("est" => $vP, "ret" => $ret, "log" => $LOG));
+        return (array("est" => $vP, "log" => $LOG));
     }
+
 
     /////////////////////////////
 
@@ -551,7 +568,7 @@ class Database
         $ids = null;
         $dRS = null;
         if ($valSel) {
-            $dRS = $this->dbh->detRow($table, null, $fieldSel, $valSel);
+            $dRS = $this->detRow($table, null, $fieldSel, $valSel);
             if ($dRS) { //SELECT ROW
                 $id = $dRS[$fieldID];
                 if ($id) {
@@ -593,7 +610,7 @@ class Database
             $ret['est'] = TRUE;
             $ret['id'] = $this->dbh->lastInsertId();
             $ret['log'] = 'Creado correctamente';
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $ret['est'] = FALSE;
             $ret['log'] = 'Error. ' . $e->getMessage();
             $this->dbh->rollback();
@@ -645,7 +662,7 @@ class Database
                     $vP = TRUE;
                 } else $LOG .= "No hay campos para actualizar";
             } else $LOG .= "No hay data";
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $vP = FALSE;
             $LOG .= 'Error. ' . $e->getMessage();
             $this->dbh->rollback();

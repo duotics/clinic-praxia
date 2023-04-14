@@ -2,8 +2,6 @@
 
 namespace App\Core;
 
-use Exception;
-use App\Core\TemplateEngine;
 use App\Core\TemplateGenHead;
 use App\Core\TemplateGenFoot;
 
@@ -12,9 +10,9 @@ class TemplateGen
     protected static $head;
     protected static $foot;
     public function __construct(
-        protected $paramsHead = null,
-        protected $paramsFoot = null,
-        protected $paramAlert = "sw",
+        protected $paramsHead,
+        protected $paramsFoot,
+        protected $paramAlert,
         protected $paramsModulesHead = [],
         protected $paramsModulesFoot = [],
         protected $paramsBreadcrumb = [],
@@ -57,9 +55,7 @@ class TemplateGen
     }
     private function loadAlert()
     {
-        if ($this->paramAlert) {
-            sLOG($this->paramAlert);
-        }
+        sLOG($this->paramAlert);
     }
     private function generateBreadcrumb()
     {

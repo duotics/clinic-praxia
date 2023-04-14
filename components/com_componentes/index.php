@@ -1,7 +1,7 @@
 <?php include('../../init.php');
 $dM = $Auth->vLogin('COMP');
 $brdItems = array(array("nom" => "Sistema"));
-$mTpl = new App\Core\TemplateGen(null, null, null, ['mod_menu/menuMain.php'], null, [$brdItems]);
+$mTpl = new App\Core\TemplateGen(null, null, "sw", ['mod_menu/menuMain.php'], null, [$brdItems]);
 $mTpl->renderHead();
 ?>
 <div class="container">

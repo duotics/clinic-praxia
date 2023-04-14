@@ -6,19 +6,16 @@ function vP($est, $log = null)
         $LOGc = cfg['p']['c-ok'];
         $LOGi = cfg['i']['okp'];
         $LOGicon = 'success';
-        $LOGimg = route['i'] . cfg['p']['i-ok'];
     } else {
         $LOGt = cfg['p']['m-fail'];
         $LOGc = cfg['p']['c-fail'];
         $LOGi = cfg['i']['failp'];
         $LOGicon = 'error';
-        $LOGimg = route['i'] . cfg['p']['i-fail'];
     }
     $_SESSION['LOG']['t'] = $LOGt;
     $_SESSION['LOG']['m'] = $log;
     $_SESSION['LOG']['c'] = $LOGc;
-    $_SESSION['LOG']['i'] = $LOGimg;
-    $_SESSION['LOG']['img'] = $LOGimg;
+    $_SESSION['LOG']['i'] = $LOGicon;
 }
 
 function genInterfaceBusqueda($configVar)
@@ -158,64 +155,84 @@ function genStatus($dest, $params, $css = NULL, $icons = NULL)
     else $st = '<span class="' . $cssST . ' ' . $css . '">' . $txtST . '</span>';
     return $st;
 }
-function sLOG($type = NULL, $msg_m = NULL, $msg_t = NULL, $msg_c = NULL, $msg_i = NULL)
-{ //v.2.4
-    //echo 'entra a SLOG<br>';
-    //var_dump($_SESSION['LOG']);
-    $LOG = NULL;
-    $vrfVL = TRUE; //var para setear $LOG
-    if ($msg_m) {
-        $LOG['m'] = $msg_m;
-        $LOG['t'] = $msg_t;
-        $LOG['c'] = $msg_c;
-        $LOG['i'] = $msg_i;
-    } else {
-        if (isset($_SESSION['LOG'])) $LOG = $_SESSION['LOG'];
-    }
-    if ($LOG) {
-        if (!$LOG['c']) $LOG['c'] = 'alert-info';
-        switch ($type) {
-            case 'a':
-                $rLog = '<div id="log">';
-                $rLog .= '<div class="alert alert-dismissable ' . $LOG['c'] . '" style="margin:10px;">';
-                $rLog .= '<button type="button" class="close" data-dismiss="alert">&times;</button>';
-                if ($LOG['t']) $rLog .= '<h3>' . $LOG['t'] . '</h3>';
-                $rLog .= $LOG['m'];
-                $rLog .= '</div></div>';
-                break;
-            case 'g':
-                $rLog = '<script type="text/javascript">
-				logGritter("' . $LOG['t'] . '","' . $LOG['m'] . '","' . $LOG['i'] . '");
-				</script>';
-                break;
-            case 's':
-                $vrfVL = FALSE;
-                break;
-            case 't':
-                //echo 'case t<br>';
-                $rLog = '<div class="toast" style="position: absolute; bottom: 25px; right: 25px; z-index: 999" data-delay="3000">
-				<div class="toast-header">
-				  <img src="' . $LOG['i'] . '" class="img-fluid img-xs rounded mr-2" alt="...">
-				  <strong class="mr-auto">' . $LOG['t'] . '</strong>
-				  <!--<small>11 mins ago</small>-->
-				  <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				  </button>
-				</div>
-				<div class="toast-body">
-				  ' . $LOG['m'] . '
-				</div>
-			  </div>';
-                break;
-            default:
-                $rLog = '<div>' . $LOG['m'] . '</div>';
-                break;
+if (!function_exists("sLOG")) { //v.2.0 -> duotics_lib
+    function sLOG($type = NULL, $msg = NULL, $persist = 0) //duoticsLib php8 v.0.4
+    {
+        $LOG = NULL;
+        $vrfVL = TRUE;
+        if (isset($msg)) $LOG = array("m" => $msg['m'] ?? null, "t" => $msg['t'] ?? null, "i" => $msg['i'] ?? null, "l" => $msg['l'] ?? null, "c" => $msg['c'] ?? null);
+        else if (isset($_SESSION['LOG'])) $LOG = array("m" => $_SESSION['LOG']['m'], "t" => $_SESSION['LOG']['t'] ?? null, "i" => $_SESSION['LOG']['i'] ?? null, "l" => $_SESSION['LOG']['l'] ?? null, "c" => $_SESSION['LOG']['c'] ?? null);
+        if ($LOG) {
+            if (!$LOG['c']) $LOG['c'] = 'alert-info';
+            $rLog = null;
+            switch ($type) {
+                case 's':
+                    $vrfVL = FALSE;
+                    break;
+                case 'a':
+                    $rLog = '<div id="log">';
+                    $rLog .= '<div class="alert alert-dismissable ' . $LOG['c'] . '" style="margin:10px;">';
+                    $rLog .= '<button type="button" class="close" data-dismiss="alert">&times;</button>';
+                    if ($LOG['t']) $rLog .= '<h3>' . $LOG['t'] . '</h3>';
+                    $rLog .= $LOG['m'];
+                    $rLog .= '</div></div>';
+                    break;
+                case 't':
+                    $rLog = "<div class='toast-container p-3 bottom-0 end-0' id='toastPlacement'>
+					<div class='toast fade show $LOG[c]' data-bs-delay='3000'>";
+                    if (isset($LOG['t'])) {
+                        $rLog .= "<div class='toast-header'>
+						<img src='$LOG[i]' class='img-fluid img-xxs me-2' alt=''>
+						<strong class='me-auto'>$LOG[t]</strong>
+						<small>$LOG[l]</small>
+						<button type='button' class='btn-close' data-bs-dismiss='toast' aria-label='Close'></button>
+						</div>";
+                    }
+                    $rLog .= "<div class='toast-body'>$LOG[m]</div>
+					</div></div>";
+                    break;
+                case 'sw':
+                    $swalParam = array(
+                        'position' => "bottom-end",
+                        'icon' => $LOG['i'] ?? "success",
+                        'title' => $LOG['t'] ?? null,
+                        'html' => $LOG['m'] ?? null,
+                        'showConfirmButton' => false,
+                        'timer' => $LOG['time'] ?? 5000,
+                        'background' => 'white'
+                    );
+                    $rLog = "<script type='text/javascript'>
+						Swal.fire({
+                          toast: true,
+                          didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                          },
+						  position: '{$swalParam['position']}',
+						  icon: '{$swalParam['icon']}',
+						  html: \"{$swalParam['html']}\",
+						  timer: '{$swalParam['timer']}',
+                          showConfirmButton: '{$swalParam['showConfirmButton']}',
+						  background: '{$swalParam['background']}',
+                          timerProgressBar: true,
+                          showClass: {
+                            popup: 'animate__animated animate__fadeInUp'
+                          },
+                          hideClass: {
+                            popup: 'animate__animated animate__fadeOutDown'
+                          }
+                          
+                          
+						});
+                    </script>";
+                    break;
+                default:
+                    $rLog = '<div>' . $LOG['m'] . '</div>';
+                    break;
+            }
+            echo $rLog;
         }
-        echo $rLog;
-    }
-    if ($vrfVL) { //TRUE unset->LOG, FALSE $_SESSION LOG -> $LOG
-        unset($_SESSION['LOG']);
-    } else {
-        $_SESSION['LOG'] = $LOG;
+        if (($vrfVL) && (!($persist))) unset($_SESSION['LOG']);
+        else $_SESSION['LOG'] = $LOG;
     }
 }

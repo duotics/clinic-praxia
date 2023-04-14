@@ -71,7 +71,7 @@ class Componente
     }
     function insertComp(string $ref, string $nom, string $des, string $icon)
     {
-        $sql = "INSERT INTO {$this->mainTableName} (mod_ref, mod_nom, mod_des, mod_icon) 
+        $sql = "INSERT INTO {$this->mainTableName} (refComp, nomComp, desComp, iconComp) 
 		VALUES (?,?,?,?)";
         $arrayData = array($ref, $nom, $des, $icon);
         $ret = $this->db->insertSQLR($sql, $arrayData);
@@ -80,7 +80,8 @@ class Componente
     }
     function updateComp(string $id, string $ref, string $nom, string $des, string $icon, int $status)
     {
-        $sql = "UPDATE {$this->mainTableName} SET mod_ref=?, mod_nom=?, mod_des=?, mod_icon=?, mod_stat=? WHERE md5({$this->mainIDName})=? LIMIT 1";
+        $sql = "UPDATE {$this->mainTableName} SET refComp=?, nomComp=?, desComp=?, iconComp=?, status=? 
+        WHERE md5({$this->mainIDName})=? LIMIT 1";
         $arrayData = array($ref, $nom, $des, $icon, $status, $id);
         $ret = $this->db->updateSQLR($sql, $arrayData);
         vP($ret['est'], $ret['log']);
@@ -95,10 +96,10 @@ class Componente
     }
     function changeStatus(string $id, int $val)
     {
-        $sql = "UPDATE {$this->mainTableName} SET mod_stat=? WHERE md5({$this->mainIDName})=? LIMIT 1";
+        $sql = "UPDATE {$this->mainTableName} 
+        SET status=? 
+        WHERE md5({$this->mainIDName})=? LIMIT 1";
         $arrayData = array($val, $id);
-        $ret = $this->db->updateSQLR($sql, $arrayData);
-        vP($ret['est'], $ret['log']);
-        return $ret;
+        return $this->db->updateSQLR($sql, $arrayData);
     }
 }

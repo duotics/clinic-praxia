@@ -68,15 +68,10 @@ class Auth
             /* VERIFY LOGIN */
             if ($vL) { //Login TRUE
                 $goTo = $MM_redLS;
-                $LOGt = cfg['p']['m-ok'];
-                $LOGc = cfg['p']['c-ok'];
-                $LOGi = route['a'] . cfg['p']['i-ok'];
             } else { //Login False
                 $goTo = $MM_redLF;
-                $LOGc = cfg['p']['ct-fail'];
-                $LOGi = route['a'] . cfg['p']['i-fail'];
             }
-            $_SESSION['LOG'] = array('m' => $LOG ?? null, 'c' => $LOGc ?? null, 't' => $LOGt ?? null, 'i' => $LOGi ?? null, 'l' => sys['stime'] ?? null);
+            vP($vL, $LOG);
             header("Location: " . $goTo);
         }
     }
@@ -94,7 +89,7 @@ class Auth
                     $dMenuAuth = $this->mMenu->detMenuItemLogin(); //Verifica si el usuario logueado tiene acceso al menu
                 }
                 if ((dU['LEVEL'] == 1) || $dMenuAuth) {
-                    $ret=$this->mMenu->detMenuCompData();
+                    $ret = $this->mMenu->detMenuCompData();
                     $vP = TRUE;
                 } else {
                     throw new Exception("Acceso no autorizado");

@@ -10,7 +10,7 @@ $objHeader = new App\Core\genInterfaceTitle($dM, 'header', null, $btnNew);
 <div>
 	<?php $objHeader->render() ?>
 	<?php if ($lCom) { ?>
-		<table class="datatable table table-hover table-condensed table-bordered" id="itm_table">
+		<table class="datatable table table-hover table-sm table-bordered" id="itm_table">
 			<thead>
 				<tr>
 					<th>ID</th>
