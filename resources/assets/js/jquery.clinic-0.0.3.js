@@ -18,9 +18,9 @@ $(document).ready(function () {
     )
       .done(function (data) {
         if (data.status === true) {
-          console.log("Tab set: "+data.data);
+          console.log("Tab set: " + data.data);
         } else {
-          console.log("Tab not set: "+data.log);
+          console.log("Tab not set: " + data.log);
         }
       })
       .fail(function (jqXHR, textStatus, errorThrown) {
@@ -176,7 +176,6 @@ $(document).ready(function () {
   var contlog = $("#log");
   contlog.delay(3800).slideUp(200);
   //FANCYBOX
-  var loading = $("#loading");
   //
 });
 /*
@@ -326,13 +325,6 @@ function imprSelec(nombre) {
   ventimp.document.close();
   ventimp.print();
   ventimp.close();
-}
-function showLoading() {
-  $("#loading").css({ visibility: "visible" }).css({ opacity: "1" });
-}
-//hide loading bar
-function hideLoading() {
-  $("#loading").fadeTo(200, 0);
 }
 var ansclose = false;
 window.onbeforeunload = ansout;

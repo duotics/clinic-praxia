@@ -16,17 +16,13 @@ $objMenuUser = new genInterfaceMenu("USERMENU", "navbar-nav d-flex");
     <div class="collapse navbar-collapse" id="navMenuMain">
       <?php $objMenuMain->render() ?>
       <ul class="navbar-nav me-auto">
+
+        <?php $objMenuConf->render() ?>
         <li class="nav-item">
           <a class="nav-link">
             <div id="logF"></div>
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">
-            <div id="loading"><img src="<?php echo route['i'] ?>struct/loader.gif" /></div>
-          </a>
-        </li>
-        <?php $objMenuConf->render() ?>
       </ul>
       <?php $objMenuUser->render() ?>
     </div>
