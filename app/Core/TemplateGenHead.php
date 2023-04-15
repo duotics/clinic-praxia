@@ -94,8 +94,9 @@ class TemplateGenHead extends genInterface
             [route['n'], "tinymce/tinymce.min.js"],
             [route['n'], "sweetalert2/dist/sweetalert2.all.min.js"],
             [route['n'], "wow.js/dist/wow.min.js"],
-            [route['a'], "js/custom-v01.js"],
-            [route['a'], "js/jquery.clinic-0.0.3.js"]
+            [route['a'], "js/jquery.clinic-v.0.1.js"],
+            [route['a'], "js/jquery.custom-v.0.1.js"]
+
         ];
         foreach ($listFiles as $file) {
             $ret .= "<script type='text/javascript' src='{$file[0]}{$file[1]}'></script>";
