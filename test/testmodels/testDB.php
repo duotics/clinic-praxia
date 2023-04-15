@@ -1,6 +1,6 @@
 <?php include("../../init.php");
 
-$sql = "SELECT * FROM dbComponenteS";
-$val = $db->selectSQL($sql);
+$sql = "SELECT * FROM dbComponente";
+$val = $db->selectAllSQL($sql);
 
 dep($val);
