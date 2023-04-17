@@ -230,73 +230,46 @@ function changeDateEnglishToSpanish($fecha = null, $option = "all")
 	return $nuevafecha;
 }
 
-function edadC($dateBorn)
+function calcular_edad($fecha_nacimiento)
 {
-	$ret = NULL;
-	if ($dateBorn) {
-		$dateAct = $GLOBALS['sdate']; // separamos en partes las fechas 
-		$array_nacimiento = explode("-", $dateBorn);
-		$array_actual = explode("-", $dateAct);
-		$anos =  $array_actual[0] - $array_nacimiento[0]; // calculamos años 
-		$meses = $array_actual[1] - $array_nacimiento[1]; // calculamos meses 
-		$dias =  $array_actual[2] - $array_nacimiento[2]; // calculamos días 
-		//ajuste de posible negativo en $días 
-		if ($dias < 0) {
-			--$meses;
-			//ahora hay que sumar a $dias los dias que tiene el mes anterior de la fecha actual 
-			switch ($array_actual[1]) {
-				case 1:
-					$dias_mes_anterior = 31;
-					break;
-				case 2:
-					$dias_mes_anterior = 31;
-					break;
-				case 3:
-					if (bisiesto($array_actual[0])) {
-						$dias_mes_anterior = 29;
-						break;
-					} else {
-						$dias_mes_anterior = 28;
-						break;
-					}
-				case 4:
-					$dias_mes_anterior = 31;
-					break;
-				case 5:
-					$dias_mes_anterior = 30;
-					break;
-				case 6:
-					$dias_mes_anterior = 31;
-					break;
-				case 7:
-					$dias_mes_anterior = 30;
-					break;
-				case 8:
-					$dias_mes_anterior = 31;
-					break;
-				case 9:
-					$dias_mes_anterior = 31;
-					break;
-				case 10:
-					$dias_mes_anterior = 30;
-					break;
-				case 11:
-					$dias_mes_anterior = 31;
-					break;
-				case 12:
-					$dias_mes_anterior = 30;
-					break;
+	try {
+		$fecha_actual = new DateTime();
+		$fecha_nac = DateTime::createFromFormat('Y-m-d', $fecha_nacimiento);
+		if (!$fecha_nac) {
+			throw new Exception('Fecha de nacimiento inválida');
+		}
+		$diff = $fecha_actual->diff($fecha_nac);
+
+		$años = $diff->y;
+		$meses = $diff->m;
+		$dias = $diff->d;
+
+		$edad = '';
+		if ($años > 0) {
+			$edad .= $años . ' año';
+			if ($años > 1) {
+				$edad .= 's';
 			}
-			$dias = $dias + $dias_mes_anterior;
+			$edad .= ', ';
 		}
-		//ajuste de posible negativo en $meses 
-		if ($meses < 0) {
-			--$anos;
-			$meses = $meses + 12;
+
+		if ($meses > 0) {
+			$edad .= $meses . ' mes';
+			if ($meses > 1) {
+				$edad .= 'es';
+			}
+			$edad .= ', ';
 		}
-		$ret = $anos . " años <br> " . $meses . " meses <br> " . $dias . " días ";
-	} else $ret;
-	return ($ret);
+
+		$edad .= $dias . ' día';
+		if ($dias != 1) {
+			$edad .= 's';
+		}
+
+		return $edad;
+	} catch (Exception $e) {
+		return 'Error: ' . $e->getMessage();
+	}
 }
 
 function bisiesto($anio_actual)
