@@ -661,15 +661,6 @@ class Database
                     $PDOopt = null;
                     foreach ($arrayIndex as $fields) {
                         $RS->bindValue(":" . $fields, $params[$fields] === '' ? null : $params[$fields], PDO::PARAM_STR);
-                        /*
-                        if(($params[$fields] == null)||(($params[$fields] == "null"))){
-                            $RS->bindValue(":".$fields,null,PDO::PARAM_NULL);
-                            $LOG.="val. $params[$fields] -> null * ";
-                        }else{
-                            $RS->bindValue(":".$fields,$params[$fields],PDO::PARAM_STR);
-                            $LOG.="val. $params[$fields] -> STR * ";
-                        }
-                        */
                     }
                     $RS->execute();
                     $this->dbh->commit();
