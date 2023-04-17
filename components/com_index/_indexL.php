@@ -7,17 +7,17 @@ $mCon = new Consulta;
 $mRes = new Agendamiento;
 
 //Fecha Ayer
-$sdateA = strtotime('-1 day', strtotime($sdate));
+$sdateA = strtotime('-1 day', strtotime(sys['date']));
 $sdateA = date('Y-m-j', $sdateA);
 //FECHAS HOY INICIO AL FIN
-$sdatet_ini = $sdate . ' 00:00:00';
-$sdatet_fin = $sdate . ' 23:59:59';
+$sdatet_ini = sys['date'] . ' 00:00:00';
+$sdatet_fin = sys['date'] . ' 23:59:59';
 
-$sdatetA_ini = $sdateA . ' 00:00:00';
-$sdatetA_fin = $sdateA . ' 23:59:59';
+$sdatetA_ini = sys['date'] . ' 00:00:00';
+$sdatetA_fin = sys['date'] . ' 23:59:59';
 
 //CONSULTAS RESERVAS
-$lRes = $mRes->getResBeetweenDates($sdate, $sdate);
+$lRes = $mRes->getResBeetweenDates(sys['date'], sys['date']);
 //CONSULTAS HOY
 $lConH = $mCon->getConsBeetweenDates($sdatet_ini, $sdatet_fin);
 //CONSULTAS AYER
@@ -26,7 +26,7 @@ $lConA = $mCon->getConsBeetweenDates($sdatetA_ini, $sdatetA_fin);
 <div class="row">
     <div class="col-sm-6">
         <div class="card border-primary mb-3">
-            <h5 class="card-header bg-primary text-light">Visitas Hoy <span class="badge bg-light float-end"><?php echo $sdate ?></span></h5>
+            <h5 class="card-header bg-primary text-light">Visitas Hoy <span class="badge bg-light float-end"><?php echo sys['date'] ?></span></h5>
             <div class="card-body">
                 Programadas <span class="badge bg-warning"><?php echo count($lRes ?? 0) ?></span>
             </div>

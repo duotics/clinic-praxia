@@ -49,7 +49,7 @@
                     <input name="pac_fec" id="pac_fec" value="<?php echo $dPac['pac_fec'] ?? null ?>" data-id="<?php echo $ids ?>" data-rel="pac" type="date" class="form-control setDB" placeholder="Fecha" onChange="getDataVal(null,this.value,'FechaToEdad','viewEdad')" />
                 </div>
                 <div class="col-sm-4">
-                    <span class="small" id="viewEdad"><?php echo edadC($dPac['pac_fec'] ?? null) ?></span>
+                    <span class="small" id="viewEdad"><?php echo calcular_edad($dPac['pac_fec'] ?? null) ?></span>
                 </div>
             </div>
         </fieldset>
