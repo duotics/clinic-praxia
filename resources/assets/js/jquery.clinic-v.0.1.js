@@ -1,9 +1,10 @@
 // JavaScript Document
 $(document).ready(function () {
   // Add event listeners to the form controls
-  $(".setDB").on("keyup change", function () {
+  $(".setDB").on("change blur", function () {
     handleFormControlEvents($(this));
   });
+
   $(".setTab").on("click", function () {
     var val = $(this).data("val");
     var com = $(this).data("rel");
@@ -77,7 +78,7 @@ $(document).ready(function () {
   //TOOLTIPS BS
   $(".tooltips").tooltip({ html: true });
   var contlog = $("#log");
-  contlog.hide().delay(200).slideDown(250).delay(3500).slideUp(300);
+  contlog.hide().delay(200).slideDown(250).delay(1000).slideUp(300);
 });
 /*
 END DOCUMENT READY
@@ -99,18 +100,18 @@ function handleFormControlEvents(control) {
   var acc = control.data("acc");
 
   // Handle input (keyup) event
-  if (control.is('input[type="text"]') && event.type === "keyup") {
+  if (control.is('input[type="text"]')) {
     // Add any additional logic to handle the input value here
   }
 
   // Handle checkbox (change) event
-  if (control.is('input[type="checkbox"]') && event.type === "change") {
+  if (control.is('input[type="checkbox"]')) {
     valor = control.is(":checked") ? "1" : "0";
     // Add any additional logic to handle the checkbox value here
   }
 
   // Handle select (change) event
-  if (control.is("select") && event.type === "change") {
+  if (control.is("select")) {
     // Add any additional logic to handle the select value here
   }
 
@@ -121,7 +122,7 @@ function handleFormControlEvents(control) {
 // Define a function to send the form data via AJAX
 function sendFormData(campo, valor, cod, tbl, acc = null) {
   $.get(
-    RAIZc + "com_comun/actionsJS.php",
+    RAIZp + "json.actions.php",
     {
       campo: campo,
       valor: valor,
@@ -133,10 +134,10 @@ function sendFormData(campo, valor, cod, tbl, acc = null) {
     "json"
   )
     .done(function (data) {
-      showLoading();
+      //showLoading();
       console.log("SetDB done. " + data.inf);
-      $("#logF").show(100).text(data.inf).delay(3000).hide(200);
-      hideLoading();
+      $("#logF").show().text(data.inf);
+      //hideLoading();
     })
     .fail(function (data) {
       console.log("SetDB fail. " + data.inf);
@@ -145,17 +146,16 @@ function sendFormData(campo, valor, cod, tbl, acc = null) {
 
 // JavaScript Document
 function getDataVal(id, val, acc, res) {
+  console.log("getDataVal() - " + id);
   $.get(
-    RAIZ + "system/fnc/gen.php",
+    RAIZp + "json.helper.php",
     { id: id, val: val, acc: acc, res: res },
     function (data) {
-      $("#" + res).html(data.val);
+      $("#" + res).html(data.ret);
     },
     "json"
   );
 }
-
-
 
 var ansclose = false;
 window.onbeforeunload = ansout;
