@@ -1,4 +1,6 @@
 <?php require('../init.php');
+$Auth->vLogin();
+
 $acc = $_REQUEST['acc'] ?? null;
 $val = $_REQUEST['val'] ?? null;
 $LOG = null;

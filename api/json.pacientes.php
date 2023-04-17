@@ -1,4 +1,5 @@
-<?php require_once('../init.php');
+<?php require('../init.php');
+$Auth->vLogin();
 
 use App\Models\Paciente;
 

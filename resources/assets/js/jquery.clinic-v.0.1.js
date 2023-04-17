@@ -121,7 +121,7 @@ function handleFormControlEvents(control) {
 
 // Define a function to send the form data via AJAX
 function sendFormData(campo, valor, cod, tbl, acc = null) {
-  $.get(
+  $.post(
     RAIZp + "json.actions.php",
     {
       campo: campo,

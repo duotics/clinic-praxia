@@ -1,8 +1,10 @@
-<?php include('../init.php');
-$paramTbl = $_GET['tbl'] ?? null;
-$paramField = $_GET['campo'] ?? null;
-$paramValue = $_GET['valor'] ?? null;
-$paramID = $_GET['cod'] ?? null;
+<?php require('../init.php');
+$Auth->vLogin();
+
+$paramTbl = $_POST['tbl'] ?? null;
+$paramField = $_POST['campo'] ?? null;
+$paramValue = $_POST['valor'] ?? null;
+$paramID = $_POST['cod'] ?? null;
 $vP = false;
 $LOG = null;
 try {
@@ -63,7 +65,7 @@ try {
 	//$db->endTransaction();
 } catch (Exception $e) {
 	$LOG = $e->getMessage();
-} 
+}
 /*
 catch (PDOException $e) {
 	//$db->cancelTransaction();

@@ -1,5 +1,6 @@
 <?php require('../init.php');
 $Auth->vLogin();
+
 $val = $_GET['val'] ?? null;
 $com = $_GET['com'] ?? null;
 $vP = false;
