@@ -33,8 +33,3 @@ define('route', array(
     'a' => routeM . 'resources/assets/',
     't' => routeM . 'resources/templates/'
 ));
-
-$_SESSION['urlp'] = $_SESSION['urlc'] ?? null;
-$_SESSION['urlc'] = basename($_SERVER['SCRIPT_FILENAME']); //URL clean Current;
-$urlc = $_SESSION['urlc'];
-$urlp = $_SESSION['urlp'];
