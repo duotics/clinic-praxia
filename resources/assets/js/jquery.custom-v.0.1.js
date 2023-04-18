@@ -251,11 +251,11 @@ $(document).ready(function () {
 
 //show loading bar
 function showLoading() {
-  $("#loading").css({ visibility: "visible" }).css({ opacity: "1" });
+  $("#logF").css({ visibility: "visible" }).css({ opacity: "1" });
 }
 //hide loading bar
 function hideLoading() {
-  $("#loading").fadeTo(200, 0);
+  $("#logF").fadeTo(500, 0);
 }
 //COPY TO CLIPBOARD
 function copyTextToClipboard(text) {

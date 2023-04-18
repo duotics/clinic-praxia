@@ -1,4 +1,4 @@
-<table class="table" id="tableConDiag" data-val="<?php echo md5($idc) ?>">
+<table class="table" id="tableConDiag" data-val="<?php echo $idsCon ?>">
 		<thead>
 			<tr>
 				<th>ID</th>

@@ -12,11 +12,14 @@ class Consulta
     public $btnHis;
     protected $mainTable = "db_consultas";
     protected $mainID = "con_num";
+    protected $secTableName = "db_consultas_info";
+    protected $secIDName = "con_num";
     protected $id;
+    protected $idSec;
     protected $idp;
-    protected $termBus, $cadBus;
-    public $TR, $TRt, $TRp, $RSp, $pages;
-    public $det, $detF, $detV;
+    public $det;
+    public $detSec;
+
     function __construct()
     {
         $this->db = new Database();
@@ -25,17 +28,17 @@ class Consulta
     /*
     SETTERS
     */
-    function setID($id)
+    public function setID($id)
     {
         $this->id = $id;
     }
-    function setIDp($id)
+    public function setIDsec($id)
+    {
+        $this->idSec = $id;
+    }
+    public function setIDp($id)
     {
         $this->idp = $id;
-    }
-    public function setTerm($param)
-    {
-        $this->termBus = $param;
     }
     /*
     GETTERS
@@ -55,11 +58,15 @@ class Consulta
     {
         $this->det = $this->db->detRow($this->mainTable, null, "md5({$this->mainID})", $this->id);
     }
+    public function detSec()
+    {
+        $this->detSec = $this->db->detRow($this->secTableName, null, "md5({$this->secIDName})", $this->id);
+    }
     public function getLastConsPac()
     {
         $this->det = $this->db->detRow($this->mainTable, null, "md5(pac_cod)", $this->idp, "con_num", "DESC");
     }
-    function getAll()
+    public function getAll()
     {
         $sql = "SELECT * FROM {$this->mainTable} ORDER BY {$this->mainID} DESC";
         $res = $this->db->selectAllSQL($sql);
@@ -73,7 +80,7 @@ class Consulta
         $ret = $this->db->selectAllSQL($sql);
         return $ret;
     }
-    function getAllDiag($limit = null)
+    public function getAllDiag($limit = null)
     {
         $sqlLimit = "";
         if ((int)$limit > 0) $sqlLimit = "LIMIT {$limit}";

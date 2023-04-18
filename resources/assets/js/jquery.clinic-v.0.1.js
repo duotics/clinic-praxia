@@ -1,7 +1,12 @@
 // JavaScript Document
 $(document).ready(function () {
   // Add event listeners to the form controls
-  $(".setDB").on("change blur", function () {
+
+  $(".setDB").on("change", function () {
+    handleFormControlEvents($(this));
+  });
+
+  $(".setDB").on("blur", function () {
     handleFormControlEvents($(this));
   });
 
@@ -50,8 +55,6 @@ $(document).ready(function () {
       // código que se ejecuta si hay un error al cargar el iframe
       console.log("error");
     });
-
-  //$("#loaderFrame").load(function () {});
 
   $("#diags").autocomplete({
     source: RAIZc + "com_pacientes/json.php", //availableTags,
@@ -121,7 +124,7 @@ function handleFormControlEvents(control) {
 
 // Define a function to send the form data via AJAX
 function sendFormData(campo, valor, cod, tbl, acc = null) {
-  $.post(
+  $.get(
     RAIZp + "json.actions.php",
     {
       campo: campo,
@@ -134,10 +137,14 @@ function sendFormData(campo, valor, cod, tbl, acc = null) {
     "json"
   )
     .done(function (data) {
-      //showLoading();
-      console.log("SetDB done. " + data.inf);
-      $("#logF").show().text(data.inf);
-      //hideLoading();
+      if (data.status === true) {
+        console.log("setDB done true: " + data.data);
+      } else {
+        console.log("setDB done false: " + data.log);
+      }
+      showLoading();
+      $("#logF").show().text(data.log);
+      hideLoading();
     })
     .fail(function (data) {
       console.log("SetDB fail. " + data.inf);

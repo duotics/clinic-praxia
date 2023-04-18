@@ -1,10 +1,10 @@
 <?php require('../init.php');
 $Auth->vLogin();
 
-$paramTbl = $_POST['tbl'] ?? null;
-$paramField = $_POST['campo'] ?? null;
-$paramValue = $_POST['valor'] ?? null;
-$paramID = $_POST['cod'] ?? null;
+$paramTbl = $_GET['tbl'] ?? null;
+$paramField = $_GET['campo'] ?? null;
+$paramValue = $_GET['valor'] ?? null;
+$paramID = $_GET['cod'] ?? null;
 $vP = false;
 $LOG = null;
 try {
@@ -40,6 +40,13 @@ try {
 				$cond = array("md5($key)", "=", $paramID, $key);
 				$ret = $db->updRow($tbl, $params, $cond);
 				break;
+			case "conInf":
+				$tbl = 'db_consultas_info';
+				$key = 'con_num';
+				$params = array($paramField => $paramValue);
+				$cond = array("md5($key)", "=", $paramID, $key);
+				$ret = $db->updRow($tbl, $params, $cond);
+				break;
 			case "exa":
 				$tbl = 'db_examenes';
 				$key = 'id_exa';
@@ -59,7 +66,7 @@ try {
 		$LOG = $ret['log'] ?? FALSE;
 		//END PDO
 	} else {
-		$LOG = "Params -tbl- [{$paramTbl}] and -cod- cant be null";
+		$LOG = "Params cant be null";
 		throw new Exception($LOG);
 	}
 	//$db->endTransaction();
@@ -73,4 +80,4 @@ catch (PDOException $e) {
 }
 */
 
-echo json_encode(array("cod" => $paramID, "res" => $vP, "inf" => $LOG));
+echo json_encode(array("status" => $vP, "log" => $LOG, "cod" => $paramID));

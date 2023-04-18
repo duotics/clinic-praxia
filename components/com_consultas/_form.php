@@ -48,7 +48,7 @@ if ($idsPac) {
 			$objCon->getLastConsPac();
 			$dCon = $objCon->getDet();
 			if ($dCon) {
-				$idsCon = $dCon['con_num'];
+				$idsCon = md5($dCon['con_num']);
 				$statusCon = $dCon['status'];
 				$objCon->setID($idsCon) ?? null;
 			}
@@ -63,11 +63,12 @@ if ($dPac) $view = true;
 if ($dCon) :
 	$acc = md5('UPDc');
 	$btnAcc = "<button type='submit' class='btn btn-success'>{$cfg['b']['upd']}</button>";
+	$objCon->detSec();
+	$dConSec = $objCon->detSec;
 else :
 	$acc = md5('INSc');
 	$btnAcc = "<button type='submit' class='btn btn-primary'>{$cfg['b']['ins']}</button>";
 endif;
-$idc = $dCon['con_num'];
 $stat = $objCon->statusCons($statusCon); //Devuelve el estado de la Consulta en HTML
 $btnNew = "<a href='$urlc?kp=$idsPac&acc=NEW' class='btn btn-light'>{$cfg['b']['new']}</a>";
 $btnStat = "<span class='btn btn-light disabled'>Estado</span> $stat[inf]";

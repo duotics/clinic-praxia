@@ -10,14 +10,14 @@
 					<div class="col-sm-6">
 						<fieldset>
 							<div class="form-group">
-								<select class="selDiag" data-val="<?php echo md5($idc) ?>" style="width: 100%;">
+								<select class="selDiag" data-val="<?php echo $idsCon ?>" style="width: 100%;">
 								</select>
 							</div>
 							<div class="form-group">
 								<input type="text" class="form-control" name="diagD" id="diagD" placeholder="Otros Diagnósticos">
 							</div>
 							<div class="form-group">
-								<button type="button" class="setConDiagOtro btn btn-info btn-xs" data-val="<?php echo md5($idc) ?>">AGREGAR</button>
+								<button type="button" class="setConDiagOtro btn btn-info btn-xs" data-val="<?php echo $idsCon ?>">AGREGAR</button>
 							</div>
 						</fieldset>
 					</div>
