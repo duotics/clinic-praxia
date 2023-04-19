@@ -9,8 +9,15 @@ class genInterfaceTitle extends genInterface
 {
     private $mComp;
     protected $dComp;
-    public function __construct(protected $MOD = null, protected $tip = 'card', protected $cont = NULL, protected $floatR = NULL, protected $floatL = NULL, protected $css = null, protected $tag = 'h1')
-    {
+    public function __construct(
+        protected $MOD = null,
+        protected $tip = 'card',
+        protected $cont = NULL,
+        protected $floatR = NULL,
+        protected $floatL = NULL,
+        protected $css = null,
+        protected $tag = 'h1'
+    ) {
         $this->mComp = new Componente();
         $this->gen_BS_header();
     }

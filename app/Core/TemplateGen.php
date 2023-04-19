@@ -77,7 +77,8 @@ class TemplateGen
                 $this->paramsTitle[2] ?? null,
                 $this->paramsTitle[3] ?? null,
                 $this->paramsTitle[4] ?? null,
-                $this->paramsTitle[5] ?? null
+                $this->paramsTitle[5] ?? null,
+                $this->paramsTitle[6] ?? null
             );
             $obj->render();
         }

@@ -215,4 +215,13 @@ class Consulta
         $ret = $this->db->deleteSQL($sql);
         return $ret;
     }
+    public function updateProximaConsulta($iConDiaPC, $iConTipPC)
+    {
+        $sql = "UPDATE {$this->mainTable} 
+        SET con_diapc=?, con_typvisP=? 
+        WHERE md5(con_num)=?";
+        $arrayData = array($iConDiaPC, $iConTipPC, $this->id);
+        $ret = $this->db->updateSQLR($sql, $arrayData);
+        return $ret;
+    }
 }

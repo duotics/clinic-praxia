@@ -8,8 +8,8 @@ class Indicacion
 {
     private $db;
 
-    protected $mainTable = "db_indicaciones";
-    protected $mainID = "id";
+    protected $mainTableName = "db_indicaciones";
+    protected $mainIDname = "idInd";
     protected $id;
     public $det;
     function __construct()
@@ -26,22 +26,33 @@ class Indicacion
     }
     public function det()
     {
-        $this->det = $this->db->detRow($this->mainTable, null, "md5({$this->mainID})", $this->id);
+        $this->det = $this->db->detRow($this->mainTableName, null, "md5({$this->mainIDname})", $this->id);
     }
     function getAll()
     {
-        $sql = "SELECT * FROM {$this->mainTable} ORDER BY {$this->mainID} DESC";
+        $sql = "SELECT * FROM {$this->mainTableName} ORDER BY {$this->mainIDname} DESC";
         $res = $this->db->selectAllSQL($sql);
         return $res;
     }
     function getAllListActive()
     {
-        return $this->db->detRowGSelA($this->mainTable, $this->mainID, 'des', 'est', 1, TRUE, 'des', 'ASC');
+        return $this->db->detRowGSelA($this->mainTableName, $this->mainIDname, 'des', 'est', 1, TRUE, 'des', 'ASC');
+    }
+    public function getAllSelect()
+    {
+        $sql = "SELECT 
+        {$this->mainIDname} AS sID, 
+        tM.indicacion as sVAL 
+        FROM {$this->mainTableName} tM
+        WHERE status=1 
+        ORDER BY tM.feature DESC";
+        $res = $this->db->selectAllSQL($sql);
+        return $res;
     }
     public function insertIndicacion($iDes, $iFeat, $iEst)
     {
         $AUD = AUD('Crea Indicación');
-        $sql = "INSERT INTO {$this->mainTable} 
+        $sql = "INSERT INTO {$this->mainTableName} 
         (des, feat, est) 
 		VALUES (?,?,?)";
         $arrayData = array($iDes, $iFeat, $iEst);
@@ -56,7 +67,7 @@ class Indicacion
     {
         $this->det();
         $idAud = AUD('Actualización Media', $this->det['idA']);
-        $sql = "UPDATE {$this->mainTable} SET des=?, feat=?, est=? WHERE md5({$this->mainID})=? LIMIT 1";
+        $sql = "UPDATE {$this->mainTableName} SET des=?, feat=?, est=? WHERE md5({$this->mainIDname})=? LIMIT 1";
         $arrayData = array($iDes, $iFeat, $iEst, $this->id);
         $ret = $this->db->updateSQLR($sql, $arrayData);
         vP($ret['est'], $ret['log']);
@@ -64,14 +75,14 @@ class Indicacion
     }
     function deleteIndicacion()
     {
-        $sql = "DELETE FROM {$this->mainTable} WHERE md5({$this->mainID})='{$this->id}' LIMIT 1";
+        $sql = "DELETE FROM {$this->mainTableName} WHERE md5({$this->mainIDname})='{$this->id}' LIMIT 1";
         $ret = $this->db->deleteSQLR($sql);
         vP($ret['est'], $ret['log']);
         return $ret;
     }
     function changeStatus(int $val)
     {
-        $sql = "UPDATE {$this->mainTable} SET est=? WHERE md5({$this->mainID})=? LIMIT 1";
+        $sql = "UPDATE {$this->mainTableName} SET est=? WHERE md5({$this->mainIDname})=? LIMIT 1";
         $arrayData = array($val, $this->id);
         $ret = $this->db->updateSQLR($sql, $arrayData);
         vP($ret['est'], $ret['log']);
@@ -79,7 +90,7 @@ class Indicacion
     }
     function changeFeature(int $val)
     {
-        $sql = "UPDATE {$this->mainTable} SET feat=? WHERE md5({$this->mainID})=? LIMIT 1";
+        $sql = "UPDATE {$this->mainTableName} SET feat=? WHERE md5({$this->mainIDname})=? LIMIT 1";
         $arrayData = array($val, $this->id);
         $ret = $this->db->updateSQLR($sql, $arrayData);
         vP($ret['est'], $ret['log']);

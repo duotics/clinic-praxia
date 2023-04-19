@@ -3,52 +3,75 @@
 namespace App\Models;
 
 use App\Core\Database;
+use App\Models\Medicamento;
+use App\Models\Indicacion;
 
 class Tratamiento
 {
     private $db;
-    protected $mainTable = "db_tratamientos";
-    protected $mainID = "idTrat";
-    protected $secondTable = "db_tratamientos_detalle";
-    protected $secondID = "idTDet";
+    protected $mMed;
+    protected $mInd;
+    protected $mainTableName = "db_tratamientos";
+    protected $mainIDname = "idTrat";
+    protected $secTableName = "db_tratamientos_detalle";
+    protected $secIDname = "idTDet";
     protected $id;
+    protected $idSec;
     protected $idp;
     public $det;
+    public $detSec;
     function __construct()
     {
         $this->db = new Database();
+        $this->mMed = new Medicamento();
+        $this->mInd = new Indicacion();
     }
     /* 
     SETTERS 
     */
-    function setID($id)
+    public function setID($id)
     {
         $this->id = $id;
     }
-    function setIDp($id)
+    public function setIDsec($id)
+    {
+        $this->idSec = $id;
+    }
+    public function setIDp($id)
     {
         $this->idp = $id;
     }
-    function getID()
+    /*
+    GETTERS
+    */
+    public function getID()
     {
         return $this->id;
     }
+    /*
+    FUNCTIONS DATA
+    */
     public function det()
     {
-        $this->det = $this->db->detRow($this->mainTable, null, "md5({$this->mainID})", $this->id);
+        $this->det = $this->db->detRow($this->mainTableName, null, "md5({$this->mainIDname})", $this->id);
+    }
+    public function detSec()
+    {
+        $this->det = $this->db->detRow($this->secTableName, null, "md5({$this->secIDname})", $this->idSec);
     }
     public function listadoTratamientos()
     {
-        $this->db->dbh->query("SELECT * FROM {$this->mainTable} WHERE id_paciente = :id_paciente");
+        $this->db->dbh->query("SELECT * FROM {$this->mainTableName} WHERE id_paciente = :id_paciente");
         $this->db->dbh->bind(':id_paciente', $this->det['id_paciente']);
         return $this->db->dbh->registros();
     }
     public function listadoTratamientosAnteriores()
     {
-        $sql = "SELECT * FROM {$this->mainTable} 
+        $sql = "SELECT * 
+        FROM {$this->mainTableName} 
         WHERE md5(pac_cod) = '{$this->idp}' 
-        AND md5({$this->mainID}) != '{$this->id}' 
-        ORDER BY fecha DESC LIMIT 20";
+        AND md5({$this->mainIDname}) != '{$this->id}' 
+        ORDER BY date DESC LIMIT 20";
         //dep($sql);
         $ret = $this->db->selectAllSQL($sql);
         return $ret;
@@ -68,17 +91,154 @@ class Tratamiento
     {
         $sql = "
         SELECT 
-        td.{$this->secondID} AS id,
+        td.{$this->secIDname} AS id,
         IF(td.idMed IS NOT NULL, CONCAT_WS(' - ', td.generico, td.comercial, td.presentacion), td.indicacion) AS nombre, 
         IF(td.idMed IS NOT NULL, td.cantidad, NULL) AS can, 
         IF(td.idMed IS NOT NULL, 'M', IF(td.idInd IS NOT NULL, 'I', NULL)) AS tipo
         FROM 
-        {$this->secondTable} AS td 
+        {$this->secTableName} AS td 
         WHERE 
         md5(td.idTrat) = '{$this->id}' AND 
         (td.idMed IS NOT NULL OR td.idInd IS NOT NULL)
         ORDER BY tipo DESC";
         $ret = $this->db->selectAllSQL($sql);
+        return $ret;
+    }
+    public function listTratamientosDetalleForm()
+    {
+        $sql = "
+        SELECT 
+        td.{$this->secIDname} AS ID,
+        IF(td.idMed IS NOT NULL, td.generico, NULL) AS GEN, 
+        IF(td.idMed IS NOT NULL, td.comercial, NULL) AS COM, 
+        IF(td.idMed IS NOT NULL, td.presentacion, NULL) AS PRE, 
+        IF(td.idMed IS NOT NULL, td.cantidad, NULL) AS CAN, 
+        IF(td.idMed IS NOT NULL, td.numero, NULL) AS NUM, 
+        IF(td.idMed IS NOT NULL, td.descripcion, NULL) AS DES, 
+        IF(td.idInd IS NOT NULL, td.indicacion, NULL) AS IND, 
+        IF(td.idMed IS NOT NULL, 'M', IF(td.idInd IS NOT NULL, 'I', NULL)) AS TIPO
+        FROM 
+        {$this->secTableName} AS td 
+        WHERE 
+        md5(td.idTrat) = '{$this->id}' AND 
+        (td.idMed IS NOT NULL OR td.idInd IS NOT NULL)
+        ORDER BY tipo DESC";
+        dep($sql);
+        $ret = $this->db->selectAllSQL($sql);
+        return $ret;
+    }
+
+    /*
+    CRUD
+    */
+    public function insertTratamiento(
+        $idc,
+        $idp,
+        $iDateP = null,
+        $iDiag = null,
+        $iObs = null
+    ) {
+        $sql = "INSERT INTO {$this->mainTableName} 
+        (con_num, pac_cod, fechap, diagnostico, obs) VALUES(?,?,?,?,?)";
+        $arrayData = array($idc, $idp, $iDateP, $iDiag, $iObs);
+        $ret = $this->db->insertSQLR($sql, $arrayData);
+        vP($ret['est'], $ret['log']);
+        return $ret;
+    }
+    public function insertTratamientoDetalleVerifyGroup(
+        $idMed = null,
+        $idInd = null,
+        $iGen = null,
+        $iCom = null,
+        $iPres = null,
+        $iCan = null,
+        $iNum = null,
+        $iDes = null,
+        $iInd = null
+    ) {
+        if ($idMed) {
+            //Verifico si esque el ID MEDICAMENTO SE REFIERE A UN GRUPO
+            $this->mMed->setID($idMed);
+            $lMG = $this->mMed->gelAllMedGroupParent($idMed);
+            if ($lMG) {
+                foreach ($lMG as $dMG) {
+                    $this->insertTratamientoDetalle($this->id, $dMG['IDM'], null, $dMG['GEN'], $dMG['COM'], $dMG['PRE'], $dMG['CAN'], $dMG['NUM'], $dMG['DES']);
+                }
+            } else {
+                $this->insertTratamientoDetalle($this->id, $idMed, null, $iGen, $iCom, $iPres, $iCan, $iNum, $iDes);
+            }
+        } else if ($idInd) {
+            $this->insertTratamientoDetalle($this->id, null, $idInd, null, null, null, null, null, null, $idInd);
+        }
+    }
+    public function insertTratamientoDetalle(
+        $idTrat,
+        $idMed = null,
+        $idInd = null,
+        $iGen = null,
+        $iCom = null,
+        $iPres = null,
+        $iCan = null,
+        $iNum = null,
+        $ides = null,
+        $iInd = null
+    ) {
+        $sql = "INSERT INTO {$this->secTableName} 
+        (idTrat, idMed, idInd, generico, comercial, presentacion, cantidad, numero, descripcion, indicacion) 
+        VALUES(?,?,?,?,?,?,?,?,?,?)";
+        $arrayData = array($idTrat, $idMed, $idInd, $iGen, $iCom, $iPres, $iCan, $iNum, $ides, $iInd);
+        $ret = $this->db->insertSQLR($sql, $arrayData);
+        vP($ret['est'], $ret['log']);
+        return $ret;
+    }
+    public function updateTratamiento(
+        $iDateP = null,
+        $iDiag = null,
+        $iObs = null
+    ) {
+        $sql = "UPDATE {$this->mainTableName} 
+        fechap = ?, diagnostico = ?, obs = ? 
+        WHERE md5({$this->mainIDname})=? 
+        LIMIT 1";
+        $arrayData = array($iDateP, $iDiag, $iObs, $this->id);
+        $ret = $this->db->updateSQLR($sql, $arrayData);
+        vP($ret['est'], $ret['log']);
+        return $ret;
+    }
+    public function updateTratamientoDetalle(
+        $iGen = null,
+        $iCom = null,
+        $iPre = null,
+        $iCan = null,
+        $iNum = null,
+        $iDes = null,
+        $iInd = null
+    ) {
+        $sql = "UPDATE {$this->secTableName} 
+        generico=?, comercial=?, presentacion=?, cantidad=?, numero=?, descripcion=?, indicacion=? 
+        WHERE md5({$this->secIDname})=? 
+        LIMIT 1";
+        $arrayData = array($iGen, $iCom, $iPre, $iCan, $iNum, $iDes, $iInd, $this->idSec);
+        $ret = $this->db->updateSQLR($sql, $arrayData);
+        vP($ret['est'], $ret['log']);
+        return $ret;
+    }
+    public function eliminarTratamiento()
+    {
+        $sql = "DELETE FROM {$this->mainTableName} 
+        WHERE md5({$this->mainIDname})='{$this->id}' 
+        LIMIT 1";
+        $ret = $this->db->deleteSQLR($sql);
+        vP($ret['est'], $ret['log']);
+        return $ret;
+    }
+    public function eliminarTratamientoDetalle()
+    {
+        $sql = "DELETE FROM {$this->secTableName} 
+        WHERE md5({$this->secTableName})='{$this->idSec}' 
+        LIMIT 1";
+        $ret = $this->db->deleteSQLR($sql);
+        vP($ret['est'], $ret['log']);
         return $ret;
     }
 }

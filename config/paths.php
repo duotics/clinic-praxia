@@ -1,7 +1,7 @@
 <?php
 //Paths server
-define('rootP', $rootP . '/');
-define('rootM', $root . '/');
+define('rootM', $rootM . '/'); //Main Folder App, init.php file is set
+define('rootP', $rootP . '/'); //Parent Main Folder App, init.php file is set
 define('root', array(
     '0' => rootM,
     'a' => rootM . 'assets/',
@@ -17,13 +17,13 @@ define('root', array(
     't' => rootM . 'resources/templates/'
 ));
 //Paths url
-define('routeP', $_ENV['APP_URLR']);
-define('routeM', $_ENV['APP_URL']);
+define('routeP', $_ENV['APP_URLR']); //Main URL App, defined in .env
+define('routeM', $_ENV['APP_URL']); //Parent Main URL App, defined in .env
 define('route', array(
     '0' => routeM,
     'd' => routeM . 'data/',
     'c' => routeM . 'components/',
-    'o' => routeM . 'config/',    
+    'o' => routeM . 'config/',
     's' => routeM . 'system/',
     'n' => routeM . 'node_modules/',
     'p' => routeM . 'api/',
@@ -33,3 +33,4 @@ define('route', array(
     'a' => routeM . 'resources/assets/',
     't' => routeM . 'resources/templates/'
 ));
+$route = route;

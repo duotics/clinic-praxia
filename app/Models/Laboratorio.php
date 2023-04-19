@@ -7,46 +7,66 @@ use App\Core\Database;
 class Laboratorio
 {
     private $db;
-    protected $mainTable = "db_laboratorio";
-    protected $mainID = "idLab";
+    protected $mainTableName = "db_laboratorio";
+    protected $mainIDname = "idLab";
     protected $id;
     public $det;
-    function __construct()
+    /*
+    CONSTRUCT
+    */
+    public function __construct()
     {
         $this->db = new Database();
     }
-    function setID($id)
+    /*
+    SETTERS
+    */
+    public function setID($id)
     {
         $this->id = $id;
     }
-    function getID()
+    /*
+    GETTERS
+    */
+    public function getID()
     {
         return $this->id;
     }
+    public function getMainTableName()
+    {
+        return $this->mainTableName;
+    }
+    public function getMainIDname()
+    {
+        return $this->mainIDname;
+    }
+    /*
+    FUNCTION DATA
+    */
     public function det()
     {
-        $this->det = $this->db->detRow($this->mainTable, null, "md5({$this->mainID})", $this->id);
+        $this->det = $this->db->detRow($this->mainTableName, null, "md5({$this->mainIDname})", $this->id);
     }
     function getAll()
     {
-        $sql = "SELECT * FROM {$this->mainTable} ORDER BY {$this->mainID} DESC";
+        $sql = "SELECT * FROM {$this->mainTableName} ORDER BY {$this->mainIDname} DESC";
         $res = $this->db->selectAllSQL($sql);
         return $res;
     }
     public function getAllList()
     {
-        $sql = "SELECT {$this->mainID} as sID, nomLab as sVAL FROM {$this->mainTable} WHERE status=1 ORDER BY nomLab ASC";
+        $sql = "SELECT {$this->mainIDname} as sID, nomLab as sVAL FROM {$this->mainTableName} WHERE status=1 ORDER BY nomLab ASC";
         $res = $this->db->selectAllSQL($sql);
         return $res;
     }
     function getAllListActive()
     {
-        return $this->db->detRowGSelA($this->mainTable, $this->mainID, 'nomLab', 'STATUS', 1, TRUE, 'nomLab', 'ASC');
+        return $this->db->detRowGSelA($this->mainTableName, $this->mainIDname, 'nomLab', 'STATUS', 1, TRUE, 'nomLab', 'ASC');
     }
     public function insertLaboratorio($iNom, $iDes, $iEst)
     {
         $AUD = AUD('Crea Laboratorio');
-        $sql = "INSERT INTO {$this->mainTable} 
+        $sql = "INSERT INTO {$this->mainTableName} 
         (nomLab, desLab, idAud, status) 
 		VALUES (?,?,?,?)";
         $arrayData = array($iNom, $iDes, $iEst, $AUD);
@@ -60,8 +80,8 @@ class Laboratorio
     {
         $this->det();
         $idAud = AUD('Actualización Laboratorio', $this->det['idAud']);
-        $sql = "UPDATE {$this->mainTable} SET nomLab=?, desLab=?, status=?, idAud=? 
-        WHERE md5({$this->mainID})=? LIMIT 1";
+        $sql = "UPDATE {$this->mainTableName} SET nomLab=?, desLab=?, status=?, idAud=? 
+        WHERE md5({$this->mainIDname})=? LIMIT 1";
         $arrayData = array($iNom, $iDes, $iEst, $idAud, $this->id);
         $ret = $this->db->updateSQLR($sql, $arrayData);
         vP($ret['est'], $ret['log']);
@@ -69,14 +89,14 @@ class Laboratorio
     }
     function deleteLaboratorio()
     {
-        $sql = "DELETE FROM {$this->mainTable} WHERE md5({$this->mainID})='{$this->id}' LIMIT 1";
+        $sql = "DELETE FROM {$this->mainTableName} WHERE md5({$this->mainIDname})='{$this->id}' LIMIT 1";
         $ret = $this->db->deleteSQLR($sql);
         vP($ret['est'], $ret['log']);
         return $ret;
     }
     function changeStatus(int $val)
     {
-        $sql = "UPDATE {$this->mainTable} SET status=? WHERE md5({$this->mainID})=? LIMIT 1";
+        $sql = "UPDATE {$this->mainTableName} SET status=? WHERE md5({$this->mainIDname})=? LIMIT 1";
         $arrayData = array($val, $this->id);
         $ret = $this->db->updateSQLR($sql, $arrayData);
         vP($ret['est'], $ret['log']);

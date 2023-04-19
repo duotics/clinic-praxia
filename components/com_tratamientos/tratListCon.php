@@ -5,16 +5,15 @@ use App\Models\Tratamiento;
 $mTrat = new Tratamiento();
 $mTrat->setIDp($idsPac);
 $lTratAnt = $mTrat->listadoTratamientosAnteriores();
+$cont = "<i class='fa fa-columns fa-lg'></i> RECETAS";
+$accBtn = md5("NEWt");
+$btnNew = "<a href='{$route['c']}com_tratamientos/tratamientoForm.php?idp={$idsPac}&idc={$idsCon}&acc={$accBtn}' class='btn btn-sm btn-light'>{$cfg['i']['new']} NUEVA RECETA</a>";
+$objTit = new App\Core\genInterfaceTitle(null, "card", $cont, $btnNew, null, null, "h4");
 ?>
 
-<div class="panel panel-primary">
-	<div class="panel-heading">
-		<i class="fa fa-columns fa-lg"></i> RECETAS
-		<a href="<?php echo "{$RAIZc}com_tratamientos/tratamientoForm.php?idp=$idp&idc=$idc&acc=" . md5("NEWt") ?>" class="btn btn-default fancybox.iframe fancyreload">
-			<?php echo $cfg['i']['new'] ?> NUEVA RECETA
-		</a>
-	</div>
-	<div class="panel-body">
+<div>
+	<?php $objTit->render() ?>
+	<div>
 		<?php if ($lTratAnt) { ?>
 			<table class="table table-striped table-bordered table-sm">
 				<thead>
