@@ -1,6 +1,6 @@
 <div class="row">
-    <div class="col-sm-6">
-        <fieldset class="form-horizontal">
+    <div class="col-sm-12 col-md-7 col-lg-6">
+        <fieldset class="form-horizontal mb-3">
             <div class="row mb-3">
                 <label class="col-sm-4 col-form-label col-form-label-sm">Apariencia General</label>
                 <div class="col-sm-8">
@@ -51,7 +51,7 @@
             </div>
         </fieldset>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-12 col-md-5 col-lg-6">
         <fieldset class="form-horizontal">
             <legend>TORAX</legend>
             <div class="row mb-3">

@@ -2,7 +2,7 @@
 if (isset($dCon['con_fec'])) $dCon_fec = date("d M Y", strtotime($dCon['con_fec']));
 else $dCon_fec = date("d M Y");
 //dep($dM);
-$dataHead = array("icon" => $dM['icon'] ?? null, "nom" => $dM['nom'] ?? null, "des" => $idc ?? null);
+$dataHead = array("nom" => $dM['nom'] ?? null, "des" => $idc ?? null);
 
 $contHead = " <span class='badge bg-secondary'>Visita " . $objCon->btnHis['TRs'] . "</span> 
 <span class='badge bg-info'>{$dCon_fec}</span>

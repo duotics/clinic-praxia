@@ -24,6 +24,14 @@ $(document).ready(function () {
     },
   });
 
+  Fancybox.bind('[data-fancybox="reload"]', {
+    on: {
+      destroy: (fancybox, slide) => {
+        parent.location.reload(true);
+      },
+    },
+  });
+
   //Tiny MCE
   tinymce.init({
     selector: "textarea.tinymce",

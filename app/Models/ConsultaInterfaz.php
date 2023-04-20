@@ -100,14 +100,16 @@ class ConsultaInterfaz extends Consulta
         $ret = null;
         $lConDiagHist = $this->getAllConsultasPacienteDiagnosticos();
         if ($lConDiagHist) {
-            $ret .= "<table class='table table-sm m-0'>";
+            $ret .= "<div class='table-responsive'>
+            <table class='table table-sm m-0'>";
             foreach ($lConDiagHist as $dRow) :
                 $ret .= "<tr>
 						<th><span class='badge bg-light'>{$dRow['date']}</span></th>
 						<td>{$dRow['diag']}</td>
 					</tr>";
             endforeach;
-            $ret .= "</table>";
+            $ret .= "</table>
+            </div>";
         }
         return $ret;
     }

@@ -29,3 +29,9 @@
 .table-list .btn {
   padding: 0.15rem 0.25rem !important;
 }
+
+/*Datatable custom*/
+.table-wrapper thead {
+  display: none;
+  width: 100%;
+}

@@ -281,3 +281,14 @@ function bisiesto($anio_actual)
 	}
 	return $bisiesto;
 }
+
+function formatFecha($dateString)
+{
+	try {
+		$date = new DateTimeImmutable($dateString);
+		$formattedDate = $date->format('Y-m-d');
+		return $formattedDate;
+	} catch (Exception $e) {
+		return null;
+	}
+}

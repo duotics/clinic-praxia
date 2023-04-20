@@ -1,15 +1,14 @@
-<div class="card card-primary">
-	<?php
-	$mTrat->setID($idsTrat);
-	$listadoTratamientos = $mTrat->listTratamientosDetalleForm();
+<?php
+$mTrat->setID($idsTrat);
+$listadoTratamientos = $mTrat->listTratamientosDetalleForm();
 
-	if ($listadoTratamientos) {
-	?>
-		<h4 class="card-header">
-			<i class="fa fa-columns fa-lg"></i> Receta Médica
-		</h4>
+if ($listadoTratamientos) { ?>
+	<div class="card card-primary">
+		<div class="card-header p-2">
+			<i class="fa fa-columns fa-lg"></i> Detalles del tratamiento
+		</div>
 		<div class="table-responsive">
-			<table class="table table-bordered table-striped tbl-qa">
+			<table class="table table-bordered table-striped tbl-qa table-borderless">
 				<thead>
 					<tr>
 						<th class="table-header">Generico</th>
@@ -42,5 +41,9 @@
 				</tbody>
 			</table>
 		</div>
-	<?php } else echo '<div class="alert alert-warning"><h4>Sin Medicamentos Registrados</h4></div>'; ?>
-</div>
+	</div>
+<?php } else { ?>
+	<div class="alert alert-warning">
+		<h4>Sin Detalles Registrados</h4>
+	</div>
+<?php } ?>

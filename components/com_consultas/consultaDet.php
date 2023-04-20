@@ -92,7 +92,7 @@ $mDiag = new Diagnostico;
 					{
 						data: null,
 						render: function(data, type, row) {
-							return '<span class="delConDiag btn btn-danger btn-xs" data-id="' + row.ID + '">Eliminar</span>';
+							return '<span class="delConDiag btn btn-danger btn-sm" data-id="' + row.ID + '"><i class="fa-solid fa-trash"></i></span>';
 						}
 					}
 				],

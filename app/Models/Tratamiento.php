@@ -123,7 +123,6 @@ class Tratamiento
         md5(td.idTrat) = '{$this->id}' AND 
         (td.idMed IS NOT NULL OR td.idInd IS NOT NULL)
         ORDER BY tipo DESC";
-        dep($sql);
         $ret = $this->db->selectAllSQL($sql);
         return $ret;
     }

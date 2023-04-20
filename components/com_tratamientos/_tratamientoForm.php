@@ -65,22 +65,18 @@ try {
 			<?php $mTpl->renderTop() ?>
 			<div class="card mb-2">
 				<div class="card-body">
-					<fieldset class="row row-cols-lg-auto g-3 align-items-center">
-						<div class="col-12">
-							<label class="control-label">Fecha Receta</label>
-							<input name="fecha" type="date" required class="form-control input-sm" id="fecha" value="<?php echo $dTrat['date'] ?? null ?>" autofocus>
+					<fieldset class="row g-2">
+						<div class="col-6 col-sm-3">
+							<input name="fecha" type="date" required class="form-control form-control-sm" id="fecha" value="<?php echo $dTrat['date'] ?? null ?>" autofocus>
 						</div>
-						<div class="col-12">
-							<label class="control-label">Observaciones</label>
-							<input name="obs" type="text" class="form-control input-sm" id="obs" placeholder="otras indicaciones" value="<?php echo $dTrat['obs'] ?>">
+						<div class="col-6 col-sm-3">
+							<input name="obs" type="text" class="form-control form-control-sm" id="obs" placeholder="Observaciones" value="<?php echo $dTrat['obs'] ?>">
 						</div>
-						<div class="col-12">
-							<label class="control-label">Proxima Consulta</label>
-							<input name="con_diapc" type="number" class="form-control input-sm" id="con_diapc" value="<?php echo $dCon['con_diapc'] ?>">
+						<div class="col-6 col-sm-3">
+							<input name="con_diapc" type="number" class="form-control form-control-sm" id="con_diapc" value="<?php echo $dCon['con_diapc'] ?>" placeholder="Dias proxima visita">
 						</div>
-						<div class="col-12">
-							<label class="control-label">Tipo de Proxima Visita</label>
-							<?php echo $db->genSelectA($mTipo->getSelTipRef("TIPVIS"), 'con_typvisP', $dCon['con_typvisP'] ?? null, ' form-control input-sm setDB', 'data-id="' . $idsCon . '" data-rel="pac"', NULL, true, 0) ?>
+						<div class="col-6 col-sm-3">
+							<?php echo $db->genSelectA($mTipo->getSelTipRef("TIPVIS"), 'con_typvisP', $dCon['con_typvisP'] ?? null, ' form-select form-select-sm setDB', 'data-id="' . $idsCon . '" data-rel="pac"', NULL, true, 0, "- Proxima Visita -") ?>
 						</div>
 					</fieldset>
 				</div>
@@ -90,23 +86,13 @@ try {
 			<div class="row">
 				<div class="col-sm-9">
 					<div class="card mb-2">
-						<div class="card-body">
+						<div class="card-body bg-primary bg-opacity-25">
 							<div class="row">
 								<div class="col-sm-6">
-									<div class="row">
-										<label for="listMed" class="col-sm-4 form-label">Medicamentos</label>
-										<div class="col-sm-8">
-											<?php echo $db->genSelectA($lMedList, 'listMed', NULL, 'form-select form-select-sm', "data-val='{$idsTrat}'", null, true, null, '- Seleccione Medicamento -') ?>
-										</div>
-									</div>
+									<?php echo $db->genSelectA($lMedList, 'listMed', NULL, 'form-select form-select-sm', "data-val='{$idsTrat}'", null, true, 0, '- Medicamentos -') ?>
 								</div>
 								<div class="col-sm-6">
-									<div class="row">
-										<label for="listInd" class="col-sm-4 form-label">Indicaciones</label>
-										<div class="col-sm-8">
-											<?php echo $db->genSelectA($lIndList, 'listInd', NULL, 'form-select form-select-sm', "data-val='{$idsTrat}'", null, true, null, '- Seleccione Indicacion -') ?>
-										</div>
-									</div>
+									<?php echo $db->genSelectA($lIndList, 'listInd', NULL, 'form-select form-select-sm', "data-val='{$idsTrat}'", null, true, 0, '- Indicaciones -') ?>
 								</div>
 							</div>
 						</div>

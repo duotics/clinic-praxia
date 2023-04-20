@@ -18,6 +18,7 @@ class genInterfaceTitle extends genInterface
         protected $css = null,
         protected $tag = 'h1'
     ) {
+        $this->tag = (!empty($this->tag)) ? removeSpecialChars($this->tag) : 'h1';
         $this->mComp = new Componente();
         $this->gen_BS_header();
     }
@@ -47,11 +48,18 @@ class genInterfaceTitle extends genInterface
                     </div></div>";
                     break;
                 case 'header':
-                    $objMod .= "<i class='{$MOD['icon']}'></i> {$MOD['nom']} <span class='badge bg-light'>{$MOD['des']}</span>";
-                    $obj .= '<div class="border-bottom mt-3 mb-3 ' . $this->css . '">';
-                    if ($this->floatL) $obj .= "<div class='float-start'>{$this->floatL}</div>";
-                    if ($this->floatR) $obj .= "<div class='float-end'>{$this->floatR}</div>";
-                    $obj .= "<{$this->tag}> {$objMod} {$this->cont} </{$this->tag}></div>";
+                    $objLeft = (!empty($this->floatL)) ? "<div class='float-start'>{$this->floatL}</div>" : null;
+                    $objRight = (!empty($this->floatR)) ? "<div class='float-end'>{$this->floatR}</div>" : null;
+
+                    $obj .= "<div class='border-bottom mt-3 mb-3 {$this->css}'>
+                        <{$this->tag}>
+                            {$objLeft}
+                            <i class='{$MOD['icon']}'></i> {$MOD['nom']} <span class='badge bg-light'>{$MOD['des']}</span>
+                            {$this->cont}
+                            {$objRight}
+                            <div class='clearfix'></div>
+                        </{$this->tag}>
+                    </div>";
                     break;
                 case 'navbar':
                     $obj .= "<nav class='navbar navbar-dark bg-dark {$this->css}'>

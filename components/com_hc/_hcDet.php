@@ -47,7 +47,7 @@ $dPacHC = $mPacHC->det;
 <!--  -->
 <div class="mt-3">
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-xs-12 col-sm-6 col-md-3">
       <div class="mb-2">
         <label class="col-xs-4 form-label"><strong>FUMA</strong></label>
         <?php echo genFormsInpSwitch("hc_fuma", $dPacHC['hc_fuma'], "Seleccionar si considera", "setDB", "data-rel='hc' data-id='{$idsPac}'") ?>
@@ -67,7 +67,7 @@ $dPacHC = $mPacHC->det;
         <div id="resIT"></div>
       </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-xs-12 col-sm-6 col-md-3">
       <div class="mb-3">
         <label for="hc_alco" class="form-label"><strong>ALCOHOL</strong></label>
         <?php echo genFormsInpSwitch("hc_alco", $dPacHC['hc_alco'], "Seleccionar si considera", "setDB", "data-rel='hc' data-id='{$idsPac}'") ?>
@@ -81,7 +81,7 @@ $dPacHC = $mPacHC->det;
         <input type="text" name="hc_alcoc" id="hc_alcoc" value="<?php echo $dPacHC['hc_alcoc'] ?>" data-rel="hc" data-id="<?php echo $idsPac ?>" class="form-control setDB" onChange="calcIT()">
       </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-xs-12 col-sm-6 col-md-3">
       <div class="mb-2">
         <label for="hc_drog" class="form-label"><strong>DROGAS</strong></label>
         <?php echo genFormsInpSwitch("hc_drog", $dPacHC['hc_drog'], "Seleccionar si considera", "setDB", "data-rel='hc' data-id='{$idsPac}'") ?>
@@ -95,7 +95,7 @@ $dPacHC = $mPacHC->det;
         <input type="text" name="hc_drogc" id="hc_drogc" value="<?php echo $dPacHC['hc_drogc'] ?>" data-rel="hc" data-id="<?php echo $idsPac ?>" class="form-control setDB" onChange="calcIT()">
       </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-xs-12 col-sm-6 col-md-3">
       <div class="mb-2">
         <label for="hc_obs" class="form-label">Observaciones</label>
         <textarea name="hc_obs" id="hc_obs" data-rel="hc" data-id="<?php echo $idsPac ?>" class="form-control setDB" rows="8"><?php echo $dPacHC['hc_obs'] ?></textarea>
