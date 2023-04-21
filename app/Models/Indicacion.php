@@ -16,25 +16,34 @@ class Indicacion
     {
         $this->db = new Database();
     }
-    function setID($id)
+    /*
+    SETTERS
+    */
+    public function setID($id)
     {
         $this->id = $id;
     }
-    function getID()
+    /*
+    GETTERS
+    */
+    public function getID()
     {
         return $this->id;
     }
+    /*
+    DATA FUNCTIONS
+    */
     public function det()
     {
         $this->det = $this->db->detRow($this->mainTableName, null, "md5({$this->mainIDname})", $this->id);
     }
-    function getAll()
+    public function getAll()
     {
         $sql = "SELECT * FROM {$this->mainTableName} ORDER BY {$this->mainIDname} DESC";
         $res = $this->db->selectAllSQL($sql);
         return $res;
     }
-    function getAllListActive()
+    public function getAllListActive()
     {
         return $this->db->detRowGSelA($this->mainTableName, $this->mainIDname, 'des', 'est', 1, TRUE, 'des', 'ASC');
     }
@@ -49,6 +58,13 @@ class Indicacion
         $res = $this->db->selectAllSQL($sql);
         return $res;
     }
+    public function getTR()
+    {
+        return $this->db->totRowsTab($this->mainTableName);
+    }
+    /*
+    CRUD
+    */
     public function insertIndicacion($iDes, $iFeat, $iEst)
     {
         $AUD = AUD('Crea Indicación');
@@ -63,7 +79,7 @@ class Indicacion
         vP($ret['est'], $ret['log']);
         return $ret;
     }
-    function updateIndicacion($iDes, $iFeat, $iEst)
+    public function updateIndicacion($iDes, $iFeat, $iEst)
     {
         $this->det();
         $idAud = AUD('Actualización Media', $this->det['idA']);
@@ -73,14 +89,14 @@ class Indicacion
         vP($ret['est'], $ret['log']);
         return $ret;
     }
-    function deleteIndicacion()
+    public function deleteIndicacion()
     {
         $sql = "DELETE FROM {$this->mainTableName} WHERE md5({$this->mainIDname})='{$this->id}' LIMIT 1";
         $ret = $this->db->deleteSQLR($sql);
         vP($ret['est'], $ret['log']);
         return $ret;
     }
-    function changeStatus(int $val)
+    public function changeStatus(int $val)
     {
         $sql = "UPDATE {$this->mainTableName} SET est=? WHERE md5({$this->mainIDname})=? LIMIT 1";
         $arrayData = array($val, $this->id);
@@ -88,7 +104,7 @@ class Indicacion
         vP($ret['est'], $ret['log']);
         return $ret;
     }
-    function changeFeature(int $val)
+    public function changeFeature(int $val)
     {
         $sql = "UPDATE {$this->mainTableName} SET feat=? WHERE md5({$this->mainIDname})=? LIMIT 1";
         $arrayData = array($val, $this->id);

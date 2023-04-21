@@ -103,7 +103,7 @@ function verifyHC($id_pac, $data)
 	return ($LOG);
 }
 //FUNCION AUDITORIA
-function AUD($id = NULL, $des = NULL, $eve = NULL)
+function AUD_old($id = NULL, $des = NULL, $eve = NULL)
 {
 	$id_aud = null;
 	//Generación Descrición ($des), dependiendo del Evento ($eve)

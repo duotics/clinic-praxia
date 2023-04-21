@@ -108,18 +108,65 @@ try {
 
 		<script type="text/javascript">
 			$(document).ready(function() {
+
 				$('#listMed').select2({
+					ajax: {
+						url: RAIZp+'json.medicamentos.php',
+						dataType: 'json',
+						delay: 500,
+						data: function(params) {
+							return {
+								q: params.term
+							};
+						},
+						processResults: function(data) {
+							return {
+								results: data
+							};
+						},
+						cache: true
+					}
+				});
+
+				// Add event listener for opening and closing details
+				$('#listMed3').on('select2:select', function(e) {
+					$(this).val('').trigger('change');
+					var data = e.params.data;
+					var idc = $(this).data('val'); // Get the selected value from the input list
+					var dataAjax = {
+						idc: idc,
+						idd: data.id,
+						acc: "insConsDiag"
+					}; // Create an object with the data to be sent to the server
+					var url = '_accConDiag.php';
+					$.ajax({
+						url: url,
+						method: 'GET',
+						data: dataAjax,
+						success: function(response) {
+							console.log('Data saved successfully: ' + response);
+							table.ajax.reload();
+						},
+						error: function(jqXHR, textStatus, errorThrown) {
+							console.log('Error saving data: ' + textStatus + ' - ' + errorThrown);
+						}
+					});
+				});
+
+
+
+				$('#listMed2').select2({
 					width: "100%"
 				});
-				$('#listInd').select2({
+				$('#listInd2').select2({
 					width: "100%"
 				});
-				$('#listMed').on('change', function(evt, params) {
+				$('#listMed2').on('change', function(evt, params) {
 					doGetMedicamento(evt, params);
 					$('#txtDesMod').html('Prescripcion');
 					$('#txtDesMod').focus();
 				});
-				$('#listInd').on('change', function(evt, params) {
+				$('#listInd2').on('change', function(evt, params) {
 					doGetIndicaciones(evt, params);
 					$('#txtDesMod').html('Indicaciones');
 					$('#txtDesMod').focus();

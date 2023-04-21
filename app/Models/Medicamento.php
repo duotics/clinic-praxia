@@ -117,15 +117,19 @@ class Medicamento
     {
         // Perform the search query using the search term and page number
         $sql = "SELECT 
-        {$this->mainIDname} AS id, 
-        CONCAT_WS(' | ', codigo, nombre) AS text
-        FROM db_diagnosticos 
-        WHERE (nombre LIKE '%$q%' OR codigo LIKE '%$q%') 
-        AND {$this->mainIDname}>1 
-        ORDER BY id_diag ASC 
+        tM.idMed AS id,
+        CONCAT_WS(' ', tL.nomLab, tM.generico, '(', tM.comercial, ')', tM.presentacion, tM.cantidad) AS text
+        FROM {$this->mainTableName} tM
+        LEFT JOIN {$this->mLab->getMainTableName()} tL ON tM.idLab= tL.idLab
+        WHERE tM.status=1
+        AND (generico LIKE '%$q%' OR comercial LIKE '%$q%' OR presentacion LIKE '%$q%' OR descripcion LIKE '%$q%') 
         LIMIT $limit";
         $res = $this->db->selectAllSQL($sql);
         return $res;
+    }
+    public function getTR()
+    {
+        return $this->db->totRowsTab($this->mainTableName);
     }
     /*
     CRUD

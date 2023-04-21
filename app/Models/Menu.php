@@ -21,8 +21,8 @@ class Menu
     protected $idi;
     protected $refMenu;
     protected $refMenuItem;
-    public $det;
-    public $detI;
+    protected $det;
+    protected $detI;
 
     function __construct()
     {
@@ -34,7 +34,7 @@ class Menu
     {
         $this->id = $id;
     }
-    function setIDi(string $id)
+    function setIDi($id)
     {
         $this->idi = $id;
     }
@@ -70,6 +70,10 @@ class Menu
     function getDet()
     {
         return $this->det;
+    }
+    function getDetI()
+    {
+        return $this->detI;
     }
     /*
     FUNCTIONS DATA SELECTS
@@ -120,6 +124,12 @@ class Menu
     }
 
     function getAllMenu()
+    {
+        $sql = "SELECT * FROM {$this->mainTableName}";
+        $res = $this->db->selectAllSQL($sql);
+        return $res;
+    }
+    function getAllMenuSelect()//Pending
     {
         $sql = "SELECT * FROM {$this->mainTableName}";
         $res = $this->db->selectAllSQL($sql);

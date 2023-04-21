@@ -1,4 +1,5 @@
-<?php include("../../init.php");
+<?php include("../init.php");
+$Auth->vLogin();
 
 use App\Models\Diagnostico;
 

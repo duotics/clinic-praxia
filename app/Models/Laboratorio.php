@@ -47,7 +47,7 @@ class Laboratorio
     {
         $this->det = $this->db->detRow($this->mainTableName, null, "md5({$this->mainIDname})", $this->id);
     }
-    function getAll()
+    public function getAll()
     {
         $sql = "SELECT * FROM {$this->mainTableName} ORDER BY {$this->mainIDname} DESC";
         $res = $this->db->selectAllSQL($sql);
@@ -59,10 +59,17 @@ class Laboratorio
         $res = $this->db->selectAllSQL($sql);
         return $res;
     }
-    function getAllListActive()
+    public function getAllListActive()
     {
         return $this->db->detRowGSelA($this->mainTableName, $this->mainIDname, 'nomLab', 'STATUS', 1, TRUE, 'nomLab', 'ASC');
     }
+    public function getTR()
+    {
+        return $this->db->totRowsTab($this->mainTableName);
+    }
+    /*
+    CRUD
+    */
     public function insertLaboratorio($iNom, $iDes, $iEst)
     {
         $AUD = AUD('Crea Laboratorio');
@@ -76,7 +83,7 @@ class Laboratorio
         vP($ret['est'], $ret['log']);
         return $ret;
     }
-    function updateLaboratorio($iNom, $iDes, $iEst)
+    public function updateLaboratorio($iNom, $iDes, $iEst)
     {
         $this->det();
         $idAud = AUD('Actualización Laboratorio', $this->det['idAud']);
@@ -87,14 +94,14 @@ class Laboratorio
         vP($ret['est'], $ret['log']);
         return $ret;
     }
-    function deleteLaboratorio()
+    public function deleteLaboratorio()
     {
         $sql = "DELETE FROM {$this->mainTableName} WHERE md5({$this->mainIDname})='{$this->id}' LIMIT 1";
         $ret = $this->db->deleteSQLR($sql);
         vP($ret['est'], $ret['log']);
         return $ret;
     }
-    function changeStatus(int $val)
+    public function changeStatus(int $val)
     {
         $sql = "UPDATE {$this->mainTableName} SET status=? WHERE md5({$this->mainIDname})=? LIMIT 1";
         $arrayData = array($val, $this->id);

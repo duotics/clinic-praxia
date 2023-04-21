@@ -55,6 +55,8 @@ $objTit = new App\Core\genInterfaceTitle($dM, 'header', null, $btnCont . $btnNew
 				<?php foreach ($lMenuI as $dRSd) {
 					$ids = md5($dRSd['id']);
 					$btnStat = genStatus('_acc.php', array("ids" => $ids, "val" => $dRSd['status'], "acc" => md5('STmi'), "url" => $urlc));
+					$btnEdit = "<a href='formItems.php?k={$ids}' class='btn btn-primary btn-sm'>{$cfg['i']['edit']}</a>";
+					$btnDel = "<a href='_acc.php?k={$ids}&acc=" . md5('DELmi') . "&url={$urlc}' class='btn btn-danger btn-sm vAccL'>{$cfg['i']['del']}</a>";
 				?>
 					<tr>
 						<td><?php echo $btnStat ?></td>
@@ -68,10 +70,9 @@ $objTit = new App\Core\genInterfaceTitle($dM, 'header', null, $btnCont . $btnNew
 						<td><?php echo $dRSd['ord'] ?></td>
 						<td>
 							<div class="btn-group">
-								<a href="formItems.php?ids=<?php echo $ids ?>" class="btn btn-primary btn-sm">
-									<?php echo $cfg['i']['edit'] ?>
-									<a href="_acc.php?ids=<?php echo $ids ?>&acc=<?php echo md5('DELmi') ?>&url=<?php echo $urlc ?>" class="btn btn-danger btn-sm vAccL">
-										<?php echo $cfg['i']['del'] ?>
+								<?php echo $btnEdit ?>
+								<?php echo $btnDel ?>
+							</div>
 						</td>
 					</tr>
 				<?php } ?>

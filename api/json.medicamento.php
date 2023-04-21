@@ -1,4 +1,5 @@
-<?php require_once('../../init.php');
+<?php require_once('../init.php');
+$Auth->vLogin();
 $mMed = new App\Models\Medicamento;
 $param = $_REQUEST['param'] ?? null;
 $vP = false;

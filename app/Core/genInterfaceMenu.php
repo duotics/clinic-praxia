@@ -17,7 +17,7 @@ class genInterfaceMenu extends genInterface
     {
         $this->mMenu = new Menu();
         $this->mMenu->detParam($this->mMenu->getmainRefName(), $this->refMC);
-        $this->dMenu = $this->mMenu->det;
+        $this->dMenu = $this->mMenu->getDet();
         $this->gen_BS_navbar();
     }
     //BEG GENERACION MENU

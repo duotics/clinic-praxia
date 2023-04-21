@@ -10,9 +10,9 @@ class TemplateGen
     protected static $head;
     protected static $foot;
     public function __construct(
-        protected $paramsHead,
-        protected $paramsFoot,
-        protected $paramAlert,
+        protected $paramsHead = null,
+        protected $paramsFoot = null,
+        protected $paramAlert = null,
         protected $paramsModulesHead = [],
         protected $paramsModulesFoot = [],
         protected $paramsBreadcrumb = [],

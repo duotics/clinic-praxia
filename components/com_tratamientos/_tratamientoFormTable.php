@@ -8,9 +8,9 @@ if ($listadoTratamientos) { ?>
 			<i class="fa fa-columns fa-lg"></i> Detalles del tratamiento
 		</div>
 		<div class="table-responsive">
-			<table class="table table-bordered table-striped tbl-qa table-borderless">
+			<table class="table table-bordered table-striped tbl-qa table-list table-borderless mb-0">
 				<thead>
-					<tr>
+					<tr class="table-info">
 						<th class="table-header">Generico</th>
 						<th class="table-header">Comercial</th>
 						<th class="table-header">Pres</th>
@@ -22,6 +22,9 @@ if ($listadoTratamientos) { ?>
 				</thead>
 				<tbody>
 					<?php foreach ($listadoTratamientos as $dRStl) { ?>
+						<?php
+						$btnAccRow = "<a class='btn btn-danger btn-sm'>{$cfg['i']['del']}</a>"
+						?>
 						<?php if ($dRStl['TIPO'] == "M") { ?>
 							<tr>
 								<td><?php echo $dRStl["GEN"] ?></td>
@@ -30,11 +33,13 @@ if ($listadoTratamientos) { ?>
 								<td><?php echo $dRStl["CAN"] ?></td>
 								<td><?php echo $dRStl["NUM"] ?></td>
 								<td><?php echo $dRStl["DES"] ?></td>
+								<td><?php echo $btnAccRow ?></td>
 							</tr>
 						<?php } ?>
 						<?php if ($dRStl['TIPO'] == "I") { ?>
 							<tr>
-								<td colspan="6"></td><?php echo $dRStl["IND"] ?></td>
+								<td colspan="6"><?php echo $dRStl["IND"] ?></td>
+								<td><?php echo $btnAccRow ?></td>
 							</tr>
 						<?php } ?>
 					<?php } ?>
