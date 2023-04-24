@@ -45,8 +45,7 @@ try {
 			<span class='badge bg-dark'>Consulta</span>
 			<span class='badge bg-dark'>{$idc}</span>
 			<span class='badge bg-light'>{$dPac_nom}</span>";
-			$mTpl = new App\Core\TemplateGen(["css" => "cero"], null, null, null, null, null, [null, 'card', $contTop, $btnAcc . $btnP, null, 'text-bg-primary', 'h3']);
-			$mTpl->renderHead();
+			$mTit = new App\Core\genInterfaceTitle(null, 'card', $contTop, $btnAcc . $btnP, null, 'text-bg-primary', 'h3');
 		} else {
 			throw new Exception("Tratamiento no existe intente nuevamente");
 		}
@@ -62,7 +61,7 @@ try {
 				<input name="url" type="hidden" id="url" value="<?php echo $urlc ?>">
 				<input name="form" type="hidden" id="form" value="<?php echo md5("tratForm") ?>">
 			</fieldset>
-			<?php $mTpl->renderTop() ?>
+			<?php $mTit->render() ?>
 			<div class="card mb-2">
 				<div class="card-body">
 					<fieldset class="row g-2">
@@ -85,18 +84,6 @@ try {
 		<div>
 			<div class="row">
 				<div class="col-sm-9">
-					<div class="card mb-2">
-						<div class="card-body bg-primary bg-opacity-25">
-							<div class="row">
-								<div class="col-sm-6">
-									<?php echo $db->genSelectA($lMedList, 'listMed', NULL, 'form-select form-select-sm', "data-val='{$idsTrat}'", null, true, 0, '- Medicamentos -') ?>
-								</div>
-								<div class="col-sm-6">
-									<?php echo $db->genSelectA($lIndList, 'listInd', NULL, 'form-select form-select-sm', "data-val='{$idsTrat}'", null, true, 0, '- Indicaciones -') ?>
-								</div>
-							</div>
-						</div>
-					</div>
 					<?php include("_tratamientoFormTable.php") ?>
 				</div>
 				<div class="col-sm-3">
@@ -105,120 +92,10 @@ try {
 			</div>
 		</div>
 
-
 		<script type="text/javascript">
 			$(document).ready(function() {
-
-				$('#listMed').select2({
-					ajax: {
-						url: RAIZp + 'json.medicamentos.php',
-						dataType: 'json',
-						delay: 500,
-						data: function(params) {
-							return {
-								q: params.term
-							};
-						},
-						processResults: function(data) {
-							return {
-								results: data
-							};
-						},
-						cache: true
-					}
-				});
-
-				// Add event listener for opening and closing details
-				$('#listMed').on('select2:select', function(e) {
-					$(this).val('').trigger('change');
-					var data = e.params.data;
-					var idc = $(this).data('val'); // Get the selected value from the input list
-					var dataAjax = {
-						idc: idc,
-						idd: data.id,
-						acc: "insTratDet"
-					}; // Create an object with the data to be sent to the server
-					var url = '_accTratDet.php';
-					$.ajax({
-						url: url,
-						method: 'GET',
-						data: dataAjax,
-						success: function(response) {
-							console.log('Data saved successfully: ' + response);
-							table.ajax.reload();
-						},
-						error: function(jqXHR, textStatus, errorThrown) {
-							console.log('Error saving data: ' + textStatus + ' - ' + errorThrown);
-						}
-					});
-				});
-
-
-
-				$('#listMed2').select2({
-					width: "100%"
-				});
-				$('#listInd').select2({
-					width: "100%"
-				});
-				$('#listMed2').on('change', function(evt, params) {
-					doGetMedicamento(evt, params);
-					$('#txtDesMod').html('Prescripcion');
-					$('#txtDesMod').focus();
-				});
-				$('#listInd2').on('change', function(evt, params) {
-					doGetIndicaciones(evt, params);
-					$('#txtDesMod').html('Indicaciones');
-					$('#txtDesMod').focus();
-				});
 				$("#printerButton").trigger("click");
 			});
-
-			function doGetMedicamento(evt, params) {
-				var id = params.selected;
-				$.getJSON("json.medicamento.php?term=" + id, function(data) {
-					$.each(data, function(key, val) {
-
-						$("#idref").val(val.id);
-						$("#generico").val(val.generico);
-						$("#comercial").val(val.comercial);
-						$("#presentacion").val(val.presentacion);
-						$("#cantidad").val(val.cantidad);
-						$("#descripcion").val(val.descripcion);
-						$("#tipTD").val('M');
-						$("#dtAG").trigger("click");
-					});
-				});
-			}
-
-			function doGetIndicaciones(evt, params) {
-				var id = params.selected;
-				$.getJSON("json.indicacion.php?term=" + id, function(data) {
-					$.each(data, function(key, val) {
-
-						$("#idref").val(val.id);
-						$("#descripcion").val(val.des);
-						$("#tipTD").val('I');
-						$("#dtAG").trigger("click");
-					});
-				});
-			}
-
-			function showEdit(editableObj) {
-				$(editableObj).css("background", "#FFF");
-			}
-
-			function saveToDatabase(editableObj, column, id) {
-				$(editableObj).css("background", "#FFF url(../../assets/images/loader.gif) no-repeat right");
-				$.ajax({
-					url: "saveDetTrat.php",
-					type: "POST",
-					data: 'column=' + column + '&editval=' + editableObj.innerHTML + '&id=' + id,
-					success: function(data) {
-						$(editableObj).css("background", "#FDFDFD");
-					}
-				});
-			}
 		</script>
 	</div>
 <?php } catch (Exception $e) { ?>

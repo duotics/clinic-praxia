@@ -30,7 +30,7 @@ $mDiag = new Diagnostico;
 			// Initialize select2
 			$('.selDiag').select2({
 				ajax: {
-					url: URLp+'json.diagnosticos.php',
+					url: RAIZp+'json.diagnosticos.php',
 					dataType: 'json',
 					delay: 500,
 					data: function(params) {

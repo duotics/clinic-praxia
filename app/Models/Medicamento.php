@@ -96,7 +96,7 @@ class Medicamento
         $res = $this->db->selectAllSQL($sql);
         return $res;
     }
-    public function gelAllMedGroupParent($id)
+    public function getAllMedGroupParent()
     {
         $sql = "SELECT 
         tMG.idMG AS IDG, 
@@ -109,7 +109,7 @@ class Medicamento
         tM.descripcion as DES
         FROM db_medicamentos_grp tMG
         INNER JOIN {$this->mainTableName} tM ON tMG.idMed=tM.idMed
-        WHERE idp={$id}";
+        WHERE md5(idMedP)='{$this->id}'";
         $res = $this->db->selectAllSQL($sql);
         return $res;
     }
@@ -117,7 +117,7 @@ class Medicamento
     {
         // Perform the search query using the search term and page number
         $sql = "SELECT 
-        tM.idMed AS id,
+        md5(tM.idMed) AS id,
         CONCAT_WS(' ', tL.nomLab, tM.generico, '(', tM.comercial, ')', tM.presentacion, tM.cantidad) AS text
         FROM {$this->mainTableName} tM
         LEFT JOIN {$this->mLab->getMainTableName()} tL ON tM.idLab= tL.idLab

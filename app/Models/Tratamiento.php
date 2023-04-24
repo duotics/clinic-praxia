@@ -48,6 +48,14 @@ class Tratamiento
     {
         return $this->id;
     }
+    public function getMainTableName()
+    {
+        return $this->mainTableName;
+    }
+    public function getMainIDName()
+    {
+        return $this->mainIDname;
+    }
     /*
     FUNCTIONS DATA
     */
@@ -108,7 +116,7 @@ class Tratamiento
     {
         $sql = "
         SELECT 
-        td.{$this->secIDname} AS ID,
+        md5(td.{$this->secIDname}) AS ID,
         IF(td.idMed IS NOT NULL, td.generico, NULL) AS GEN, 
         IF(td.idMed IS NOT NULL, td.comercial, NULL) AS COM, 
         IF(td.idMed IS NOT NULL, td.presentacion, NULL) AS PRE, 
@@ -146,29 +154,29 @@ class Tratamiento
     }
     public function insertTratamientoDetalleVerifyGroup(
         $idMed = null,
-        $idInd = null,
-        $iGen = null,
-        $iCom = null,
-        $iPres = null,
-        $iCan = null,
-        $iNum = null,
-        $iDes = null,
-        $iInd = null
+        $idInd = null
     ) {
+        $idTrat = $this->det[$this->mainIDname];
         if ($idMed) {
             //Verifico si esque el ID MEDICAMENTO SE REFIERE A UN GRUPO
             $this->mMed->setID($idMed);
-            $lMG = $this->mMed->gelAllMedGroupParent($idMed);
-            if ($lMG) {
+            $this->mMed->det();
+            $dMed = $this->mMed->det;
+            $lMG = $this->mMed->getAllMedGroupParent(); //List of Medicamentos group related
+            if ($lMG) { //IF GROUP ITEMS ENCOUNTERED
                 foreach ($lMG as $dMG) {
-                    $this->insertTratamientoDetalle($this->id, $dMG['IDM'], null, $dMG['GEN'], $dMG['COM'], $dMG['PRE'], $dMG['CAN'], $dMG['NUM'], $dMG['DES']);
+                    $ret = $this->insertTratamientoDetalle($idTrat, $dMG['IDM'], null, $dMG['GEN'], $dMG['COM'], $dMG['PRE'], $dMG['CAN'], $dMG['NUM'], $dMG['DES']);
                 }
-            } else {
-                $this->insertTratamientoDetalle($this->id, $idMed, null, $iGen, $iCom, $iPres, $iCan, $iNum, $iDes);
+            } else { //ONLY SINGLE PRODUCT
+                $ret = $this->insertTratamientoDetalle($idTrat, $dMed['idMed'], null, $dMed['generico'], $dMed['comercial'], $dMed['presentacion'], $dMed['cantidad'], null, $dMed['descripcion']);
             }
         } else if ($idInd) {
-            $this->insertTratamientoDetalle($this->id, null, $idInd, null, null, null, null, null, null, $idInd);
+            $this->mInd->setID($idInd);
+            $this->mInd->det();
+            $dInd = $this->mInd->det;
+            $ret = $this->insertTratamientoDetalle($idTrat, null, $dInd['idInd'], null, null, null, null, null, null, $dInd['indicacion']);
         }
+        return $ret;
     }
     public function insertTratamientoDetalle(
         $idTrat,
@@ -233,8 +241,9 @@ class Tratamiento
     }
     public function eliminarTratamientoDetalle()
     {
-        $sql = "DELETE FROM {$this->secTableName} 
-        WHERE md5({$this->secTableName})='{$this->idSec}' 
+        $sql = "DELETE 
+        FROM {$this->secTableName}
+        WHERE md5({$this->secIDname})='{$this->idSec}' 
         LIMIT 1";
         $ret = $this->db->deleteSQLR($sql);
         vP($ret['est'], $ret['log']);

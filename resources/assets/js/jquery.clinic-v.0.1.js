@@ -1,7 +1,6 @@
 // JavaScript Document
 $(document).ready(function () {
   // Add event listeners to the form controls
-
   $(".setDB").on("change", function () {
     handleFormControlEvents($(this));
   });
@@ -83,6 +82,19 @@ $(document).ready(function () {
   var contlog = $("#log");
   contlog.hide().delay(200).slideDown(250).delay(1000).slideUp(300);
 });
+
+const Toast = Swal.mixin({
+  toast: true,
+  position: "bottom-end",
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener("mouseenter", Swal.stopTimer);
+    toast.addEventListener("mouseleave", Swal.resumeTimer);
+  },
+});
+
 /*
 END DOCUMENT READY
 */

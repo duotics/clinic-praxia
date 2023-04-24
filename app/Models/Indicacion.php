@@ -45,13 +45,24 @@ class Indicacion
     }
     public function getAllListActive()
     {
-        return $this->db->detRowGSelA($this->mainTableName, $this->mainIDname, 'des', 'est', 1, TRUE, 'des', 'ASC');
+        return $this->db->detRowGSelA($this->mainTableName, $this->mainIDname, 'indicacion', 'status', 1, TRUE, 'feature', 'ASC');
     }
     public function getAllSelect()
     {
         $sql = "SELECT 
         {$this->mainIDname} AS sID, 
         tM.indicacion as sVAL 
+        FROM {$this->mainTableName} tM
+        WHERE status=1 
+        ORDER BY tM.feature DESC";
+        $res = $this->db->selectAllSQL($sql);
+        return $res;
+    }
+    public function getAllAPI()
+    {
+        $sql = "SELECT 
+        md5(tM.{$this->mainIDname}) AS ID, 
+        tM.indicacion IND 
         FROM {$this->mainTableName} tM
         WHERE status=1 
         ORDER BY tM.feature DESC";

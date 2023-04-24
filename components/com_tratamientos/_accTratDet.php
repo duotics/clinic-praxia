@@ -4,9 +4,10 @@ use App\Models\Tratamiento;
 use App\Models\Medicamento;
 use App\Models\Indicacion;
 
-$idc = $_GET['idc'] ?? $_POST['idc'] ?? null;
-$idd = $_GET['idd'] ?? $_POST['idd'] ?? null;
-$id = $_GET['id'] ?? $_POST['id'] ?? null;
+$idt = $_GET['idt'] ?? $_POST['idt'] ?? null;
+$idtd = $_GET['idtd'] ?? $_POST['idtd'] ?? null;
+$idMed = $_GET['idMed'] ?? $_POST['idMed'] ?? null;
+$idInd = $_GET['idInd'] ?? $_POST['idInd'] ?? null;
 $acc = $_GET['acc'] ?? $_POST['acc'] ?? null;
 $data = $_GET['data'] ?? $_POST['data'] ?? null;
 $mTrat = new Tratamiento;
@@ -17,21 +18,28 @@ $vP = FALSE;
 $LOG = null;
 $ret = null;
 
-if ($acc) {
-	switch ($acc) {
-		case "insTratDet":
-			$mCon->setID($idc);
-			$ret = $mCon->insertTratamientoDetalleVerifyGroup($idd);
-			break;
-		case "updTratDet":
-			$mCon->setID($idc);
-			$ret = $mCon->insertConsultaDiagnosticoOther($data);
-			break;
-		case "delTratDet":
-			$ret = $mCon->deleteConsultaDiagnostico($id);
-			break;
-	}
-} else {
-	$LOG = 'No action set';
+try {
+	if ($acc) {
+		$mTrat->setID($idt);
+		$mTrat->det();
+		if ($mTrat) {
+			switch ($acc) {
+				case "insTratDet":
+					$ret = $mTrat->insertTratamientoDetalleVerifyGroup($idMed, $idInd);
+					break;
+				case "updTratDet":
+					$mTrat->setIDsec($idtd);
+					$ret = $mTrat->updateTratamientoDetalle($data);
+					break;
+				case "delTratDet":
+					$mTrat->setIDsec($idtd);
+					$ret = $mTrat->eliminarTratamientoDetalle();
+					break;
+			}
+		} else throw new Exception("No existe tratamiento");
+	} else throw new Exception("No action");
+} catch (Exception $e) {
+	$LOG = $e->getMessage();
 }
-echo json_encode(array("est" => $vP, "ret" => $ret, "log" => $LOG));
+
+echo json_encode($ret);
