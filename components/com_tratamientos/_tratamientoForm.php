@@ -111,7 +111,7 @@ try {
 
 				$('#listMed').select2({
 					ajax: {
-						url: RAIZp+'json.medicamentos.php',
+						url: RAIZp + 'json.medicamentos.php',
 						dataType: 'json',
 						delay: 500,
 						data: function(params) {
@@ -129,16 +129,16 @@ try {
 				});
 
 				// Add event listener for opening and closing details
-				$('#listMed3').on('select2:select', function(e) {
+				$('#listMed').on('select2:select', function(e) {
 					$(this).val('').trigger('change');
 					var data = e.params.data;
 					var idc = $(this).data('val'); // Get the selected value from the input list
 					var dataAjax = {
 						idc: idc,
 						idd: data.id,
-						acc: "insConsDiag"
+						acc: "insTratDet"
 					}; // Create an object with the data to be sent to the server
-					var url = '_accConDiag.php';
+					var url = '_accTratDet.php';
 					$.ajax({
 						url: url,
 						method: 'GET',
@@ -158,7 +158,7 @@ try {
 				$('#listMed2').select2({
 					width: "100%"
 				});
-				$('#listInd2').select2({
+				$('#listInd').select2({
 					width: "100%"
 				});
 				$('#listMed2').on('change', function(evt, params) {
