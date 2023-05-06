@@ -43,3 +43,133 @@
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		var table = $('#tableConDiag').DataTable({
+			"ajax": {
+				"url": RAIZp + "json.consulta.diagnosticos.php",
+				dataSrc: "",
+				"data": {
+					"ids": $('#tableConDiag').data('val')
+				}
+			},
+			"columns": [{
+					"data": "ID",
+					visible: false,
+				},
+				{
+					"data": "COD"
+				},
+				{
+					"data": "NOM"
+				},
+				{
+					data: null,
+					render: function(data, type, row) {
+						return '<span class="delConDiag btn btn-danger btn-sm" data-id="' + row.ID + '"><i class="fa-solid fa-trash"></i></span>';
+					}
+				}
+			],
+			"language": {
+				"emptyTable": "No se encontraron registros",
+				"info": "",
+				"infoEmpty": ""
+			},
+			"paging": false,
+			"searching": false
+		});
+
+		$('#tableConDiag tbody').on('click', '.delConDiag', function() {
+			var row = $(this).closest('tr');
+			var rowData = table.row(row).data();
+			$.ajax({
+				url: '_accConDiag.php',
+				type: 'GET',
+				data: {
+					id: rowData.ID,
+					acc: "delConDiag"
+				},
+				success: function() {
+					table.ajax.reload();
+				},
+				error: function() {
+					alert('Error deleting row');
+				}
+			});
+		});
+
+		// Initialize select2
+		$('.selDiag').select2({
+			ajax: {
+				url: RAIZp + 'json.diagnosticos.php',
+				dataType: 'json',
+				delay: 500,
+				data: function(params) {
+					return {
+						q: params.term
+					};
+				},
+				processResults: function(data) {
+					return {
+						results: data
+					};
+				},
+				cache: true
+			}
+		});
+
+		// Add event listener for opening and closing details
+		$('.selDiag').on('select2:select', function(e) {
+			$(this).val('').trigger('change');
+			var data = e.params.data;
+			var idc = $(this).data('val'); // Get the selected value from the input list
+			var dataAjax = {
+				idc: idc,
+				idd: data.id,
+				acc: "insConsDiag"
+			}; // Create an object with the data to be sent to the server
+			var url = '_accConDiag.php';
+			$.ajax({
+				url: url,
+				method: 'GET',
+				data: dataAjax,
+				success: function(response) {
+					console.log('Data saved successfully: ' + response);
+					table.ajax.reload();
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					console.log('Error saving data: ' + textStatus + ' - ' + errorThrown);
+				}
+			});
+		});
+
+		// Reload data from the server and redraw the table
+		$('.setConDiagOtro').on('click', function() {
+			var idc = $(this).attr("data-val");
+			var name = $('#diagD').val();
+			console.log(idc + name);
+			var dataAjax = {
+				idc: idc,
+				data: name,
+				acc: "insConsDiagOther"
+			}; // Create an object with the data to be sent to the server
+			var url = '_accConDiag.php';
+			$.ajax({
+				url: url,
+				method: 'GET',
+				data: dataAjax,
+				success: function(response) {
+					console.log('Data saved successfully: ' + response);
+					table.ajax.reload();
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					console.log('Error saving data: ' + textStatus + ' - ' + errorThrown);
+				}
+			});
+			$('#diagD').val('');
+			table.ajax.reload();
+		});
+
+	});
+</script>
