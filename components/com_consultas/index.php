@@ -5,6 +5,6 @@ $mTpl->renderHead();
 ?>
 <div class="container">
 	<?php $mTpl->renderTop() ?>
-	<?php include(root['c'] . 'com_pacientes/pacientesDataSet.php'); ?>
+	<?php include(root['c'] . 'com_pacientes/pacientesDataset.php'); ?>
 </div>
 <?php $mTpl->renderFoot() ?>
