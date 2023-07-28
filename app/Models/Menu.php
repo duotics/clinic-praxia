@@ -123,13 +123,18 @@ class Menu
         return $ret;
     }
 
-    function getAllMenu()
+    function getAllMenu($status = null)
     {
-        $sql = "SELECT * FROM {$this->mainTableName}";
+        $sqlStatus = null;
+        // Si el parámetro $status tiene un valor, lo incluimos en la consulta
+        if (isset($status)) {
+            $sqlStatus = " WHERE status = {$status}";
+        }
+        $sql = "SELECT * FROM {$this->mainTableName} {$sqlStatus}";
         $res = $this->db->selectAllSQL($sql);
         return $res;
     }
-    function getAllMenuSelect()//Pending
+    function getAllMenuSelect() //Pending
     {
         $sql = "SELECT * FROM {$this->mainTableName}";
         $res = $this->db->selectAllSQL($sql);
@@ -161,7 +166,7 @@ class Menu
     {
         $sqlUser = array("join" => null, "where" => null);
         $sqlMenu = array("join" => null, "where" => null);
-        $idParent = (int)$idParent;
+        $idParent = (int) $idParent;
 
         if ($_SESSION['dU']['LEVEL'] != 1) {
             $sqlUser['join'] = " INNER JOIN {$this->thirdTableName} ON {$this->secTableName}.{$this->secIDName} = {$this->thirdTableName}.idMItem ";
@@ -206,8 +211,10 @@ class Menu
     function listaItemsCont($id = null)
     {
         $ret = [];
-        if ($id > 0) $sqlParam = " WHERE t3.idMenu={$id} ";
-        else $sqlParam = null;
+        if ($id > 0)
+            $sqlParam = " WHERE t3.idMenu={$id} ";
+        else
+            $sqlParam = null;
         $sql = "SELECT 
         t1.idMItem AS id, 
         t1.nomMItem AS nom, 
