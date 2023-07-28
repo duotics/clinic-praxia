@@ -51,8 +51,10 @@ class Auth
         $MM_redLS = null;
         $MM_redLF = null;
         if (isset($this->loginUsername)) {
-            if (cfg['sys']['acheck'] ?? null) $MM_redLS = cfg['acheck'];
-            else $MM_redLS = route['c'];
+            if (cfg['sys']['acheck'] ?? null)
+                $MM_redLS = cfg['acheck'];
+            else
+                $MM_redLS = route['c'];
             $MM_redLF = "index.php";
             $dUser = $this->mUser->verifyUser($this->loginUsername, $this->loginPassword);
             if ($dUser) {
@@ -63,8 +65,10 @@ class Auth
                     $_SESSION['bsTheme'] = $dUser['THEME'];
                     $vL = TRUE;
                     $LOG .= '<h4>Usuario Identificado</h4>';
-                } else $LOG .= '<h4>Usuario Deshabilitado</h4>';
-            } else $LOG .= '<h5>Datos de acceso no existen</h5>';
+                } else
+                    $LOG .= '<h4>Usuario Deshabilitado</h4>';
+            } else
+                $LOG .= '<h5>Datos de acceso no existen</h5>';
             /* VERIFY LOGIN */
             if ($vL) { //Login TRUE
                 $goTo = $MM_redLS;
@@ -75,7 +79,7 @@ class Auth
             header("Location: " . $goTo);
         }
     }
-    function vLogin($mSel = null) //v.0.2 * GIT
+    function vLogin($mSel = null, $redirect = 1) //v.0.2 * GIT
     {
         $vP = FALSE;
         try {
@@ -92,18 +96,26 @@ class Auth
                     $ret = $this->mMenu->detMenuCompData();
                     $vP = TRUE;
                 } else {
-                    throw new Exception("Acceso no autorizado");
+                    throw new Exception(cfg['t']['logged-noauth']);
                 }
             } else {
-                throw new Exception("No se a iniciado sesión");
+                throw new Exception(cfg['t']['logged-false']);
             }
             $vP = TRUE;
             return $ret;
         } catch (Exception $e) {
             $LOG = $e->getMessage();
-            header("Location: " . routeM . "acceso");
+            switch($redirect){
+                case 1:
+                    break;
+                case 2:
+                    break;
+            }
+            if ($redirect==1) {
+                header("Location: " . routeM . "acceso");
+            }else{
+                die($LOG);
+            }
         }
-        dep($ret);
-        vP($vP, $LOG);
     }
 }
