@@ -1,5 +1,4 @@
 <?php include('../../init.php');
-
 $dM = $Auth->vLogin('MENUITEM');
 $brdItems = [
   [$cfg['i']['config']],

@@ -39,13 +39,18 @@ $objTit = new App\Core\genInterfaceTitle(null, "card", $cont ?? null, $btnAcc . 
 						<div class="row mb-3">
 							<label class="col-form-label col-sm-4" for="dNom">Nombre</label>
 							<div class="col-sm-8">
-								<input name="dNom" id="dNom" type="text" placeholder="Nombre / REFERENCIA" value="<?php echo $dMenuItem['nomMItem'] ?? null ?>" class="form-control" required autofocus>
+								<input name="dNom" id="dNom" type="text" placeholder="Nombre / REFERENCIA"
+									value="<?php echo $dMenuItem['nomMItem'] ?? null ?>" class="form-control" required
+									autofocus>
 							</div>
 						</div>
 						<div class="row mb-3">
 							<label class="col-form-label col-sm-4" for="menu_id">MENU CONTENEDOR</label>
 							<div class="col-sm-8">
-								<?php echo $db->genSelectA($db->detRowGSel('dbMenu', 'idMenu', 'nomMenu', 'status', '1'), 'dIDC', $dMenuItem['idMenu'] ?? null, 'form-control', 'required onChange="loadMI(this.value,0)"'); ?>
+								<?php //$data=$db->detRowGSelA('dbMenu', 'idMenu', 'nomMenu', 'status', '1');
+								//var_dump($data);
+								echo $db->genSelectA($db->detRowGSelA('dbMenu', 'idMenu', 'nomMenu', 'status', '1'), 'dIDC', $dMenuItem['idMenu'] ?? null, 'form-control', 'required onChange="loadMI(this.value,0)"'); ?>
+								<?php //echo $db->genSelectA($mPais->getAllSelect(), 'pac_nac', $dPac['pac_nac'] ?? null, ' form-control input-sm setDB', "data-rel='pac' data-id='{$ids}'"); ?>
 							</div>
 						</div>
 						<div class="row mb-3">
@@ -58,14 +63,15 @@ $objTit = new App\Core\genInterfaceTitle(null, "card", $cont ?? null, $btnAcc . 
 						<div class="row mb-3">
 							<label class="col-form-label col-sm-4" for="ordMItem">Orden</label>
 							<div class="col-sm-8">
-								<input name="dOrd" type="number" min="0" step="1" id="ordMItem" placeholder="0" value="<?php echo $dMenuItem['ordMItem']; ?>" class="form-control">
+								<input name="dOrd" type="number" min="0" step="1" id="ordMItem" placeholder="0"
+									value="<?php echo $dMenuItem['ordMItem']; ?>" class="form-control">
 							</div>
 						</div>
 
 						<div class="row mb-3">
 							<label class="col-form-label col-sm-4" for="menu_id">COMPONENTE</label>
 							<div class="col-sm-8">
-								<?php echo $db->genSelectA($db->detRowGSel('dbComponente', 'idComp', 'nomComp', 'status', '1'), 'dMod', $dMenuItem['idComp'] ?? null, 'form-select'); ?>
+								<?php echo $db->genSelectA($db->detRowGSelA('dbComponente', 'idComp', 'nomComp', 'status', '1'), 'dMod', $dMenuItem['idComp'] ?? null, 'form-select'); ?>
 							</div>
 						</div>
 
@@ -88,21 +94,25 @@ $objTit = new App\Core\genInterfaceTitle(null, "card", $cont ?? null, $btnAcc . 
 						<div class="row mb-3">
 							<label class="col-form-label col-sm-4" for="linkMItem">Link</label>
 							<div class="col-sm-8">
-								<input name="dLnk" type="text" id="linkMItem" placeholder="Enlace al Archivo" value="<?php echo $dMenuItem['linkMItem'] ?? null ?>" class="form-control">
+								<input name="dLnk" type="text" id="linkMItem" placeholder="Enlace al Archivo"
+									value="<?php echo $dMenuItem['linkMItem'] ?? null ?>" class="form-control">
 							</div>
 						</div>
 						<div class="row mb-3">
 							<label class="col-form-label col-sm-4" for="titMItem">Titulo Visible</label>
 							<div class="col-sm-8">
-								<input name="dTit" type="text" id="titMItem" placeholder="Titulo" value="<?php echo $dMenuItem['titMItem'] ?? null ?>" class="form-control">
+								<input name="dTit" type="text" id="titMItem" placeholder="Titulo"
+									value="<?php echo $dMenuItem['titMItem'] ?? null ?>" class="form-control">
 							</div>
 						</div>
 						<div class="row mb-3">
 							<label class="col-form-label col-sm-4" for="txtIcon">Icono</label>
 							<div class="col-sm-8">
 								<div class="input-group">
-									<input name="dIco" type="text" id="txtIcon" placeholder="Icono" value="<?php echo $dMenuItem['iconMItem'] ?? null ?>" class="form-control">
-									<div class="input-group-addon"><i id="iconRes" class="<?php echo $dMenuItem['iconMItem'] ?>"></i></div>
+									<input name="dIco" type="text" id="txtIcon" placeholder="Icono"
+										value="<?php echo $dMenuItem['iconMItem'] ?? null ?>" class="form-control">
+									<div class="input-group-addon"><i id="iconRes"
+											class="<?php echo $dMenuItem['iconMItem'] ?>"></i></div>
 								</div>
 							</div>
 						</div>
@@ -110,28 +120,34 @@ $objTit = new App\Core\genInterfaceTitle(null, "card", $cont ?? null, $btnAcc . 
 						<div class="row mb-3">
 							<label class="col-form-label col-sm-4" for="cssMItem">Clase CSS</label>
 							<div class="col-sm-8">
-								<input name="dCss" type="text" id="cssMItem" placeholder="Estilo" value="<?php echo $dMenuItem['cssMItem'] ?? null ?>" class="form-control">
+								<input name="dCss" type="text" id="cssMItem" placeholder="Estilo"
+									value="<?php echo $dMenuItem['cssMItem'] ?? null ?>" class="form-control">
 							</div>
 						</div>
 
 						<div class="row mb-3">
 							<label class="col-form-label col-sm-4" for="csslMItem">Clase CSS post list</label>
 							<div class="col-sm-8">
-								<input name="dCssl" type="text" id="csslMItem" placeholder="Estilo" value="<?php echo $dMenuItem['csslMItem'] ?? null ?>" class="form-control">
+								<input name="dCssl" type="text" id="csslMItem" placeholder="Estilo"
+									value="<?php echo $dMenuItem['csslMItem'] ?? null ?>" class="form-control">
 							</div>
 						</div>
 
 						<div class="row mb-3">
 							<label class="col-form-label col-sm-4" for="precodeMItem">Pre Codigo</label>
 							<div class="col-sm-8">
-								<textarea name="dPreCode" id="precodeMItem" placeholder="Codigo para mostrar antes del Menu" class="form-control"><?php echo $dMenuItem['precodeMItem'] ?? null ?></textarea>
+								<textarea name="dPreCode" id="precodeMItem"
+									placeholder="Codigo para mostrar antes del Menu"
+									class="form-control"><?php echo $dMenuItem['precodeMItem'] ?? null ?></textarea>
 							</div>
 						</div>
 
 						<div class="row mb-3">
 							<label class="col-form-label col-sm-4" for="men_poscode">Post Codigo</label>
 							<div class="col-sm-8">
-								<textarea name="dPostCode" id="men_poscode" placeholder="Codigo para mostrar despues del Menu" class="form-control"><?php echo $dMenuItem['poscodeMItem'] ?? null ?></textarea>
+								<textarea name="dPostCode" id="men_poscode"
+									placeholder="Codigo para mostrar despues del Menu"
+									class="form-control"><?php echo $dMenuItem['poscodeMItem'] ?? null ?></textarea>
 							</div>
 						</div>
 
@@ -143,13 +159,13 @@ $objTit = new App\Core\genInterfaceTitle(null, "card", $cont ?? null, $btnAcc . 
 </form>
 
 <script type="text/javascript">
-	$(document).ready(function() {
+	$(document).ready(function () {
 		$('#dMod').select2();
 		var idmc = <?php echo intval($dMenuItem['idMenu'] ?? null) ?>;
 		var idmp = <?php echo intval($dMenuItem['parentMItem'] ?? null) ?>;
 		loadMI(idmc, idmp);
 		var txtIcon = $("#txtIcon");
-		txtIcon.on('keypress keyup focusout', function(evt, params) {
+		txtIcon.on('keypress keyup focusout', function (evt, params) {
 			iconClass(txtIcon.val());
 		});
 	});
@@ -160,11 +176,12 @@ $objTit = new App\Core\genInterfaceTitle(null, "card", $cont ?? null, $btnAcc . 
 	}
 
 	function loadMI(id, sel) {
+		console.log("Load FUnction");
 		sel = sel || '0';
 		var miselect = $("#LMI");
 		$.post("jsonMI.php", {
 			id: id
-		}, function(data) {
+		}, function (data) {
 			miselect.empty();
 			for (var i = 0; i < data.length; i++) {
 				if (sel == data[i]['id']) {
