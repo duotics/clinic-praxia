@@ -11,8 +11,9 @@ class API implements APIInterface
     protected static $status;
     protected static $return;
     protected static $log;
-    public function __construct()
+    public function __construct($params)
     {
+        self::$params = $params;
         self::$status = false;
     }
     public function API()
@@ -23,15 +24,14 @@ class API implements APIInterface
     public function executeAPI()
     {
         try {
+            //verifico si hay parametro accion
             if (self::verifyParamsAction()) {
-                echo "si hay accion<br>";
-                //verifico si hay accion
                 $dataAPI = $this->API();
                 self::$log = $dataAPI['log'];
-                echo "API log ".self::$log." <br>";
                 if ($dataAPI['status']) {
                     self::$status = true;
                     self::$data = $dataAPI['data'];
+                    self::$log = get_config('api-success','t');
                 } else {
                     throw new Exception(self::$log);
                 }
@@ -62,7 +62,6 @@ class API implements APIInterface
 
     public static function returnData()
     {
-        echo "ssss. ".self::$log.". <br><br>";
         echo json_encode(array('status' => self::$status, 'data' => self::$data, 'log' => self::$log));
     }
 

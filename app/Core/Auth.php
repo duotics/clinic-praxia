@@ -79,7 +79,7 @@ class Auth
             header("Location: " . $goTo);
         }
     }
-    function vLogin($mSel = null, $redirect = 1) //v.0.2 * GIT
+    function vLogin($mSel = null, $redirect = 1, $json = FALSE) //v.0.2 * GIT
     {
         $vP = FALSE;
         try {
@@ -105,16 +105,21 @@ class Auth
             return $ret;
         } catch (Exception $e) {
             $LOG = $e->getMessage();
-            switch($redirect){
+            switch ($redirect) {
                 case 1:
                     break;
                 case 2:
                     break;
             }
-            if ($redirect==1) {
+            if ($redirect == 1) {
                 header("Location: " . routeM . "acceso");
-            }else{
-                die($LOG);
+            } else {
+                if ($json == TRUE) {
+                    echo json_encode(array('status' => false, 'log' => $LOG));
+                    die;
+                } else {
+                    die($LOG);
+                }
             }
         }
     }

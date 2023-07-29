@@ -12,12 +12,13 @@ class Menu_API extends API implements APIInterface
     protected $model;
     public function __construct($params)
     {
-        parent::setParams($params);
+        parent::__construct($params);
         $this->model = new Menu();
     }
 
     public function API()
     {
+        $param=parent::$params;
         $return = null;
         $log = null;
         $status = 1;
