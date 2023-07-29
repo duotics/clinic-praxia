@@ -7,9 +7,16 @@ function dep($data, $tit = null)
         $format .= print_r('<pre>');
         $format .= print_r($data);
         $format .= print_r('</pre>');
-    } else $format .= print_r(' *null* ');
+    } else
+        $format .= print_r(' *null* ');
     $format = print_r("<- | END Debug ></small></div>");
     return $format;
+}
+
+function get_config($string, $section)
+{
+    return (isset(cfg[$section][$string])) ? cfg[$section][$string] : "{{{$section}}}";
+
 }
 
 function removeSpecialChars(string $texto): string
@@ -24,7 +31,8 @@ if (!function_exists('startConfigs')) {
         if (!isset($_SESSION[$name])) {
             $conf = parse_ini_file(root['o'] . "{$name}.ini", TRUE);
             foreach ($conf as $x => $xval) {
-                foreach ($xval as $y => $yval) $configEnd[$x][$y] = $yval;
+                foreach ($xval as $y => $yval)
+                    $configEnd[$x][$y] = $yval;
             }
             $_SESSION[$name] = $configEnd;
             $ret = $configEnd;
@@ -95,7 +103,8 @@ function vImg($ruta, $nombre, $thumb = TRUE, $pthumb = 't_', $retHtml = [])
     //Direct Return HTML Code *********** TERMINAR ESTE CODIGO
     if ($retHtml) {
         foreach ($retHtml as $key => $valor) {
-            if ($key != 'tip') $paramCode = ' ' . $key . ' = ' . '"' . $valor . '"';
+            if ($key != 'tip')
+                $paramCode = ' ' . $key . ' = ' . '"' . $valor . '"';
         }
         switch ($retHtml['tip']) {
             case 'imgn':
@@ -122,13 +131,17 @@ function uploadfile($params, $file)
     $filename = $prefijo . $ext; // Obtiene el nombre del archivo, y su extension.
     $aux_grab = FALSE; //Variable para determinar si se cumplieron todos los requisitos y proceso a guardar los archivos
     // Verifica si la extension es valida
-    if (!in_array($ext, $params['ext'])) $LOG .= '<h4>Archivo no valido</h4>';
+    if (!in_array($ext, $params['ext']))
+        $LOG .= '<h4>Archivo no valido</h4>';
     else { // Verifica el tamaño maximo
-        if (filesize($file['tmp_name']) > $params['siz']) $LOG .= '<h4>Archivo Demasiado Grande :: maximo ' . ($params['siz'] / 1024 / 1024) . ' MB</h4>';
+        if (filesize($file['tmp_name']) > $params['siz'])
+            $LOG .= '<h4>Archivo Demasiado Grande :: maximo ' . ($params['siz'] / 1024 / 1024) . ' MB</h4>';
         else { // Verifica Permisos de Carpeta, Si Carpeta Existe.
-            if (!is_writable($params['pat'])) $LOG .= '<h4>Permisos Folder Insuficientes, contacte al Administrador del Sistema</h4>';
+            if (!is_writable($params['pat']))
+                $LOG .= '<h4>Permisos Folder Insuficientes, contacte al Administrador del Sistema</h4>';
             else { // Mueve el archivo a su lugar correpondiente.
-                if (!move_uploaded_file($file['tmp_name'], $params['pat'] . $filename)) $LOG .= '<h4>Error al Cargar el Archivo</h4>';
+                if (!move_uploaded_file($file['tmp_name'], $params['pat'] . $filename))
+                    $LOG .= '<h4>Error al Cargar el Archivo</h4>';
                 else {
                     if ($params['thumb']) {
                         fnc_genthumb($params['pat'], $filename, "t_", $params['thumb-w'] ?? 100, $params['thumb-h'] ?? 100);
