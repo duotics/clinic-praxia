@@ -141,11 +141,22 @@ class Menu
         return $res;
     }
 
-    function getAllMenuItems()
+    function getMenuItemsAll()
     {
         $sql = "SELECT * FROM {$this->secTableName}";
         $res = $this->db->selectAllSQL($sql);
         return $res;
+    }
+
+    function getMenuItemsByMenuContainer($id)
+    {
+        if (isset($id)) {
+            $sql = "SELECT idMItem as id, refMItem AS ref FROM {$this->secTableName} WHERE idMenu=$id";
+            $res = $this->db->selectAllSQL($sql);
+            return $res;
+        } else {
+            return null;
+        }
     }
 
     function getAllMenuItemsContParent($parent = 0, $status = 1)
