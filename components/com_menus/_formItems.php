@@ -177,17 +177,21 @@ $objTit = new App\Core\genInterfaceTitle(null, "card", $cont ?? null, $btnAcc . 
 
 	function loadMI(id, sel) {
 		console.log("Load FUnction");
+		console.log(RAIZp);
 		sel = sel || '0';
 		var miselect = $("#LMI");
-		$.post("jsonMI.php", {
-			id: id
+		$url=RAIZp+"json.menus.php";
+		$.post($url, {
+			id: id,
+			action: "getMenuItemContainer"
 		}, function (data) {
 			miselect.empty();
-			for (var i = 0; i < data.length; i++) {
-				if (sel == data[i]['id']) {
-					miselect.append('<option value="' + data[i]['id'] + '" selected>' + data[i]['literal'] + '</option>');
+			console.log(data.data);
+			for (var i = 0; i < data.data.length; i++) {
+				if (sel == data.data[i]['id']) {
+					miselect.append('<option value="' + data.data[i]['id'] + '" selected>' + data.data[i]['ref'] + '</option>');
 				} else {
-					miselect.append('<option value="' + data[i]['id'] + '">' + data[i]['literal'] + '</option>');
+					miselect.append('<option value="' + data.data[i]['id'] + '">' + data.data[i]['ref'] + '</option>');
 				}
 			}
 		}, "json");
