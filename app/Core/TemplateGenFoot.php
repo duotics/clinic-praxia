@@ -22,6 +22,7 @@ class TemplateGenFoot extends genInterface
             $theme = getBSTheme();
             $smartyData = [
                 'APP_COPY' => $_ENV['APP_COPY'],
+                'APP_ENV' => $_ENV['APP_ENV'],
                 'bsTheme' => $theme,
                 'showBottom' => $this->showBottom,
                 'valBottom' => root['f'] . 'bottom.php'
