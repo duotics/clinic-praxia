@@ -7,11 +7,17 @@ API PARA OBTENCION DE REGISTROS DE MENUS
 	Name: action
 	Options:
 		getMenuAll						GET ALL MENUS
+			status
 		getMenuId						GET MENU ID
+			id
 
 		getMenuItemAll					GET ALL MENUS ITEMS
+			status
 		getMenuItemId					GET ALL MENUS ITEMS BY MENU CONTAINER
-		getMenuItemByIdContainer		GET MENU ITEM ID
+			id
+		getMenuItemContainer			GET MENU ITEM ID
+			id
+
 
 	Return:
 	status			1 = true, 0 = false;
