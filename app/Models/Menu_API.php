@@ -18,31 +18,34 @@ class Menu_API extends API implements APIInterface
 
     public function API()
     {
-        $param=parent::$params;
-        $return = null;
+        $param = parent::$params;
         $log = null;
         $status = 1;
-        switch (parent::$action) {
-            case 'getMenuAll':
-                $return = $this->model->getAllMenu();
-                break;
-            case 'getMenuId':
-                //return $this->model->getMenuById();
-                break;
-            case 'getMenuItemAll':
-                //return $this->model->getMenuItemAll();
-                break;
-            case 'getMenuItemId':
-                //return $this->model->getMenuItemById();
-                break;
-            case 'getMenuItemByIdContainer':
-                //return $this->model->getMenuItemByIdContainer();
-                break;
-            default:
-                $status = 0;
-                $log = 'Accion no encontrada'; //cfg['t']['action-not-set'];
+        try {
+            switch (parent::$action) {
+                case 'getMenuAll':
+                    $return = $this->model->getAllMenu();
+                    break;
+                case 'getMenuId':
+                    //return $this->model->getMenuById();
+                    break;
+                case 'getMenuItemAll':
+                    //return $this->model->getMenuItemAll();
+                    break;
+                case 'getMenuItemId':
+                    //return $this->model->getMenuItemById();
+                    break;
+                case 'getMenuItemContainer':
+                    $return = $this->model->getMenuItemsByMenuContainer($param['id'] ?? null);
+                    break;
+                default:
+                    throw new Exception(get_config('action-not-found', 't'));
+            }
+            return array('data' => $return ?? null, 'log' => $log ?? null, 'status' => $status);
+        } catch (Exception $e) {
+            return array('data' => null, 'log' => $e->getMessage(), 'status' => 0);
         }
-        return array('data' => $return, 'log' => $log, 'status' => $status);
+
     }
 
 }
