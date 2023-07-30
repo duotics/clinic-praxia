@@ -5,6 +5,26 @@ var $route (array with routes url),
 */
 require('paths.php');
 
+// Define la constante para el entorno (puedes cambiar 'development' por 'production' en el servidor de producción)
+$environment = getenv('APP_ENV');
+// Establecer la ruta al archivo de registro de errores
+$logFilePath = __DIR__ . '/log/errors.log';
+
+/// Configurar el manejo de errores según el entorno
+if ($environment === 'PROD') {
+    // En entorno de producción, ocultar los errores y advertencias
+    error_reporting(E_ERROR);
+    ini_set('display_errors', 'Off');
+    ini_set('log_errors', 'On');
+    ini_set('error_log', $logFilePath);
+} else {
+    // En entorno de desarrollo, mostrar todos los errores y advertencias
+    error_reporting(E_ALL);
+    ini_set('display_errors', 'On');
+    ini_set('log_errors', 'On');
+    ini_set('error_log', $logFilePath);
+}
+
 //SET DEFAULT TIME AND LANGUAGE
 date_default_timezone_set('America/Guayaquil');
 setlocale(LC_ALL, "es_EC");
